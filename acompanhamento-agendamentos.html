@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="pt-br" data-seg="oficina">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Acompanhamento de Agendamentos · Protótipo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1C2B30; --ink-soft:#33474D; --paper:#F4F1E9; --paper-2:#EBE6D9;
+    --card:#FBFAF5; --line:#D9D2C2; --muted:#71807F;
+    /* cor do segmento ativo (trocada via seletor) */
+    --seg:#3A6EA5; --seg-deep:#2B5480; --seg-100:rgba(58,110,165,.12);
+    /* status (semânticos, fixos) */
+    --ag:#1F7A6B; --pr:#D9A441; --cc:#9aa6a4; --cl:#C2557A;
+    --display:'Bricolage Grotesque',system-ui,sans-serif;
+    --body:'Inter',system-ui,sans-serif; --mono:'JetBrains Mono',ui-monospace,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased;padding:22px}
+  ::selection{background:var(--seg);color:#fff}
+  .app-wrap{max-width:1040px;margin:0 auto}
+
+  /* seletor de segmento (troca o tema) */
+  .seg-switch{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:16px}
+  .seg-switch .lbl{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-right:2px}
+  .seg-switch .opts{display:flex;gap:7px;flex-wrap:wrap;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:5px}
+  .seg-btn{font-family:var(--body);font-weight:600;font-size:13px;border:none;background:transparent;color:var(--ink-soft);border-radius:999px;padding:7px 14px;cursor:pointer;display:flex;align-items:center;gap:7px;transition:all .18s}
+  .seg-btn .dot{width:9px;height:9px;border-radius:50%}
+  .seg-btn[data-k=oficina] .dot{background:#3A6EA5}
+  .seg-btn[data-k=salao] .dot{background:#C2557A}
+  .seg-btn[data-k=consult] .dot{background:#1F7A6B}
+  .seg-btn[data-k=clinica] .dot{background:#6FA15B}
+  .seg-btn:hover{background:var(--paper-2)}
+  .seg-btn.active{background:var(--seg);color:#fff}
+  .seg-btn.active .dot{background:#fff}
+
+  /* janela do app */
+  .ui{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#fff;box-shadow:0 22px 55px -32px rgba(28,43,48,.55)}
+  .chrome{background:#EDEAE1;padding:10px 14px;display:flex;align-items:center;gap:7px;border-bottom:1px solid var(--line)}
+  .chrome i{width:11px;height:11px;border-radius:50%;background:#cfc8b8;display:inline-block}
+  .chrome .u{font-family:var(--mono);font-size:11px;color:var(--muted);margin-left:10px;background:#fff;border:1px solid var(--line);border-radius:6px;padding:3px 12px}
+  .app{padding:20px 22px}
+
+  .apphead{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:18px}
+  .apphead .ttl{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  .apphead h1{font-family:var(--display);font-size:22px;font-weight:800;color:var(--ink);letter-spacing:-.01em}
+  .seg-badge{font-family:var(--mono);font-size:11px;color:#fff;background:var(--seg);border-radius:999px;padding:4px 11px;letter-spacing:.03em}
+
+  .btn{font-family:var(--body);font-weight:600;font-size:13px;border:none;border-radius:9px;padding:9px 15px;cursor:pointer;white-space:nowrap;transition:filter .15s}
+  .btn:hover{filter:brightness(.95)}
+  .btn.primary{background:var(--seg);color:#fff}
+  .btn.ghost{background:#fff;border:1.5px solid var(--line);color:var(--ink-soft)}
+
+  .toolbar{display:grid;grid-template-columns:repeat(4,1fr) auto auto;gap:10px;align-items:end;background:#F7F5EF;border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:16px}
+  .field label{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
+  .field input,.field select{width:100%;background:#fff;border:1px solid var(--line);border-radius:8px;padding:9px 11px;font-size:13px;color:var(--ink);font-family:var(--body)}
+  .field input:focus,.field select:focus{outline:2px solid var(--seg);outline-offset:1px;border-color:var(--seg)}
+
+  .ui-scroll{overflow-x:auto}
+  table{width:100%;border-collapse:separate;border-spacing:0;font-size:13px;min-width:720px}
+  thead th{background:var(--ink);color:#E8EDEB;text-align:left;padding:11px 13px;font-family:var(--mono);font-size:10.5px;letter-spacing:.05em;font-weight:500}
+  thead th:first-child{border-top-left-radius:9px}
+  thead th:last-child{border-top-right-radius:9px;text-align:center}
+  tbody td{padding:11px 13px;border-bottom:1px solid var(--line);color:var(--ink-soft)}
+  tbody td:first-child{font-weight:600;color:var(--ink)}
+  tbody tr:hover td{background:#F7F5EF}
+  tbody td.center{text-align:center}
+  .empty td{text-align:center;color:var(--muted);font-style:italic;padding:26px}
+
+  .st{font-family:var(--mono);font-size:11px;padding:4px 11px;border-radius:999px;color:#fff;white-space:nowrap;display:inline-block}
+  .st.agendado{background:var(--ag)} .st.progresso{background:var(--pr)} .st.concluido{background:var(--cc)} .st.cancelado{background:var(--cl)}
+
+  .act{display:inline-flex;gap:6px}
+  .act button{width:28px;height:28px;border-radius:7px;border:1px solid var(--line);display:inline-flex;align-items:center;justify-content:center;font-size:13px;color:var(--muted);background:#fff;cursor:pointer;transition:all .15s}
+  .act button:hover{border-color:var(--seg);color:var(--seg)}
+
+  .pag{display:flex;align-items:center;justify-content:space-between;margin-top:14px;font-family:var(--mono);font-size:12px;color:var(--muted);flex-wrap:wrap;gap:10px}
+
+  .svc{margin-top:20px;background:#F7F5EF;border:1px solid var(--line);border-radius:12px;padding:16px}
+  .svc h2{font-family:var(--display);font-size:16px;margin-bottom:12px;color:var(--ink);font-weight:700}
+  .srow{display:grid;grid-template-columns:1fr 1.4fr auto;gap:10px;align-items:end}
+
+  /* modal */
+  .overlay{position:fixed;inset:0;background:rgba(28,43,48,.45);display:none;align-items:center;justify-content:center;padding:20px;z-index:30}
+  .overlay.open{display:flex}
+  .modal{background:#fff;border:1px solid var(--line);border-radius:16px;width:100%;max-width:440px;box-shadow:0 30px 70px -30px rgba(28,43,48,.6);overflow:hidden}
+  .modal h3{font-family:var(--display);font-size:18px;font-weight:700;padding:18px 20px;border-bottom:1px solid var(--line)}
+  .modal .mbody{padding:18px 20px;display:grid;gap:12px}
+  .modal .mfoot{padding:14px 20px;display:flex;justify-content:flex-end;gap:10px;border-top:1px solid var(--line);background:#F7F5EF}
+
+  /* toast */
+  .toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;font-size:13.5px;padding:11px 18px;border-radius:10px;box-shadow:0 18px 40px -18px rgba(0,0,0,.5);opacity:0;pointer-events:none;transition:all .25s;z-index:40;max-width:90vw}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+  .toast b{color:#fff}
+
+  @media(max-width:760px){
+    body{padding:14px}
+    .toolbar{grid-template-columns:1fr 1fr}
+    .srow{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+<div class="app-wrap">
+
+  <!-- SELETOR DE TEMA POR TIPO DE SERVIÇO -->
+  <div class="seg-switch">
+    <span class="lbl">Tipo de negócio</span>
+    <div class="opts" id="segOpts">
+      <button class="seg-btn active" data-k="oficina"><span class="dot"></span>Oficina</button>
+      <button class="seg-btn" data-k="salao"><span class="dot"></span>Salão</button>
+      <button class="seg-btn" data-k="consult"><span class="dot"></span>Consultório</button>
+      <button class="seg-btn" data-k="clinica"><span class="dot"></span>Clínica</button>
+    </div>
+  </div>
+
+  <div class="ui">
+    <div class="chrome"><i></i><i></i><i></i><span class="u" id="chromeUrl">app · acompanhamento de agendamentos</span></div>
+    <div class="app">
+
+      <div class="apphead">
+        <div class="ttl">
+          <h1>Acompanhamento de Agendamentos</h1>
+          <span class="seg-badge" id="segBadge">Oficina</span>
+        </div>
+        <button class="btn primary" id="btnNovo">+ Novo agendamento</button>
+      </div>
+
+      <!-- FILTROS sempre visíveis -->
+      <div class="toolbar">
+        <div class="field"><label>Data</label><input type="date" id="fData"></div>
+        <div class="field"><label>Hora</label><select id="fHora"><option value="">Todas</option></select></div>
+        <div class="field"><label>Cliente</label><input type="text" id="fCliente" placeholder="Nome do cliente"></div>
+        <div class="field"><label>Serviço</label><select id="fServico"><option value="">Todos</option></select></div>
+        <button class="btn primary" id="btnConsultar">Consultar</button>
+        <button class="btn ghost" id="btnLimpar">Limpar</button>
+      </div>
+
+      <!-- TABELA DO DIA -->
+      <div class="ui-scroll">
+        <table>
+          <thead>
+            <tr><th>Nome</th><th>Telefone</th><th>Data</th><th>Hora</th><th>Serviço</th><th>Status</th><th>Ações</th></tr>
+          </thead>
+          <tbody id="tbody"></tbody>
+        </table>
+      </div>
+      <div class="pag"><span id="pagInfo"></span><span>Status muda em um clique: use ▸ pra avançar o atendimento</span></div>
+
+      <!-- CADASTRO DE SERVIÇO (mesma tela) -->
+      <div class="svc">
+        <h2>Cadastrar novo serviço</h2>
+        <div class="srow">
+          <div class="field"><label>Serviço</label><input type="text" id="nServico" placeholder="Nome do serviço"></div>
+          <div class="field"><label>Descrição</label><input type="text" id="nDescricao" placeholder="Descrição do serviço"></div>
+          <button class="btn primary" id="btnCadServico">Cadastrar serviço</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- MODAL novo/editar agendamento -->
+<div class="overlay" id="overlay">
+  <div class="modal">
+    <h3 id="modalTitle">Novo agendamento</h3>
+    <div class="mbody">
+      <div class="field"><label>Nome do cliente</label><input type="text" id="mNome" placeholder="Nome"></div>
+      <div class="field"><label>Telefone</label><input type="text" id="mTel" placeholder="(00) 00000-0000"></div>
+      <div class="field"><label>Data</label><input type="date" id="mData"></div>
+      <div class="field"><label>Hora</label><select id="mHora"></select></div>
+      <div class="field"><label>Serviço</label><select id="mServico"></select></div>
+      <div class="field"><label>Status</label>
+        <select id="mStatus">
+          <option value="agendado">Agendado</option>
+          <option value="progresso">Em progresso</option>
+          <option value="concluido">Concluído</option>
+          <option value="cancelado">Cancelado</option>
+        </select>
+      </div>
+    </div>
+    <div class="mfoot">
+      <button class="btn ghost" id="mCancel">Cancelar</button>
+      <button class="btn primary" id="mSave">Salvar</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+  // ---- configuração por segmento (cor + rótulo + serviços + dados) ----
+  const SEG = {
+    oficina: {
+      nome:'Oficina', color:'#3A6EA5', deep:'#2B5480', soft:'rgba(58,110,165,.12)',
+      servicos:['Troca de óleo','Alinhamento','Balanceamento','Revisão geral','Suspensão'],
+      rows:[
+        ['João Silva','(11) 98765-4321','08:00','Troca de óleo','agendado'],
+        ['Ana Oliveira','(11) 98765-9876','09:00','Alinhamento','progresso'],
+        ['Pedro Costa','(11) 91234-5678','10:00','Balanceamento','concluido'],
+        ['Marina Souza','(11) 99876-1122','10:30','Troca de óleo','agendado'],
+        ['Rafael Lima','(11) 98123-4455','11:00','Revisão geral','progresso'],
+        ['Carla Dias','(11) 99654-7788','11:30','Suspensão','cancelado'],
+      ]
+    },
+    salao: {
+      nome:'Salão', color:'#C2557A', deep:'#9C3F60', soft:'rgba(194,85,122,.12)',
+      servicos:['Corte','Coloração','Escova','Manicure','Hidratação'],
+      rows:[
+        ['Beatriz Nunes','(11) 99111-2233','09:00','Corte','agendado'],
+        ['Luana Martins','(11) 99222-3344','09:30','Coloração','progresso'],
+        ['Patrícia Gomes','(11) 99333-4455','10:30','Escova','agendado'],
+        ['Renata Alves','(11) 99444-5566','11:00','Manicure','concluido'],
+        ['Tatiane Reis','(11) 99555-6677','13:00','Hidratação','agendado'],
+        ['Juliana Pires','(11) 99666-7788','14:00','Corte','cancelado'],
+      ]
+    },
+    consult: {
+      nome:'Consultório', color:'#1F7A6B', deep:'#155A4F', soft:'rgba(31,122,107,.12)',
+      servicos:['Consulta','Retorno','Exame','Avaliação'],
+      rows:[
+        ['Marcos Vieira','(11) 98777-1212','08:30','Consulta','agendado'],
+        ['Sônia Castro','(11) 98888-2323','09:00','Retorno','progresso'],
+        ['Eduardo Pinto','(11) 98999-3434','09:30','Exame','agendado'],
+        ['Helena Cruz','(11) 98000-4545','10:00','Avaliação','concluido'],
+        ['Roberto Lemos','(11) 98111-5656','10:30','Consulta','agendado'],
+        ['Vera Antunes','(11) 98222-6767','11:00','Retorno','cancelado'],
+      ]
+    },
+    clinica: {
+      nome:'Clínica', color:'#6FA15B', deep:'#557D45', soft:'rgba(111,161,91,.12)',
+      servicos:['Consulta clínica','Fisioterapia','Curativo','Vacina','Exame'],
+      rows:[
+        ['Fernanda Rocha','(11) 97123-1100','08:00','Consulta clínica','agendado'],
+        ['Gustavo Mota','(11) 97234-2211','08:30','Fisioterapia','progresso'],
+        ['Cláudia Barros','(11) 97345-3322','09:00','Curativo','concluido'],
+        ['Diego Farias','(11) 97456-4433','09:30','Vacina','agendado'],
+        ['Letícia Campos','(11) 97567-5544','10:00','Exame','progresso'],
+        ['Otávio Brito','(11) 97678-6655','10:30','Consulta clínica','cancelado'],
+      ]
+    }
+  };
+  const STLABEL = {agendado:'Agendado', progresso:'Em progresso', concluido:'Concluído', cancelado:'Cancelado'};
+  const NEXT = {agendado:'progresso', progresso:'concluido', concluido:'agendado', cancelado:'agendado'};
+  const DEFAULT_DATE = '2025-03-24';
+  const fmtBR = iso => { const [y,m,d]=iso.split('-'); return d+'/'+m+'/'+y; };
+
+  let segKey = 'oficina';
+  let rows = [];   // dados de trabalho (objetos)
+  let editIdx = null;
+
+  const $ = id => document.getElementById(id);
+
+  function applyTheme(){
+    const s = SEG[segKey];
+    const r = document.documentElement.style;
+    r.setProperty('--seg', s.color);
+    r.setProperty('--seg-deep', s.deep);
+    r.setProperty('--seg-100', s.soft);
+    document.documentElement.setAttribute('data-seg', segKey);
+    $('segBadge').textContent = s.nome;
+    $('chromeUrl').textContent = 'app · '+s.nome.toLowerCase()+' · acompanhamento de agendamentos';
+    document.querySelectorAll('.seg-btn').forEach(b=>b.classList.toggle('active', b.dataset.k===segKey));
+  }
+
+  function loadSegment(){
+    const s = SEG[segKey];
+    rows = s.rows.map(r=>({nome:r[0], tel:r[1], dataIso:DEFAULT_DATE, hora:r[2], servico:r[3], status:r[4]}));
+    fillServiceSelects();
+    fillHoraSelects();
+    clearFilters();
+    render(rows);
+  }
+
+  function fillServiceSelects(){
+    const s = SEG[segKey];
+    const optsF = '<option value="">Todos</option>'+s.servicos.map(x=>`<option>${x}</option>`).join('');
+    const optsM = s.servicos.map(x=>`<option>${x}</option>`).join('');
+    $('fServico').innerHTML = optsF;
+    $('mServico').innerHTML = optsM;
+  }
+  function fillHoraSelects(){
+    let horas=[];
+    for(let h=8; h<=18; h++){ horas.push((h<10?'0':'')+h+':00'); horas.push((h<10?'0':'')+h+':30'); }
+    $('fHora').innerHTML = '<option value="">Todas</option>'+horas.map(x=>`<option>${x}</option>`).join('');
+    $('mHora').innerHTML = horas.map(x=>`<option>${x}</option>`).join('');
+  }
+
+  function render(list){
+    const tb = $('tbody');
+    if(!list.length){
+      tb.innerHTML = '<tr class="empty"><td colspan="7">Nenhum agendamento encontrado para os filtros aplicados.</td></tr>';
+    } else {
+      tb.innerHTML = list.map(r=>{
+        const i = rows.indexOf(r);
+        return `<tr>
+          <td>${r.nome}</td><td>${r.tel}</td><td>${fmtBR(r.dataIso)}</td><td>${r.hora}</td><td>${r.servico}</td>
+          <td><span class="st ${r.status}">${STLABEL[r.status]}</span></td>
+          <td class="center"><span class="act">
+            <button title="Editar" data-edit="${i}">✎</button>
+            <button title="Avançar status" data-adv="${i}">▸</button>
+          </span></td>
+        </tr>`;
+      }).join('');
+    }
+    $('pagInfo').textContent = `Mostrando ${list.length} de ${rows.length} agendamentos`;
+  }
+
+  function consultar(){
+    const fd = $('fData').value, fh = $('fHora').value;
+    const fc = $('fCliente').value.trim().toLowerCase(), fs = $('fServico').value;
+    const out = rows.filter(r=>
+      (!fd || r.dataIso===fd) &&
+      (!fh || r.hora===fh) &&
+      (!fc || r.nome.toLowerCase().includes(fc)) &&
+      (!fs || r.servico===fs)
+    );
+    render(out);
+  }
+  function clearFilters(){ $('fData').value=''; $('fHora').value=''; $('fCliente').value=''; $('fServico').value=''; }
+
+  // toast
+  let toT;
+  function toast(msg){
+    const t=$('toast'); t.innerHTML=msg; t.classList.add('show');
+    clearTimeout(toT); toT=setTimeout(()=>t.classList.remove('show'),2600);
+  }
+
+  // modal
+  function openModal(idx){
+    editIdx = (idx===undefined||idx===null) ? null : idx;
+    $('modalTitle').textContent = editIdx===null ? 'Novo agendamento' : 'Editar agendamento';
+    if(editIdx===null){
+      $('mNome').value=''; $('mTel').value=''; $('mData').value=DEFAULT_DATE;
+      $('mHora').value='08:00'; $('mServico').selectedIndex=0; $('mStatus').value='agendado';
+    } else {
+      const r=rows[editIdx];
+      $('mNome').value=r.nome; $('mTel').value=r.tel; $('mData').value=r.dataIso;
+      $('mHora').value=r.hora; $('mServico').value=r.servico; $('mStatus').value=r.status;
+    }
+    $('overlay').classList.add('open');
+  }
+  function closeModal(){ $('overlay').classList.remove('open'); }
+  function saveModal(){
+    const nome=$('mNome').value.trim();
+    if(!nome){ toast('Informe o nome do cliente.'); return; }
+    const obj={nome, tel:$('mTel').value.trim()||'—', dataIso:$('mData').value||DEFAULT_DATE,
+      hora:$('mHora').value, servico:$('mServico').value, status:$('mStatus').value};
+    if(editIdx===null){ rows.unshift(obj); toast(`Agendamento de <b>${nome}</b> criado.`); }
+    else { rows[editIdx]=obj; toast(`Agendamento de <b>${nome}</b> atualizado.`); }
+    closeModal(); consultar();
+  }
+
+  // eventos
+  $('segOpts').addEventListener('click', e=>{
+    const b=e.target.closest('.seg-btn'); if(!b) return;
+    segKey=b.dataset.k; applyTheme(); loadSegment();
+  });
+  $('btnConsultar').addEventListener('click', consultar);
+  $('btnLimpar').addEventListener('click', ()=>{ clearFilters(); render(rows); });
+  $('btnNovo').addEventListener('click', ()=>openModal(null));
+  $('mCancel').addEventListener('click', closeModal);
+  $('mSave').addEventListener('click', saveModal);
+  $('overlay').addEventListener('click', e=>{ if(e.target===$('overlay')) closeModal(); });
+
+  $('tbody').addEventListener('click', e=>{
+    const ed=e.target.closest('[data-edit]'); const ad=e.target.closest('[data-adv]');
+    if(ed){ openModal(+ed.dataset.edit); }
+    else if(ad){ const i=+ad.dataset.adv; rows[i].status=NEXT[rows[i].status]; consultar(); toast(`Status: <b>${STLABEL[rows[i].status]}</b>`); }
+  });
+
+  $('btnCadServico').addEventListener('click', ()=>{
+    const nome=$('nServico').value.trim();
+    if(!nome){ toast('Informe o nome do serviço.'); return; }
+    if(!SEG[segKey].servicos.includes(nome)) SEG[segKey].servicos.push(nome);
+    fillServiceSelects();
+    $('nServico').value=''; $('nDescricao').value='';
+    toast(`Serviço <b>${nome}</b> cadastrado em ${SEG[segKey].nome}.`);
+  });
+
+  // init
+  applyTheme();
+  loadSegment();
+})();
+</script>
+</body>
+</html>
