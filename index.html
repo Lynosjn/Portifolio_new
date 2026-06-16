@@ -1,0 +1,2076 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Orcelino Junior · Portfólio UX & Product Design</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1C2B30; --ink-soft:#33474D; --paper:#F4F1E9; --paper-2:#EBE6D9;
+    --card:#FBFAF5; --line:#D9D2C2; --accent:#1F7A6B; --accent-deep:#155A4F;
+    --hot:#E2703A; --muted:#71807F;
+    --seg-oficina:#3A6EA5; --seg-salao:#C2557A; --seg-consult:#1F7A6B; --seg-clinica:#6FA15B;
+    --display:'Bricolage Grotesque',system-ui,sans-serif;
+    --body:'Inter',system-ui,sans-serif; --mono:'JetBrains Mono',ui-monospace,monospace;
+    --maxw:1140px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  ::selection{background:var(--accent);color:#fff}
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
+
+  .nav{position:sticky;top:0;z-index:50;background:rgba(244,241,233,.82);backdrop-filter:saturate(140%) blur(10px);border-bottom:1px solid var(--line)}
+  .nav .wrap{display:flex;align-items:center;justify-content:space-between;height:66px}
+  .brand{font-family:var(--display);font-weight:800;font-size:19px;letter-spacing:-.01em;display:flex;align-items:center;gap:10px}
+  .brand .dot{width:10px;height:10px;border-radius:50%;background:var(--accent);display:inline-block}
+  .nav-links{display:flex;gap:26px;font-size:14px;font-weight:500}
+  .nav-links a{color:var(--ink-soft);transition:color .2s}
+  .nav-links a:hover{color:var(--accent)}
+  .nav-cta{font-family:var(--mono);font-size:12px;border:1.5px solid var(--ink);border-radius:999px;padding:7px 15px;transition:all .2s}
+  .nav-cta:hover{background:var(--ink);color:var(--paper)}
+
+  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent-deep);font-weight:500}
+  .section{padding:96px 0}
+  h1,h2,h3{font-family:var(--display);font-weight:800;letter-spacing:-.02em;line-height:1.05}
+  h2{font-size:clamp(30px,4.4vw,46px)}
+  h3{font-size:24px;font-weight:700}
+  .lead{font-size:clamp(18px,2.2vw,21px);color:var(--ink-soft);max-width:60ch}
+
+  .hero{padding:84px 0 60px;position:relative;overflow:hidden}
+  .hero h1{font-size:clamp(40px,7.2vw,82px);max-width:18ch;margin:20px 0 24px}
+  .hero h1 em{font-style:normal;color:var(--accent)}
+  .hero-intro{max-width:820px}
+  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:54px;align-items:center}
+  .hero .lead{margin-bottom:30px}
+  .hero-meta{display:flex;gap:28px;flex-wrap:wrap;font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.04em}
+  .hero-meta b{color:var(--ink);font-weight:700;display:block;font-size:13px;margin-bottom:2px;letter-spacing:0}
+
+  .worlds{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+  .col{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 10px;display:flex;flex-direction:column;gap:7px;box-shadow:0 1px 0 rgba(0,0,0,.02)}
+  .col .seg{font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);text-align:center;padding-bottom:4px;border-bottom:1px dashed var(--line);margin-bottom:3px}
+  .slot{height:26px;border-radius:7px;background:var(--paper-2);display:flex;align-items:center;padding:0 8px;font-family:var(--mono);font-size:9px;color:var(--muted)}
+  .slot.booked{color:#fff}
+  .col[data-seg=oficina] .booked{background:var(--seg-oficina)}
+  .col[data-seg=salao] .booked{background:var(--seg-salao)}
+  .col[data-seg=consult] .booked{background:var(--seg-consult)}
+  .col[data-seg=clinica] .booked{background:var(--seg-clinica)}
+
+  .work-head{display:flex;align-items:baseline;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:38px}
+  .cards{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
+  .case-card{background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;display:flex;flex-direction:column;transition:transform .25s ease,box-shadow .25s ease;cursor:pointer}
+  .case-card:hover{transform:translateY(-4px);box-shadow:0 18px 40px -22px rgba(28,43,48,.45)}
+  .case-card .thumb{aspect-ratio:16/10;background:linear-gradient(140deg,#22343C 0%,#16302B 100%);position:relative;display:flex;align-items:flex-end;padding:18px}
+  .case-card .thumb .tag{font-family:var(--mono);font-size:11px;background:rgba(255,255,255,.16);color:#fff;border-radius:999px;padding:5px 11px;backdrop-filter:blur(4px);position:relative;z-index:2}
+  .thumb-art{position:absolute;inset:0;width:100%;height:100%}
+  .case-card .body{padding:22px;display:flex;flex-direction:column;gap:10px;flex:1}
+  .case-card .body h3{font-size:21px}
+  .case-card .body p{font-size:15px;color:var(--ink-soft)}
+  .case-card .meta{margin-top:auto;display:flex;gap:8px;flex-wrap:wrap}
+  .chip{font-family:var(--mono);font-size:11px;color:var(--accent-deep);background:var(--paper-2);border-radius:6px;padding:4px 9px}
+  .case-card .go{font-family:var(--mono);font-size:13px;color:var(--accent);font-weight:500;display:inline-flex;align-items:center;gap:6px;margin-top:4px}
+
+  .placeholder-card{border:1.5px dashed var(--line);background:transparent;border-radius:18px;display:flex;align-items:center;justify-content:center;text-align:center;padding:40px 24px;min-height:280px}
+  .placeholder-card .ph-inner{color:var(--muted)}
+  .placeholder-card .ph-inner .pp{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-deep)}
+  .placeholder-card .ph-inner h3{font-size:18px;color:var(--ink-soft);margin:8px 0 4px}
+
+  .about{background:var(--ink);color:var(--paper)}
+  .about .eyebrow{color:#7FD0C2}
+  .about h2{color:var(--paper);max-width:18ch;margin:14px 0 18px}
+  .about .lead{color:#C9D2CF}
+  .about-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:50px;align-items:start}
+  .stat-row{display:flex;gap:34px;flex-wrap:wrap;margin-top:30px}
+  .stat b{font-family:var(--display);font-size:34px;font-weight:800;color:#fff;display:block;line-height:1}
+  .stat span{font-family:var(--mono);font-size:12px;color:#9FB0AD}
+  .contact-box{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:26px}
+  .contact-box h3{color:#fff;font-size:18px;margin-bottom:14px}
+  .contact-box a{display:flex;align-items:center;justify-content:space-between;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.1);font-size:15px;color:#D8E0DD;font-family:var(--mono)}
+  .contact-box a:last-child{border-bottom:0}
+  .contact-box a:hover{color:#7FD0C2}
+  .path{margin-top:24px;border-left:2px solid rgba(255,255,255,.15);padding-left:22px;display:flex;flex-direction:column;gap:18px}
+  .path .it{position:relative}
+  .path .it::before{content:"";position:absolute;left:-28px;top:5px;width:10px;height:10px;border-radius:50%;background:#7FD0C2;border:2px solid var(--ink)}
+  .path .yr{font-family:var(--mono);font-size:12px;color:#7FD0C2;letter-spacing:.04em}
+  .path .it h4{font-family:var(--display);font-size:16px;color:#fff;font-weight:700;margin:3px 0 2px}
+  .path .it p{font-family:var(--body);font-size:13.5px;color:#9FB0AD;margin:0;line-height:1.45}
+
+  footer{padding:34px 0;border-top:1px solid var(--line);font-family:var(--mono);font-size:12px;color:var(--muted)}
+  footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+
+  #view-case{display:none}
+  #view-case-vet{display:none}
+  .case-hero{padding:54px 0 40px}
+  .back{font-family:var(--mono);font-size:13px;color:var(--accent);display:inline-flex;gap:7px;align-items:center;margin-bottom:26px}
+  .back:hover{color:var(--accent-deep)}
+  .case-hero h1{font-size:clamp(34px,5.5vw,60px);max-width:16ch;margin:14px 0 18px}
+  .case-tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+
+  .timeline{display:grid;grid-template-columns:96px 1fr;gap:0;border-top:1px solid var(--line)}
+  .tl-time{padding:46px 18px 46px 0;text-align:right;border-right:2px solid var(--line);position:relative}
+  .tl-time .hr{font-family:var(--mono);font-weight:700;font-size:14px;color:var(--accent)}
+  .tl-time::after{content:"";position:absolute;right:-7px;top:52px;width:12px;height:12px;border-radius:50%;background:var(--paper);border:2px solid var(--accent)}
+  .tl-body{padding:42px 0 42px 34px;border-bottom:1px solid var(--line)}
+  .tl-body h2{font-size:clamp(24px,3vw,32px);margin-bottom:14px}
+  .tl-body p{color:var(--ink-soft);max-width:64ch;margin-bottom:14px}
+  .tl-body p:last-child{margin-bottom:0}
+
+  .meta-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;max-width:560px}
+  .meta-grid .m b{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:3px}
+  .meta-grid .m span{font-size:16px;color:var(--ink);font-weight:500}
+
+  .pquote{border-left:3px solid var(--hot);padding:6px 0 6px 20px;font-family:var(--display);font-weight:500;font-size:21px;color:var(--ink);max-width:60ch;margin:8px 0}
+
+  ul.clean{list-style:none;max-width:64ch}
+  ul.clean li{padding:9px 0 9px 26px;position:relative;color:var(--ink-soft);border-bottom:1px solid var(--line)}
+  ul.clean li:last-child{border-bottom:0}
+  ul.clean li::before{content:"";position:absolute;left:0;top:17px;width:9px;height:9px;border-radius:2px;background:var(--accent);transform:rotate(45deg)}
+
+  /* research insights */
+  .research-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin:18px 0}
+  .insight{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+  .insight .n{font-family:var(--mono);font-size:12px;color:var(--hot);font-weight:700}
+  .insight h4{font-family:var(--display);font-size:17px;margin:6px 0 6px}
+  .insight p{font-size:14px;color:var(--ink-soft);margin:0}
+  .method{display:flex;gap:10px;flex-wrap:wrap;margin:6px 0 4px}
+  .method .m2{font-family:var(--mono);font-size:11px;background:var(--paper-2);border:1px solid var(--line);border-radius:7px;padding:6px 10px;color:var(--ink-soft)}
+
+  /* personas */
+  .persona-grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:8px}
+  .persona{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;display:flex;flex-direction:column;gap:13px}
+  .persona .top{display:flex;gap:14px;align-items:center}
+  .avatar{width:54px;height:54px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:800;font-size:20px;color:#fff;flex:none}
+  .persona .nm{font-family:var(--display);font-weight:700;font-size:18px;line-height:1.1}
+  .persona .role{font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:4px}
+  .seg-tag{display:inline-block;font-family:var(--mono);font-size:10px;color:#fff;border-radius:6px;padding:3px 8px;letter-spacing:.04em;margin-top:5px}
+  .persona .quote{font-family:var(--display);font-weight:500;font-size:15px;color:var(--ink);border-left:3px solid var(--line);padding-left:12px;line-height:1.35}
+  .persona .blk b{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:5px}
+  .persona .blk ul{list-style:none}
+  .persona .blk li{font-size:13.5px;color:var(--ink-soft);padding:3px 0 3px 16px;position:relative;line-height:1.4}
+  .persona .blk li::before{content:"–";position:absolute;left:0;color:var(--accent)}
+  .seg-oficina-bg{background:var(--seg-oficina)} .seg-salao-bg{background:var(--seg-salao)}
+  .seg-consult-bg{background:var(--seg-consult)} .seg-clinica-bg{background:var(--seg-clinica)}
+
+  /* journey map */
+  .jmap-wrap{overflow-x:auto;margin:12px 0;border:1px solid var(--line);border-radius:14px;background:var(--card)}
+  .jmap{display:grid;grid-template-columns:130px repeat(6,minmax(150px,1fr));min-width:1000px}
+  .jmap .cell{padding:12px 13px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);font-size:12.5px;color:var(--ink-soft);line-height:1.4}
+  .jmap .cell:nth-child(7n){border-right:0}
+  .jmap .rowlabel{font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);background:var(--paper-2);font-weight:500;display:flex;align-items:center}
+  .jmap .stage{font-family:var(--display);font-weight:700;font-size:13.5px;color:var(--ink);background:var(--paper-2)}
+  .jmap .corner{background:var(--paper-2)}
+  .sent-dot{width:10px;height:10px;border-radius:50%;display:inline-block;margin-right:7px;vertical-align:middle}
+  .jmap .opp{color:var(--accent-deep);font-weight:500}
+
+  .flow{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:14px 0}
+  .flow .step{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:11px 15px;font-size:14px;font-weight:500}
+  .flow .arr{color:var(--accent);font-family:var(--mono)}
+
+  .placeholder{border:1.5px dashed var(--accent);border-radius:14px;background:rgba(31,122,107,.05);padding:22px;margin:10px 0}
+  .placeholder .pp{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-deep);display:inline-flex;align-items:center;gap:7px}
+  .placeholder .pp::before{content:"◇"}
+  .placeholder h4{font-family:var(--display);font-size:17px;margin:9px 0 6px}
+  .placeholder p{font-size:14px;color:var(--ink-soft);margin-bottom:0}
+  .ph-frame{aspect-ratio:16/9;border:1.5px dashed var(--accent);border-radius:14px;background:repeating-linear-gradient(45deg,rgba(31,122,107,.04),rgba(31,122,107,.04) 12px,transparent 12px,transparent 24px);display:flex;align-items:center;justify-content:center;text-align:center;color:var(--muted);font-family:var(--mono);font-size:12px;margin:10px 0;padding:16px}
+
+  /* prototipo mock */
+  .proto{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--card);margin:12px 0}
+  .proto .bar{background:var(--paper-2);padding:9px 14px;display:flex;gap:7px;align-items:center;border-bottom:1px solid var(--line)}
+  .proto .bar i{width:11px;height:11px;border-radius:50%;background:#cfc8b8;display:inline-block}
+  .proto .bar .url{font-family:var(--mono);font-size:11px;color:var(--muted);margin-left:8px}
+  .proto .pad{padding:18px}
+  .proto h5{font-family:var(--display);font-size:18px;text-align:center;margin-bottom:14px}
+  .proto .filters{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-bottom:12px}
+  .proto .fld{font-size:11px}
+  .proto .fld span{display:block;color:var(--muted);font-family:var(--mono);margin-bottom:3px;font-size:10px}
+  .proto .fld div{background:#fff;border:1px solid var(--line);border-radius:7px;padding:7px 9px;color:var(--ink-soft)}
+  .proto table{width:100%;border-collapse:collapse;font-size:11.5px}
+  .proto th{background:var(--paper-2);text-align:left;padding:7px 9px;font-family:var(--mono);font-size:10px;color:var(--muted);border-bottom:1px solid var(--line)}
+  .proto td{padding:7px 9px;border-bottom:1px solid var(--line);color:var(--ink-soft)}
+  .badge{font-family:var(--mono);font-size:10px;padding:2px 8px;border-radius:999px;color:#fff}
+  .b-green{background:var(--accent)} .b-amber{background:#D9A441} .b-grey{background:#9aa6a4}
+
+  /* protótipo navegável embutido */
+  .proto-live{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--card);margin:12px 0;box-shadow:0 18px 45px -28px rgba(28,43,48,.5)}
+  .proto-live .bar{background:var(--paper-2);padding:9px 14px;display:flex;gap:7px;align-items:center;border-bottom:1px solid var(--line)}
+  .proto-live .bar i{width:11px;height:11px;border-radius:50%;background:#cfc8b8;display:inline-block}
+  .proto-live .bar .url{font-family:var(--mono);font-size:11px;color:var(--muted);margin-left:8px}
+  .proto-frame{width:100%;height:920px;border:0;display:block;background:var(--paper)}
+
+  /* diagramas */
+  .diagram{border:1px solid var(--line);border-radius:14px;background:var(--card);padding:18px 16px;margin:10px 0}
+  .diagram-title{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+  .diagram svg{width:100%;height:auto;display:block}
+  .status-pills{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:16px 0 4px}
+  .status-pills .lbl{font-family:var(--mono);font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-right:4px}
+  .status-pills .sp{font-family:var(--mono);font-size:12px;color:#fff;border-radius:999px;padding:6px 14px}
+  .status-pills .a{background:var(--accent)} .status-pills .b{background:#D9A441} .status-pills .c{background:#9aa6a4}
+  .status-pills .ar{color:var(--accent);font-family:var(--mono);font-weight:700}
+
+  /* interface final (alta fidelidade) */
+  .ui{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#fff;margin:12px 0;box-shadow:0 22px 55px -32px rgba(28,43,48,.55)}
+  .ui .chrome{background:#EDEAE1;padding:10px 14px;display:flex;align-items:center;gap:7px;border-bottom:1px solid var(--line)}
+  .ui .chrome i{width:11px;height:11px;border-radius:50%;background:#cfc8b8;display:inline-block}
+  .ui .chrome .u{font-family:var(--mono);font-size:11px;color:var(--muted);margin-left:10px;background:#fff;border:1px solid var(--line);border-radius:6px;padding:3px 12px}
+  .ui .app{padding:20px 22px}
+  .ui .apphead{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:18px}
+  .ui .apphead h5{font-family:var(--display);font-size:21px;color:var(--ink)}
+  .ui .btn{font-family:var(--body);font-weight:600;font-size:13px;border:none;border-radius:9px;padding:9px 16px;cursor:default;white-space:nowrap}
+  .ui .btn.primary{background:var(--accent);color:#fff}
+  .ui .btn.ghost{background:#fff;border:1.5px solid var(--line);color:var(--ink-soft)}
+  .ui .toolbar{display:grid;grid-template-columns:repeat(4,1fr) auto auto;gap:10px;align-items:end;background:#F7F5EF;border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:16px}
+  .ui .field label{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
+  .ui .field .ctrl{background:#fff;border:1px solid var(--line);border-radius:8px;padding:9px 11px;font-size:13px;color:var(--ink);display:flex;align-items:center;justify-content:space-between;gap:8px}
+  .ui .field .ctrl.ph{color:#a7afad}
+  .ui .field .ctrl .cv{font-family:var(--mono);font-size:11px;color:var(--muted)}
+  .ui-scroll{overflow-x:auto}
+  .ui table{width:100%;border-collapse:separate;border-spacing:0;font-size:13px;min-width:640px}
+  .ui thead th{background:var(--ink);color:#E8EDEB;text-align:left;padding:11px 13px;font-family:var(--mono);font-size:10.5px;letter-spacing:.05em;font-weight:500}
+  .ui thead th:first-child{border-top-left-radius:9px}
+  .ui thead th:last-child{border-top-right-radius:9px;text-align:center}
+  .ui tbody td{padding:11px 13px;border-bottom:1px solid var(--line);color:var(--ink-soft)}
+  .ui tbody td:first-child{font-weight:600;color:var(--ink)}
+  .ui tbody tr:hover td{background:#F7F5EF}
+  .ui tbody td.center{text-align:center}
+  .ui .st{font-family:var(--mono);font-size:11px;padding:4px 11px;border-radius:999px;color:#fff;white-space:nowrap}
+  .ui .st.ag{background:var(--accent)} .ui .st.pr{background:#D9A441} .ui .st.cc{background:#9aa6a4} .ui .st.cl{background:#C2557A}
+  .ui .act{display:inline-flex;gap:6px}
+  .ui .act b{width:27px;height:27px;border-radius:7px;border:1px solid var(--line);display:inline-flex;align-items:center;justify-content:center;font-size:13px;color:var(--muted);background:#fff;font-weight:400}
+  .ui .pag{display:flex;align-items:center;justify-content:space-between;margin-top:14px;font-family:var(--mono);font-size:12px;color:var(--muted);flex-wrap:wrap;gap:10px}
+  .ui .pag .pages{display:flex;gap:6px}
+  .ui .pag .pages span{width:28px;height:28px;border-radius:7px;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;color:var(--ink-soft);background:#fff}
+  .ui .pag .pages span.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .ui .svc{margin-top:20px;background:#F7F5EF;border:1px solid var(--line);border-radius:12px;padding:16px}
+  .ui .svc h6{font-family:var(--display);font-size:15px;margin-bottom:12px;color:var(--ink)}
+  .ui .svc .srow{display:grid;grid-template-columns:1fr 1.4fr auto;gap:10px;align-items:end}
+  .ui-cap{font-size:13px;color:var(--muted);margin-top:8px}
+
+  @media(max-width:860px){
+    .hero-grid{grid-template-columns:1fr;gap:40px}
+    .ui .toolbar{grid-template-columns:1fr 1fr}
+    .ui .svc .srow{grid-template-columns:1fr}
+    .cards{grid-template-columns:1fr}
+    .about-grid{grid-template-columns:1fr;gap:34px}
+    .nav-links{display:none}
+    .section{padding:70px 0}
+    .timeline{grid-template-columns:62px 1fr}
+    .tl-time{padding:34px 12px 34px 0}
+    .tl-body{padding:30px 0 30px 22px}
+    .meta-grid{grid-template-columns:1fr}
+    .persona-grid2{grid-template-columns:1fr}
+    .research-grid{grid-template-columns:1fr}
+    .proto .filters{grid-template-columns:repeat(2,1fr)}
+  }
+
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
+  .reveal.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){
+    *{scroll-behavior:auto!important}
+    .reveal{opacity:1;transform:none;transition:none}
+    .case-card{transition:none}
+  }
+  :focus-visible{outline:2.5px solid var(--accent);outline-offset:3px;border-radius:4px}
+
+  /* === sistema de agendamento embutido (escopo #sa-embed) === */
+#sa-embed{
+    --ink:#1C2B30; --ink-soft:#33474D; --paper:#F4F1E9; --paper-2:#EBE6D9;
+    --card:#FBFAF5; --line:#D9D2C2; --muted:#71807F;
+    /* cor do segmento ativo (trocada via seletor) */
+    --seg:#3A6EA5; --seg-deep:#2B5480; --seg-100:rgba(58,110,165,.12);
+    /* status (semânticos, fixos) */
+    --ag:#1F7A6B; --pr:#D9A441; --cc:#9aa6a4; --cl:#C2557A;
+    --display:'Bricolage Grotesque',system-ui,sans-serif;
+    --body:'Inter',system-ui,sans-serif; --mono:'JetBrains Mono',ui-monospace,monospace;
+  }#sa-embed *{box-sizing:border-box;margin:0;padding:0}#sa-embed{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased;padding:22px}#sa-embed ::selection{background:var(--seg);color:#fff}#sa-embed .app-wrap{max-width:1040px;margin:0 auto}#sa-embed /* seletor de segmento (troca o tema) */
+  .seg-switch{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:16px}#sa-embed .seg-switch .lbl{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-right:2px}#sa-embed .seg-switch .opts{display:flex;gap:7px;flex-wrap:wrap;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:5px}#sa-embed .seg-btn{font-family:var(--body);font-weight:600;font-size:13px;border:none;background:transparent;color:var(--ink-soft);border-radius:999px;padding:7px 14px;cursor:pointer;display:flex;align-items:center;gap:7px;transition:all .18s}#sa-embed .seg-btn .dot{width:9px;height:9px;border-radius:50%}#sa-embed .seg-btn[data-k=oficina] .dot{background:#3A6EA5}#sa-embed .seg-btn[data-k=salao] .dot{background:#C2557A}#sa-embed .seg-btn[data-k=consult] .dot{background:#1F7A6B}#sa-embed .seg-btn[data-k=clinica] .dot{background:#6FA15B}#sa-embed .seg-btn:hover{background:var(--paper-2)}#sa-embed .seg-btn.active{background:var(--seg);color:#fff}#sa-embed .seg-btn.active .dot{background:#fff}#sa-embed /* janela do app */
+  .ui{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#fff;box-shadow:0 22px 55px -32px rgba(28,43,48,.55)}#sa-embed .chrome{background:#EDEAE1;padding:10px 14px;display:flex;align-items:center;gap:7px;border-bottom:1px solid var(--line)}#sa-embed .chrome i{width:11px;height:11px;border-radius:50%;background:#cfc8b8;display:inline-block}#sa-embed .chrome .u{font-family:var(--mono);font-size:11px;color:var(--muted);margin-left:10px;background:#fff;border:1px solid var(--line);border-radius:6px;padding:3px 12px}#sa-embed .app{padding:20px 22px}#sa-embed .apphead{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:18px}#sa-embed .apphead .ttl{display:flex;align-items:center;gap:12px;flex-wrap:wrap}#sa-embed .apphead h1{font-family:var(--display);font-size:22px;font-weight:800;color:var(--ink);letter-spacing:-.01em}#sa-embed .seg-badge{font-family:var(--mono);font-size:11px;color:#fff;background:var(--seg);border-radius:999px;padding:4px 11px;letter-spacing:.03em}#sa-embed .btn{font-family:var(--body);font-weight:600;font-size:13px;border:none;border-radius:9px;padding:9px 15px;cursor:pointer;white-space:nowrap;transition:filter .15s}#sa-embed .btn:hover{filter:brightness(.95)}#sa-embed .btn.primary{background:var(--seg);color:#fff}#sa-embed .btn.ghost{background:#fff;border:1.5px solid var(--line);color:var(--ink-soft)}#sa-embed .toolbar{display:grid;grid-template-columns:repeat(4,1fr) auto auto;gap:10px;align-items:end;background:#F7F5EF;border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:16px}#sa-embed .field label{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:5px}#sa-embed .field input, #sa-embed .field select{width:100%;background:#fff;border:1px solid var(--line);border-radius:8px;padding:9px 11px;font-size:13px;color:var(--ink);font-family:var(--body)}#sa-embed .field input:focus, #sa-embed .field select:focus{outline:2px solid var(--seg);outline-offset:1px;border-color:var(--seg)}#sa-embed .ui-scroll{overflow-x:auto}#sa-embed table{width:100%;border-collapse:separate;border-spacing:0;font-size:13px;min-width:720px}#sa-embed thead th{background:var(--ink);color:#E8EDEB;text-align:left;padding:11px 13px;font-family:var(--mono);font-size:10.5px;letter-spacing:.05em;font-weight:500}#sa-embed thead th:first-child{border-top-left-radius:9px}#sa-embed thead th:last-child{border-top-right-radius:9px;text-align:center}#sa-embed tbody td{padding:11px 13px;border-bottom:1px solid var(--line);color:var(--ink-soft)}#sa-embed tbody td:first-child{font-weight:600;color:var(--ink)}#sa-embed tbody tr:hover td{background:#F7F5EF}#sa-embed tbody td.center{text-align:center}#sa-embed .empty td{text-align:center;color:var(--muted);font-style:italic;padding:26px}#sa-embed .st{font-family:var(--mono);font-size:11px;padding:4px 11px;border-radius:999px;color:#fff;white-space:nowrap;display:inline-block}#sa-embed .st.agendado{background:var(--ag)}#sa-embed .st.progresso{background:var(--pr)}#sa-embed .st.concluido{background:var(--cc)}#sa-embed .st.cancelado{background:var(--cl)}#sa-embed .act{display:inline-flex;gap:6px}#sa-embed .act button{width:28px;height:28px;border-radius:7px;border:1px solid var(--line);display:inline-flex;align-items:center;justify-content:center;font-size:13px;color:var(--muted);background:#fff;cursor:pointer;transition:all .15s}#sa-embed .act button:hover{border-color:var(--seg);color:var(--seg)}#sa-embed .pag{display:flex;align-items:center;justify-content:space-between;margin-top:14px;font-family:var(--mono);font-size:12px;color:var(--muted);flex-wrap:wrap;gap:10px}#sa-embed .svc{margin-top:20px;background:#F7F5EF;border:1px solid var(--line);border-radius:12px;padding:16px}#sa-embed .svc h2{font-family:var(--display);font-size:16px;margin-bottom:12px;color:var(--ink);font-weight:700}#sa-embed .srow{display:grid;grid-template-columns:1fr 1.4fr auto;gap:10px;align-items:end}#sa-embed /* modal */
+  .overlay{position:fixed;inset:0;background:rgba(28,43,48,.45);display:none;align-items:center;justify-content:center;padding:20px;z-index:1000}#sa-embed .overlay.open{display:flex}#sa-embed .modal{background:#fff;border:1px solid var(--line);border-radius:16px;width:100%;max-width:440px;box-shadow:0 30px 70px -30px rgba(28,43,48,.6);overflow:hidden}#sa-embed .modal h3{font-family:var(--display);font-size:18px;font-weight:700;padding:18px 20px;border-bottom:1px solid var(--line)}#sa-embed .modal .mbody{padding:18px 20px;display:grid;gap:12px}#sa-embed .modal .mfoot{padding:14px 20px;display:flex;justify-content:flex-end;gap:10px;border-top:1px solid var(--line);background:#F7F5EF}#sa-embed /* toast */
+  .toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;font-size:13.5px;padding:11px 18px;border-radius:10px;box-shadow:0 18px 40px -18px rgba(0,0,0,.5);opacity:0;pointer-events:none;transition:all .25s;z-index:1001;max-width:90vw}#sa-embed .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}#sa-embed .toast b{color:#fff}
+
+  @media(max-width:760px){#sa-embed{padding:14px}#sa-embed .toolbar{grid-template-columns:1fr 1fr}#sa-embed .srow{grid-template-columns:1fr}
+  }
+
+
+  /* ===== embed VetCare (projeto 02) ===== */
+  .vc-embed-frame{border:1px solid var(--line);border-radius:18px;overflow:hidden;background:var(--card);margin:10px 0 6px;box-shadow:0 1px 0 var(--line)}
+#vet-embed{
+    --ink:#1C2B30; --ink-soft:#33474D; --paper:#F4F1E9; --paper-2:#EBE6D9;
+    --card:#FBFAF5; --line:#D9D2C2; --muted:#71807F;
+    --accent:#1F7A6B; --accent-deep:#155A4F; --accent-100:rgba(31,122,107,.12);
+    --hot:#E2703A; --blue:#3A6EA5; --amber:#D9A441; --red:#C2557A; --grey:#9aa6a4; --green:#6FA15B;
+    --display:'Bricolage Grotesque',system-ui,sans-serif;
+    --body:'Inter',system-ui,sans-serif; --mono:'JetBrains Mono',ui-monospace,monospace;
+  }
+#vet-embed *{box-sizing:border-box;margin:0;padding:0}
+#vet-embed{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
+#vet-embed ::selection{background:var(--accent);color:#fff}
+#vet-embed button{font-family:inherit}
+#vet-embed h1, #vet-embed h2, #vet-embed h3, #vet-embed h4{font-family:var(--display);font-weight:700;letter-spacing:-.01em;line-height:1.1}
+#vet-embed /* ===== switcher topo ===== */
+  .switcher{position:sticky;top:0;z-index:40;background:rgba(244,241,233,.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+#vet-embed .switcher .in{max-width:1280px;margin:0 auto;padding:12px 22px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+#vet-embed .brand{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:800;font-size:18px}
+#vet-embed .brand .logo{width:30px;height:30px;border-radius:9px;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-size:16px}
+#vet-embed .seg{display:flex;gap:6px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:5px}
+#vet-embed .seg button{border:none;background:transparent;color:var(--ink-soft);font-weight:600;font-size:13.5px;border-radius:999px;padding:8px 16px;cursor:pointer;display:flex;gap:8px;align-items:center;transition:all .18s}
+#vet-embed .seg button.on{background:var(--accent);color:#fff}
+#vet-embed .seg button:not(.on):hover{background:var(--paper-2)}
+#vet-embed .switch-note{font-family:var(--mono);font-size:11px;color:var(--muted)}
+#vet-embed .stage{max-width:1280px;margin:0 auto;padding:22px}
+#vet-embed .hidden{display:none!important}
+#vet-embed /* utilitários */
+  .btn{font-weight:600;font-size:13px;border:none;border-radius:9px;padding:9px 15px;cursor:pointer;white-space:nowrap;transition:filter .15s;display:inline-flex;align-items:center;gap:7px}
+#vet-embed .btn:hover{filter:brightness(.96)}
+#vet-embed .btn.primary{background:var(--accent);color:#fff}
+#vet-embed .btn.ghost{background:#fff;border:1.5px solid var(--line);color:var(--ink-soft)}
+#vet-embed .btn.sm{padding:6px 11px;font-size:12px}
+#vet-embed .tag{font-family:var(--mono);font-size:10.5px;padding:3px 9px;border-radius:999px;color:#fff;display:inline-block;white-space:nowrap}
+#vet-embed .tag.green{background:var(--accent)}
+#vet-embed .tag.amber{background:var(--amber)}
+#vet-embed .tag.grey{background:var(--grey)}
+#vet-embed .tag.red{background:var(--red)}
+#vet-embed .tag.blue{background:var(--blue)}
+#vet-embed .pill{font-family:var(--mono);font-size:11px;background:var(--paper-2);border:1px solid var(--line);border-radius:7px;padding:4px 9px;color:var(--ink-soft)}
+#vet-embed .muted{color:var(--muted)}
+#vet-embed .mono{font-family:var(--mono)}
+#vet-embed label.fl{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
+#vet-embed input.f, #vet-embed select.f, #vet-embed textarea.f{width:100%;background:#fff;border:1px solid var(--line);border-radius:8px;padding:9px 11px;font-size:13.5px;color:var(--ink);font-family:var(--body)}
+#vet-embed input.f:focus, #vet-embed select.f:focus, #vet-embed textarea.f:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:var(--accent)}
+#vet-embed textarea.f{resize:vertical;min-height:62px}
+#vet-embed .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+#vet-embed .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+#vet-embed .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+#vet-embed /* ===== VET WEB ===== */
+  .vet{display:grid;grid-template-columns:236px 1fr;gap:18px;align-items:start}
+#vet-embed .side{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px;position:sticky;top:84px}
+#vet-embed .side .who{display:flex;gap:10px;align-items:center;padding:8px 8px 14px;border-bottom:1px solid var(--line);margin-bottom:8px}
+#vet-embed .side .who .av{width:38px;height:38px;border-radius:10px;background:var(--accent-100);color:var(--accent-deep);display:flex;align-items:center;justify-content:center;font-weight:800;font-family:var(--display)}
+#vet-embed .side .who b{font-size:14px;display:block;line-height:1.25}
+#vet-embed .side .who span{font-size:11px;color:var(--muted);font-family:var(--mono);display:block}
+#vet-embed .nav-item{display:flex;align-items:center;gap:11px;padding:10px 11px;border-radius:10px;cursor:pointer;color:var(--ink-soft);font-weight:500;font-size:14px}
+#vet-embed .nav-item .ic{width:20px;text-align:center}
+#vet-embed .nav-item:hover{background:var(--paper-2)}
+#vet-embed .nav-item.on{background:var(--accent);color:#fff}
+#vet-embed .nav-sep{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding:12px 11px 5px}
+#vet-embed .nav-item.soon{opacity:.55;cursor:default}
+#vet-embed .nav-item.soon:hover{background:transparent}
+#vet-embed .nav-item.soon small{margin-left:auto;font-family:var(--mono);font-size:9px;background:var(--paper-2);border:1px solid var(--line);padding:2px 6px;border-radius:6px;color:var(--muted)}
+#vet-embed .panel{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px 22px;min-height:520px}
+#vet-embed .panel-head{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:16px}
+#vet-embed .panel-head h2{font-size:23px;font-weight:800}
+#vet-embed .panel-head .sub{font-size:13px;color:var(--muted);margin-top:2px}
+#vet-embed .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px}
+#vet-embed .kpi{background:#fff;border:1px solid var(--line);border-radius:13px;padding:14px;border-left:3px solid var(--accent)}
+#vet-embed .kpi.b{border-left-color:var(--blue)}
+#vet-embed .kpi.a{border-left-color:var(--amber)}
+#vet-embed .kpi.r{border-left-color:var(--red)}
+#vet-embed .kpi .v{font-family:var(--display);font-size:28px;font-weight:800;line-height:1}
+#vet-embed .kpi .l{font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:5px}
+#vet-embed table.tb{width:100%;border-collapse:separate;border-spacing:0;font-size:13px}
+#vet-embed table.tb thead th{background:var(--ink);color:#E8EDEB;text-align:left;padding:10px 12px;font-family:var(--mono);font-size:10px;letter-spacing:.04em;font-weight:500}
+#vet-embed table.tb thead th:first-child{border-top-left-radius:9px}
+#vet-embed table.tb thead th:last-child{border-top-right-radius:9px}
+#vet-embed table.tb tbody td{padding:10px 12px;border-bottom:1px solid var(--line);color:var(--ink-soft)}
+#vet-embed table.tb tbody td:first-child{font-weight:600;color:var(--ink)}
+#vet-embed table.tb tbody tr:hover td{background:#F7F5EF}
+#vet-embed .tb-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:11px}
+#vet-embed .empty{padding:30px;text-align:center;color:var(--muted);font-style:italic}
+#vet-embed .card2{background:#fff;border:1px solid var(--line);border-radius:13px;padding:16px}
+#vet-embed .card2 h3{font-size:16px;margin-bottom:10px}
+#vet-embed .stack{display:flex;flex-direction:column;gap:14px}
+#vet-embed .timeline-rec{border-left:2px solid var(--line);padding-left:16px;display:flex;flex-direction:column;gap:14px}
+#vet-embed .timeline-rec .ev{position:relative}
+#vet-embed .timeline-rec .ev::before{content:"";position:absolute;left:-21px;top:5px;width:9px;height:9px;border-radius:50%;background:var(--accent);border:2px solid var(--card)}
+#vet-embed .timeline-rec .ev .dt{font-family:var(--mono);font-size:11px;color:var(--accent-deep)}
+#vet-embed .timeline-rec .ev h4{font-size:14.5px;margin:2px 0 4px}
+#vet-embed .timeline-rec .ev p{font-size:13px;color:var(--ink-soft);margin:1px 0}
+#vet-embed .item-line{display:grid;grid-template-columns:1.4fr .8fr .7fr .7fr .8fr auto;gap:8px;align-items:end;background:#F7F5EF;border:1px solid var(--line);border-radius:10px;padding:10px;margin-bottom:8px}
+#vet-embed .stock-low{color:var(--red);font-weight:700}
+#vet-embed /* ===== TUTOR APP ===== */
+  .app-stage{display:flex;justify-content:center;gap:34px;flex-wrap:wrap;align-items:flex-start}
+#vet-embed .phone{width:390px;max-width:100%;background:#11211d;border-radius:42px;padding:12px;box-shadow:0 40px 90px -40px rgba(28,43,48,.7)}
+#vet-embed .phone .scr{background:var(--paper);border-radius:32px;overflow:hidden;height:792px;display:flex;flex-direction:column;position:relative}
+#vet-embed .statusbar{height:32px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;font-family:var(--mono);font-size:11px;color:var(--ink-soft);flex:none}
+#vet-embed .statusbar .dots{display:flex;gap:4px}
+#vet-embed .statusbar .dots i{width:5px;height:5px;border-radius:50%;background:var(--ink-soft);display:inline-block}
+#vet-embed .apphead{padding:10px 18px 12px;flex:none;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--card)}
+#vet-embed .apphead .pet{display:flex;align-items:center;gap:10px}
+#vet-embed .apphead .pet .pic{width:38px;height:38px;border-radius:11px;background:var(--accent-100);display:flex;align-items:center;justify-content:center;font-size:19px}
+#vet-embed .apphead .pet b{font-size:15px;display:block;line-height:1.1}
+#vet-embed .apphead .pet span{font-size:11px;color:var(--muted)}
+#vet-embed .appbody{flex:1;overflow-y:auto;padding:16px 18px 20px}
+#vet-embed .apptabs{flex:none;display:flex;border-top:1px solid var(--line);background:var(--card)}
+#vet-embed .apptabs button{flex:1;border:none;background:transparent;padding:9px 4px 11px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--muted);font-size:10.5px;font-weight:600}
+#vet-embed .apptabs button .ic{font-size:18px}
+#vet-embed .apptabs button.on{color:var(--accent)}
+#vet-embed .acard{background:var(--card);border:1px solid var(--line);border-radius:15px;padding:15px;margin-bottom:13px}
+#vet-embed .acard h3{font-size:15px;margin-bottom:4px}
+#vet-embed .next-dose{background:linear-gradient(135deg,var(--accent),var(--accent-deep));color:#fff;border-radius:16px;padding:17px;margin-bottom:14px}
+#vet-embed .next-dose .lbl{font-family:var(--mono);font-size:11px;opacity:.85;letter-spacing:.05em}
+#vet-embed .next-dose .big{font-family:var(--display);font-size:30px;font-weight:800;margin:4px 0}
+#vet-embed .next-dose .med{font-size:14px;opacity:.95}
+#vet-embed .next-dose .acts{display:flex;gap:8px;margin-top:12px}
+#vet-embed .next-dose .acts .btn{background:rgba(255,255,255,.16);color:#fff;border:1px solid rgba(255,255,255,.3)}
+#vet-embed .next-dose .acts .btn.solid{background:#fff;color:var(--accent-deep);border:none}
+#vet-embed .dose-row{display:flex;align-items:center;gap:11px;padding:11px 0;border-bottom:1px solid var(--line)}
+#vet-embed .dose-row:last-child{border-bottom:0}
+#vet-embed .dose-row .tm{font-family:var(--mono);font-weight:700;font-size:14px;width:48px;flex:none}
+#vet-embed .dose-row .info{flex:1}
+#vet-embed .dose-row .info b{font-size:13.5px}
+#vet-embed .dose-row .info span{font-size:11.5px;color:var(--muted);display:block}
+#vet-embed .dose-row .chk{width:30px;height:30px;border-radius:50%;border:2px solid var(--line);background:#fff;cursor:pointer;flex:none;display:flex;align-items:center;justify-content:center;color:transparent;font-weight:800}
+#vet-embed .dose-row.done .chk{background:var(--accent);border-color:var(--accent);color:#fff}
+#vet-embed .dose-row.done .info b{text-decoration:line-through;color:var(--muted)}
+#vet-embed .dose-row.late .tm{color:var(--red)}
+#vet-embed .adh{display:flex;align-items:center;gap:12px}
+#vet-embed .adh .ring{--p:0;width:58px;height:58px;border-radius:50%;flex:none;background:conic-gradient(var(--accent) calc(var(--p)*1%), var(--paper-2) 0);display:flex;align-items:center;justify-content:center}
+#vet-embed .adh .ring i{width:44px;height:44px;border-radius:50%;background:var(--card);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:800;font-size:14px;font-style:normal}
+#vet-embed .rx{border:1px solid var(--line);border-radius:13px;padding:13px;margin-bottom:11px;background:var(--card)}
+#vet-embed .rx .top{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:7px}
+#vet-embed .rx .top b{font-size:14px}
+#vet-embed .rx ul{list-style:none;font-size:12.5px;color:var(--ink-soft)}
+#vet-embed .rx li{padding:3px 0 3px 14px;position:relative}
+#vet-embed .rx li::before{content:"•";position:absolute;left:2px;color:var(--accent)}
+#vet-embed /* push notification simulada */
+  /* notificação push — formato celular, #vet-embed presa no topo da tela do telefone (.scr) */
+  .push{position:absolute;top:38px;left:10px;right:10px;z-index:60;transform:translateY(-150%);transition:transform .4s cubic-bezier(.2,.9,.3,1.3);pointer-events:none}
+#vet-embed .push.show{transform:translateY(0);pointer-events:auto}
+#vet-embed .push-card{background:rgba(20,33,29,.92);backdrop-filter:blur(14px);color:#fff;border-radius:20px;padding:11px 14px 9px;box-shadow:0 18px 40px -16px rgba(0,0,0,.6);cursor:pointer}
+#vet-embed .push-top{display:flex;align-items:center;gap:8px;margin-bottom:5px}
+#vet-embed .push-top .ic{width:22px;height:22px;border-radius:6px;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:13px;flex:none}
+#vet-embed .push-top .app{font-size:12px;font-weight:600;letter-spacing:.02em}
+#vet-embed .push-top .ago{margin-left:auto;font-size:11px;opacity:.6;font-family:var(--mono)}
+#vet-embed .push .tt{font-size:13.5px;font-weight:700;line-height:1.2}
+#vet-embed .push .ms{font-size:12.5px;margin-top:2px;line-height:1.35;opacity:.92}
+#vet-embed .push .grab{width:34px;height:4px;border-radius:3px;background:rgba(255,255,255,.35);margin:7px auto 0}
+#vet-embed /* modal */
+  .ov{position:fixed;inset:0;background:rgba(28,43,48,.5);display:none;align-items:center;justify-content:center;padding:18px;z-index:60}
+#vet-embed .ov.open{display:flex}
+#vet-embed /* sheet nativo do app — preso dentro da tela do celular (.scr) */
+  .app-sheet{position:absolute;inset:0;z-index:50;background:var(--paper);display:flex;flex-direction:column;border-radius:32px;overflow:hidden;transform:translateY(100%);transition:transform .3s cubic-bezier(.2,.8,.2,1);pointer-events:none}
+#vet-embed .app-sheet.open{transform:translateY(0);pointer-events:auto}
+#vet-embed .app-sheet .sh-head{flex:none;padding:14px 18px;border-bottom:1px solid var(--line);background:var(--card);display:flex;align-items:center;justify-content:space-between;gap:10px}
+#vet-embed .app-sheet .sh-head h3{font-size:17px}
+#vet-embed .app-sheet .sh-head .x{cursor:pointer;font-size:23px;line-height:1;color:var(--muted);background:none;border:none;padding:0 4px}
+#vet-embed .app-sheet .sh-bd{flex:1;overflow-y:auto;padding:16px 18px;display:flex;flex-direction:column;gap:13px}
+#vet-embed .app-sheet .sh-ft{flex:none;padding:13px 18px;border-top:1px solid var(--line);background:var(--card);display:flex;gap:10px}
+#vet-embed .app-sheet .sh-ft .btn{flex:1;justify-content:center;padding:12px}
+#vet-embed .md{background:var(--card);border-radius:18px;width:100%;max-width:540px;max-height:90vh;overflow:auto;box-shadow:0 40px 90px -40px rgba(0,0,0,.6)}
+#vet-embed .md h3{font-size:18px;padding:18px 20px;border-bottom:1px solid var(--line)}
+#vet-embed .md .bd{padding:18px 20px;display:flex;flex-direction:column;gap:13px}
+#vet-embed .md .ft{padding:14px 20px;border-top:1px solid var(--line);display:flex;justify-content:flex-end;gap:10px;background:#F7F5EF;position:sticky;bottom:0}
+#vet-embed /* toast */
+  .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;font-size:13px;padding:11px 18px;border-radius:10px;opacity:0;pointer-events:none;transition:all .25s;z-index:90}
+#vet-embed .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+#vet-embed /* ===== DOCUMENTO DE RECEITA ===== */
+  .receita-doc{background:#fff;border:1px solid var(--line);border-radius:12px;padding:20px 22px;color:var(--ink);font-size:13px;line-height:1.45;box-shadow:0 1px 0 var(--line)}
+#vet-embed .rd-head{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;border-bottom:2px solid var(--accent);padding-bottom:12px}
+#vet-embed .rd-clinic{display:flex;gap:11px;align-items:flex-start}
+#vet-embed .rd-logo{width:40px;height:40px;border-radius:10px;background:var(--accent-100);display:flex;align-items:center;justify-content:center;font-size:22px;flex:none}
+#vet-embed .rd-cinfo{display:flex;flex-direction:column;line-height:1.3}
+#vet-embed .rd-cinfo b{font-family:var(--display);font-size:18px;font-weight:800}
+#vet-embed .rd-cinfo span{font-size:10.5px;color:var(--muted)}
+#vet-embed .rd-cinfo span:nth-child(2){color:var(--accent-deep);font-weight:600;font-size:11px}
+#vet-embed .rd-meta{text-align:right;display:flex;flex-direction:column;gap:2px;font-family:var(--mono);font-size:10px;color:var(--muted);flex:none}
+#vet-embed .rd-title{margin:13px 0;font-family:var(--mono);font-size:11px;letter-spacing:.08em;font-weight:700;color:var(--ink);display:flex;align-items:center;justify-content:space-between}
+#vet-embed .rd-title span{font-weight:500;color:var(--muted);background:var(--paper-2);border:1px solid var(--line);border-radius:6px;padding:2px 8px;letter-spacing:.03em}
+#vet-embed .rd-party{display:grid;grid-template-columns:1fr 1fr;gap:10px;background:#F7F5EF;border:1px solid var(--line);border-radius:9px;padding:11px 13px;margin-bottom:14px}
+#vet-embed .rd-party label{display:block;font-family:var(--mono);font-size:9px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:2px}
+#vet-embed .rd-party>div{font-size:12.5px;font-weight:500}
+#vet-embed .rd-body{display:flex;gap:12px;min-height:120px;padding:4px 0 16px}
+#vet-embed .rd-rx{font-family:'Bricolage Grotesque',serif;font-size:40px;font-weight:800;color:var(--accent);line-height:1;flex:none}
+#vet-embed .rd-list{list-style:none;counter-reset:rx;display:flex;flex-direction:column;gap:13px;flex:1;padding-top:4px}
+#vet-embed .rd-list li{border-bottom:1px dashed var(--line);padding-bottom:11px}
+#vet-embed .rd-list li:last-child{border-bottom:0}
+#vet-embed .rx-name{font-weight:700;font-size:14px}
+#vet-embed .rx-pos{color:var(--ink-soft);font-size:12.5px;margin-top:2px}
+#vet-embed .rx-obs{color:var(--muted);font-size:11.5px;font-style:italic;margin-top:2px}
+#vet-embed .rd-foot{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;border-top:1px solid var(--line);padding-top:14px}
+#vet-embed .rd-local{font-size:12px;color:var(--ink-soft)}
+#vet-embed .rd-sign{text-align:center;min-width:210px}
+#vet-embed .rd-signname{font-family:'Caveat',cursive;font-size:30px;line-height:.9;color:#1b3a5e;transform:rotate(-3deg)}
+#vet-embed .rd-line{border-top:1px solid var(--ink);margin:2px 0 5px}
+#vet-embed .rd-sign b{font-size:12.5px;display:block}
+#vet-embed .rd-sign span{display:block;font-size:10.5px;color:var(--muted)}
+@media(max-width:520px){#vet-embed .rd-party{grid-template-columns:1fr}
+#vet-embed .rd-foot{flex-direction:column;align-items:stretch}
+#vet-embed .rd-sign{min-width:0;margin-top:6px}
+#vet-embed .receita-doc{padding:15px}
+}
+#vet-embed /* impressão: só a receita */
+  @media print{
+    body.printing *{visibility:hidden!important}
+    body.printing .receita-doc, body.printing .receita-doc *{visibility:visible!important}
+    body.printing .receita-doc{position:fixed;inset:0;margin:0;border:0;box-shadow:none;border-radius:0}
+  }
+@media(max-width:880px){#vet-embed .vet{grid-template-columns:1fr}
+#vet-embed .side{position:static}
+#vet-embed .kpis{grid-template-columns:1fr 1fr}
+#vet-embed .grid3{grid-template-columns:1fr 1fr}
+#vet-embed .grid2{grid-template-columns:1fr}
+#vet-embed .item-line{grid-template-columns:1fr 1fr}
+}
+
+/* --- overrides do embed VetCare no portfolio --- */
+#vet-embed{position:relative;background:transparent}
+#vet-embed .switcher{position:static;background:transparent;border-bottom:1px solid var(--line)}
+#vet-embed .stage{padding:18px 0 6px}
+#vet-embed .ov{z-index:3000}
+#vet-embed .toast{z-index:3001}
+
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap">
+    <a class="brand" data-goto="home"><span class="dot"></span>Orcelino Junior</a>
+    <div class="nav-links">
+      <a data-goto="home">Trabalhos</a>
+      <a data-goto="sobre">Sobre</a>
+      <a data-goto="contato">Contato</a>
+    </div>
+    <a class="nav-cta" data-goto="contato">Vamos conversar</a>
+  </div>
+</nav>
+
+<div id="view-home">
+  <header class="hero">
+    <div class="wrap">
+      <div class="reveal hero-intro">
+        <span class="eyebrow">Portfólio · UX &amp; Product Design</span>
+        <h1>Da regra de negócio à <em>tela</em> que funciona.</h1>
+        <p class="lead">Sou Analista de UX. Pesquiso, organizo e desenho telas, dashboards e produtos digitais — da investigação ao protótipo navegável — aderentes a design system e pensados pra rotina real de quem usa. Este portfólio reúne meus trabalhos de UX e produto.</p>
+        <div class="hero-meta">
+          <div><b>Foco</b>UX · Pesquisa · Produto</div>
+          <div><b>Base</b>Blumenau · SC</div>
+          <div><b>Atuação</b>Analista de UX · Lince Tech</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="section" id="trabalhos">
+    <div class="wrap">
+      <div class="work-head reveal">
+        <div><span class="eyebrow">Trabalhos selecionados</span><h2>Casos de UX &amp; produto</h2></div>
+        <span style="font-family:var(--mono);font-size:13px;color:var(--muted)">2025 — 2026</span>
+      </div>
+      <div class="cards">
+        <a class="case-card reveal" data-goto="case-agendamentos">
+          <div class="thumb">
+            <svg class="thumb-art" viewBox="0 0 320 200" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+              <!-- painel da agenda -->
+              <rect x="30" y="22" width="260" height="116" rx="14" fill="rgba(255,255,255,.10)" stroke="rgba(255,255,255,.20)"/>
+              <!-- cabeçalho -->
+              <rect x="44" y="36" width="78" height="8" rx="4" fill="rgba(255,255,255,.6)"/>
+              <rect x="44" y="49" width="46" height="6" rx="3" fill="rgba(255,255,255,.3)"/>
+              <!-- relógio (remete a horário) -->
+              <circle cx="262" cy="45" r="13" fill="none" stroke="rgba(255,255,255,.75)" stroke-width="1.6"/>
+              <line x1="262" y1="45" x2="262" y2="37" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/>
+              <line x1="262" y1="45" x2="269" y2="45" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/>
+              <!-- divisória -->
+              <line x1="44" y1="63" x2="276" y2="63" stroke="rgba(255,255,255,.16)" stroke-width="1"/>
+              <!-- linhas de horário com blocos de compromisso (4 segmentos) -->
+              <text x="44" y="80" font-family="monospace" font-size="9" fill="rgba(255,255,255,.6)">08:00</text>
+              <rect x="92" y="71" width="156" height="12" rx="6" fill="#3A6EA5"/>
+              <text x="44" y="97" font-family="monospace" font-size="9" fill="rgba(255,255,255,.6)">09:00</text>
+              <rect x="92" y="88" width="118" height="12" rx="6" fill="#C2557A"/>
+              <text x="44" y="114" font-family="monospace" font-size="9" fill="rgba(255,255,255,.6)">10:00</text>
+              <rect x="92" y="105" width="168" height="12" rx="6" fill="#1F7A6B"/>
+              <text x="44" y="131" font-family="monospace" font-size="9" fill="rgba(255,255,255,.6)">11:00</text>
+              <rect x="92" y="122" width="104" height="12" rx="6" fill="#6FA15B"/>
+            </svg>
+            <span class="tag">Estudo de caso completo</span>
+          </div>
+          <div class="body">
+            <h3>Sistema de Agendamentos Multissegmento</h3>
+            <p>Um produto de agendamento que atende oficinas, salões, consultórios e clínicas com a mesma base — da pesquisa ao protótipo navegável.</p>
+            <div class="meta"><span class="chip">Pesquisa</span><span class="chip">Personas</span><span class="chip">Jornada</span><span class="chip">Protótipo</span></div>
+            <span class="go">Ver estudo de caso →</span>
+          </div>
+        </a>
+        <a class="case-card reveal" data-goto="case-vetcare">
+          <div class="thumb">
+            <svg class="thumb-art" viewBox="0 0 320 200" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+              <rect x="24" y="28" width="150" height="146" rx="12" fill="rgba(255,255,255,.10)" stroke="rgba(255,255,255,.22)"/>
+              <text x="38" y="64" font-family="Georgia,serif" font-size="27" font-weight="700" fill="#ffffff">&#8478;</text>
+              <rect x="72" y="46" width="84" height="7" rx="3.5" fill="rgba(255,255,255,.55)"/>
+              <rect x="72" y="59" width="60" height="6" rx="3" fill="rgba(255,255,255,.3)"/>
+              <line x1="38" y1="84" x2="160" y2="84" stroke="rgba(255,255,255,.16)" stroke-width="1"/>
+              <rect x="38" y="96" width="112" height="6" rx="3" fill="rgba(255,255,255,.42)"/>
+              <rect x="38" y="110" width="92" height="6" rx="3" fill="rgba(255,255,255,.3)"/>
+              <rect x="38" y="124" width="104" height="6" rx="3" fill="rgba(255,255,255,.3)"/>
+              <path d="M40 152 q11 -13 22 0 t22 0 t20 -3" fill="none" stroke="#9fe0d3" stroke-width="2" stroke-linecap="round"/>
+              <rect x="198" y="38" width="96" height="132" rx="16" fill="rgba(255,255,255,.12)" stroke="rgba(255,255,255,.25)"/>
+              <rect x="208" y="56" width="76" height="34" rx="8" fill="#1F7A6B"/>
+              <circle cx="221" cy="73" r="6" fill="#ffffff" opacity=".9"/>
+              <rect x="233" y="67" width="42" height="5" rx="2.5" fill="rgba(255,255,255,.9)"/>
+              <rect x="233" y="77" width="32" height="4" rx="2" fill="rgba(255,255,255,.6)"/>
+              <rect x="208" y="102" width="76" height="9" rx="4" fill="rgba(255,255,255,.2)"/>
+              <rect x="208" y="118" width="76" height="9" rx="4" fill="rgba(255,255,255,.2)"/>
+              <rect x="208" y="134" width="54" height="9" rx="4" fill="rgba(255,255,255,.2)"/>
+              <circle cx="290" cy="44" r="8" fill="#E2703A" stroke="#16302B" stroke-width="2"/>
+            </svg>
+            <span class="tag">Estudo de caso &middot; 2 produtos</span>
+          </div>
+          <div class="body">
+            <h3>VetCare &mdash; Sistema do veterin&aacute;rio + app do tutor</h3>
+            <p>Da receita emitida no consult&oacute;rio ao lembrete no celular do dono: dois produtos conectados que tiram o controle da medica&ccedil;&atilde;o do papel.</p>
+            <div class="meta"><span class="chip">Produto</span><span class="chip">Integra&ccedil;&atilde;o</span><span class="chip">App mobile</span><span class="chip">Prot&oacute;tipo</span></div>
+            <span class="go">Ver estudo de caso &rarr;</span>
+          </div>
+        </a>
+        <div class="placeholder-card reveal"><div class="ph-inner"><div class="pp">◇ Projeto 03</div><h3>A adicionar</h3><p style="font-size:14px">Mesmo modelo, pronto pra duplicar.</p></div></div>
+        <div class="placeholder-card reveal"><div class="ph-inner"><div class="pp">◇ Projeto 04</div><h3>A adicionar</h3><p style="font-size:14px">Espaço reservado pra manter a grade equilibrada.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section about" id="sobre">
+    <div class="wrap">
+      <div class="about-grid">
+        <div class="reveal">
+          <span class="eyebrow">Sobre</span>
+          <h2>Pesquiso, organizo e desenho o que vira rotina.</h2>
+          <p class="lead">Cheguei ao UX pela operação. Comecei em melhoria contínua e suporte a ERP, passei anos como analista de documentação fazendo a ponte entre regra de negócio e time técnico — e desde 2025 desenho as telas e dashboards desse mesmo ERP, aderente a design system. É essa bagagem que me faz enxergar rápido onde um fluxo trava.</p>
+          <div class="path">
+            <div class="it"><div class="yr">2018 – 2021</div><h4>Analista Técnico Pleno · Círculo S/A</h4><p>Projetos de melhoria contínua, análise de dados e indicadores de desempenho.</p></div>
+            <div class="it"><div class="yr">2021 – 2022</div><h4>Suporte a ERP · Datainfo</h4><p>Diagnóstico de incidentes, análise de banco de dados e causa raiz.</p></div>
+            <div class="it"><div class="yr">2022 – 2025</div><h4>Analista de Documentação · TI · Lince Tech</h4><p>Levantamento de requisitos e a ponte entre as áreas de negócio e o desenvolvimento.</p></div>
+            <div class="it"><div class="yr">2025 – atual</div><h4>Analista de UX · Lince Tech</h4><p>Telas e dashboards do ERP aderentes a design system. Estudante de Design de Produto (CST · UNIASSELVI).</p></div>
+          </div>
+          <div class="stat-row">
+            <div class="stat"><b>2025</b><span>atuando como Analista de UX</span></div>
+            <div class="stat"><b>6+</b><span>anos em análise &amp; TI</span></div>
+            <div class="stat"><b>SC</b><span>Blumenau · Brasil</span></div>
+          </div>
+        </div>
+        <div class="reveal contact-box" id="contato">
+          <h3>Contato</h3>
+          <a href="mailto:oajuniorsjn@yahoo.com.br">E-mail <span>→</span></a>
+          <a href="https://www.linkedin.com/in/orcelino-antonio-junior-b6bb9495" target="_blank" rel="noopener">LinkedIn <span>→</span></a>
+          <a href="https://wa.me/554799217639" target="_blank" rel="noopener">WhatsApp · (47) 9921-7639 <span>→</span></a>
+          <a href="CURRICULO_ORCELINO_ANTONIO_JUNIOR.pdf" target="_blank" rel="noopener">Currículo (PDF) <span>→</span></a>
+          <p style="font-family:var(--body);font-size:13px;color:#9FB0AD;margin-top:14px">Confere o número do WhatsApp — no currículo ele aparece com um dígito a menos do que um celular costuma ter.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer><div class="wrap"><span>© 2026 Orcelino Antonio Junior · Analista de UX</span><span>Blumenau · SC · Brasil</span></div></footer>
+</div>
+
+<!-- ===================== CASE STUDY ===================== -->
+<div id="view-case">
+  <header class="case-hero">
+    <div class="wrap">
+      <a class="back" data-goto="home">← Voltar aos trabalhos</a>
+      <span class="eyebrow">Estudo de caso · 2025–2026</span>
+      <h1>Um produto de agendamento para quatro mundos diferentes.</h1>
+      <p class="lead">Oficina, salão, consultório e clínica têm a mesma espinha dorsal: hora marcada, serviço e status. O desafio foi desenhar uma base única que servisse os quatro sem virar genérica.</p>
+      <div class="case-tags">
+        <span class="chip">UX Research</span><span class="chip">Personas</span><span class="chip">Jornada</span><span class="chip">Arquitetura</span><span class="chip">Protótipo</span><span class="chip">UI</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <div class="timeline">
+
+      <!-- 08:00 -->
+      <div class="tl-time"><span class="hr">08:00</span></div>
+      <div class="tl-body reveal">
+        <h2>Visão geral</h2>
+        <p>Produto de agendamento e acompanhamento de atendimentos para pequenos negócios de serviço. Em vez de criar um sistema por nicho, parti de uma hipótese: o fluxo é o mesmo em todos eles, só muda o vocabulário. Uma base única, configurável, que se adapta a quem usa.</p>
+        <div class="worlds" aria-hidden="true" style="margin:20px 0 6px">
+          <div class="col" data-seg="oficina"><div class="seg">Oficina</div><div class="slot booked">08:00</div><div class="slot">09:00</div><div class="slot booked">10:00</div><div class="slot booked">11:00</div></div>
+          <div class="col" data-seg="salao"><div class="seg">Salão</div><div class="slot booked">08:00</div><div class="slot booked">09:00</div><div class="slot">10:00</div><div class="slot booked">11:00</div></div>
+          <div class="col" data-seg="consult"><div class="seg">Consultório</div><div class="slot">08:00</div><div class="slot booked">09:00</div><div class="slot booked">10:00</div><div class="slot">11:00</div></div>
+          <div class="col" data-seg="clinica"><div class="seg">Clínica</div><div class="slot booked">08:00</div><div class="slot">09:00</div><div class="slot booked">10:00</div><div class="slot booked">11:00</div></div>
+        </div>
+        <p class="ui-cap">Os quatro segmentos atendidos pela mesma base — cada cor representa um tipo de negócio com sua própria agenda.</p>
+        <div class="meta-grid" style="margin-top:18px">
+          <div class="m"><b>Meu papel</b><span>UX/UI · da pesquisa ao protótipo</span></div>
+          <div class="m"><b>Período</b><span>2025 — 2026</span></div>
+          <div class="m"><b>Ferramentas</b><span>Figma · HTML/CSS · Bootstrap</span></div>
+          <div class="m"><b>Plataforma</b><span>Web responsivo</span></div>
+        </div>
+      </div>
+
+      <!-- 09:00 -->
+      <div class="tl-time"><span class="hr">09:00</span></div>
+      <div class="tl-body reveal">
+        <h2>O problema</h2>
+        <p>Quem atende de hora marcada perde tempo — e cliente — com agenda dividida entre caderno, WhatsApp e memória. Encaixe errado, retorno esquecido, serviço sem padrão. O mesmo problema aparece em cada segmento com um nome diferente.</p>
+        <p class="pquote">"Como um só sistema atende a oficina e o salão sem ficar genérico nem complicado demais?"</p>
+        <ul class="clean">
+          <li>Agendamentos espalhados entre canais, sem visão única do dia.</li>
+          <li>Status do atendimento invisível: ninguém sabe o que está agendado, em andamento ou concluído.</li>
+          <li>Catálogo de serviços inconsistente entre profissionais.</li>
+          <li>Demora pra achar um cliente ou um horário específico.</li>
+        </ul>
+      </div>
+
+      <!-- 10:00 -->
+      <div class="tl-time"><span class="hr">10:00</span></div>
+      <div class="tl-body reveal">
+        <h2>Pesquisa</h2>
+        <p>Antes de desenhar tela, fui entender quem opera o balcão em cada segmento — o que cada um chama de "serviço", como encaixa um cliente e o que trava num dia cheio.</p>
+        <div class="method">
+          <span class="m2">Entrevistas com operadores</span>
+          <span class="m2">Observação no balcão</span>
+          <span class="m2">Análise de concorrentes</span>
+          <span class="m2">Mapa de afinidade</span>
+        </div>
+        <p style="margin-top:14px"><b>Quatro descobertas guiaram o produto:</b></p>
+        <div class="research-grid">
+          <div class="insight"><div class="n">01</div><h4>O vocabulário muda, o fluxo não</h4><p>"Serviço + hora + status" se repete em todos. Isso virou a base única do produto.</p></div>
+          <div class="insight"><div class="n">02</div><h4>Falta status, não recurso</h4><p>A dor número um é não saber o andamento de cada atendimento agora. Status visível foi prioridade.</p></div>
+          <div class="insight"><div class="n">03</div><h4>Velocidade vence riqueza</h4><p>Usam o sistema em segundos, entre um cliente e outro. Tela densa e direta &gt; muitos passos.</p></div>
+          <div class="insight"><div class="n">04</div><h4>Filtrar é o gesto mais frequente</h4><p>Achar um cliente ou horário é o que mais fazem. Filtros ficam sempre visíveis, no topo.</p></div>
+        </div>
+        <div class="placeholder">
+          <span class="pp">Ajuste · seus dados reais</span>
+          <p>Método e descobertas estão redigidos como rascunho. Troque pelos números e citações da sua pesquisa de verdade (ou me mande o documento e eu substituo).</p>
+        </div>
+      </div>
+
+      <!-- 10:30 Personas -->
+      <div class="tl-time"><span class="hr">10:30</span></div>
+      <div class="tl-body reveal">
+        <h2>Personas</h2>
+        <p>Uma persona por segmento, porque cada balcão tem uma rotina e uma pressão diferente. Elas mantiveram o produto honesto: toda decisão precisava servir aos quatro.</p>
+        <div class="persona-grid2">
+
+          <div class="persona">
+            <div class="top">
+              <div class="avatar seg-oficina-bg">RM</div>
+              <div><div class="nm">Roberto Mendes</div><div class="role">48 anos · dono de oficina mecânica</div><span class="seg-tag seg-oficina-bg">Oficina</span></div>
+            </div>
+            <div class="quote">"Se eu parar pra anotar no caderno, perco o cliente que tá no telefone."</div>
+            <div class="blk"><b>Objetivos</b><ul><li>Ver o dia cheio de relance</li><li>Encaixar um serviço extra sem bagunçar a fila</li><li>Não esquecer retorno de revisão</li></ul></div>
+            <div class="blk"><b>Frustrações</b><ul><li>Agenda no papel e no WhatsApp ao mesmo tempo</li><li>Carro parado sem previsão clara</li><li>Equipe sem saber o que vem depois</li></ul></div>
+          </div>
+
+          <div class="persona">
+            <div class="top">
+              <div class="avatar seg-salao-bg">DA</div>
+              <div><div class="nm">Daniela Alves</div><div class="role">34 anos · gerente de salão de beleza</div><span class="seg-tag seg-salao-bg">Salão</span></div>
+            </div>
+            <div class="quote">"Cada profissional tem a própria agenda; eu vivo remarcando no improviso."</div>
+            <div class="blk"><b>Objetivos</b><ul><li>Distribuir horários entre profissionais</li><li>Reduzir furos e janelas vazias</li><li>Lembrar a cliente do horário</li></ul></div>
+            <div class="blk"><b>Frustrações</b><ul><li>Encaixes manuais que geram conflito</li><li>Cliente que não confirma e some</li><li>Serviços com durações bem diferentes</li></ul></div>
+          </div>
+
+          <div class="persona">
+            <div class="top">
+              <div class="avatar seg-consult-bg">CR</div>
+              <div><div class="nm">Camila Rocha</div><div class="role">29 anos · secretária de consultório</div><span class="seg-tag seg-consult-bg">Consultório</span></div>
+            </div>
+            <div class="quote">"O doutor quer a agenda do dia limpa, na mão, sem retrabalho."</div>
+            <div class="blk"><b>Objetivos</b><ul><li>Organizar o dia do profissional</li><li>Controlar status: chegou, em atendimento, saiu</li><li>Evitar dois pacientes no mesmo horário</li></ul></div>
+            <div class="blk"><b>Frustrações</b><ul><li>Telefone tocando enquanto agenda</li><li>Remarcações de última hora</li><li>Faltas sem aviso</li></ul></div>
+          </div>
+
+          <div class="persona">
+            <div class="top">
+              <div class="avatar seg-clinica-bg">MS</div>
+              <div><div class="nm">Marcos Silva</div><div class="role">41 anos · coordenador de recepção de clínica</div><span class="seg-tag seg-clinica-bg">Clínica</span></div>
+            </div>
+            <div class="quote">"São vários profissionais e salas; eu preciso ver tudo num lugar só."</div>
+            <div class="blk"><b>Objetivos</b><ul><li>Visão consolidada de vários profissionais</li><li>Status do atendimento em tempo real</li><li>Filtros rápidos no volume alto</li></ul></div>
+            <div class="blk"><b>Frustrações</b><ul><li>Fila de espera sem ordem clara</li><li>Achar um paciente específico demora</li><li>Difícil enxergar gargalos do dia</li></ul></div>
+          </div>
+
+        </div>
+        <div class="placeholder">
+          <span class="pp">Opcional · fotos das personas</span>
+          <p>Usei monogramas no lugar de foto pra ficar limpo. Se quiser fotos reais das suas personas, me mande as imagens que eu troco os avatares.</p>
+        </div>
+      </div>
+
+      <!-- 11:00 Jornada -->
+      <div class="tl-time"><span class="hr">11:00</span></div>
+      <div class="tl-body reveal">
+        <h2>Jornada do usuário</h2>
+        <p>Mapeei a jornada pela ótica de quem opera o balcão — do primeiro contato do cliente até o atendimento concluído. As emoções e os pontos de dor de cada etapa apontaram exatamente onde o produto precisava agir.</p>
+        <div class="flow">
+          <span class="step">Contato</span><span class="arr">→</span>
+          <span class="step">Agendamento</span><span class="arr">→</span>
+          <span class="step">Confirmação</span><span class="arr">→</span>
+          <span class="step">Chegada</span><span class="arr">→</span>
+          <span class="step">Atendimento</span><span class="arr">→</span>
+          <span class="step">Conclusão</span>
+        </div>
+
+        <div class="jmap-wrap">
+          <div class="jmap">
+            <div class="cell corner"></div>
+            <div class="cell stage">Contato</div>
+            <div class="cell stage">Agendamento</div>
+            <div class="cell stage">Confirmação</div>
+            <div class="cell stage">Chegada</div>
+            <div class="cell stage">Atendimento</div>
+            <div class="cell stage">Conclusão</div>
+
+            <div class="cell rowlabel">Ações</div>
+            <div class="cell">Recebe cliente por telefone, WhatsApp ou no balcão</div>
+            <div class="cell">Registra cliente, serviço e horário</div>
+            <div class="cell">Confirma o horário e envia lembrete</div>
+            <div class="cell">Cliente chega; marca como presente</div>
+            <div class="cell">Acompanha o serviço em andamento</div>
+            <div class="cell">Finaliza e registra a conclusão</div>
+
+            <div class="cell rowlabel">Pensa</div>
+            <div class="cell">"Tenho horário pra encaixar?"</div>
+            <div class="cell">"Não posso anotar errado."</div>
+            <div class="cell">"Será que ele vem mesmo?"</div>
+            <div class="cell">"Quem é o próximo da fila?"</div>
+            <div class="cell">"Quanto falta? Já posso chamar o próximo?"</div>
+            <div class="cell">"Fechei certinho?"</div>
+
+            <div class="cell rowlabel">Emoção</div>
+            <div class="cell"><span class="sent-dot" style="background:var(--muted)"></span>Atento</div>
+            <div class="cell"><span class="sent-dot" style="background:var(--hot)"></span>Tensão</div>
+            <div class="cell"><span class="sent-dot" style="background:var(--muted)"></span>Incerteza</div>
+            <div class="cell"><span class="sent-dot" style="background:var(--hot)"></span>Correria</div>
+            <div class="cell"><span class="sent-dot" style="background:var(--accent)"></span>Foco</div>
+            <div class="cell"><span class="sent-dot" style="background:var(--accent)"></span>Alívio</div>
+
+            <div class="cell rowlabel">Dor</div>
+            <div class="cell">Agenda espalhada em vários lugares</div>
+            <div class="cell">Digitação manual, risco de conflito</div>
+            <div class="cell">Faltas e remarcações</div>
+            <div class="cell">Fila sem ordem clara</div>
+            <div class="cell">Não enxergar o andamento de cada um</div>
+            <div class="cell">Histórico que se perde</div>
+
+            <div class="cell rowlabel">Oportunidade</div>
+            <div class="cell opp">Visão única do dia já na abertura</div>
+            <div class="cell opp">Cadastro rápido + serviços pré-definidos</div>
+            <div class="cell opp">Status "agendado/confirmado" visível</div>
+            <div class="cell opp">Mudar status em um toque</div>
+            <div class="cell opp">Status "em progresso" colorido</div>
+            <div class="cell opp">Status "concluído" + registro salvo</div>
+          </div>
+        </div>
+        <p style="font-size:13px;color:var(--muted);margin-top:4px">↔ arraste para o lado pra ver a jornada completa</p>
+
+        <div class="placeholder">
+          <span class="pp">Ajuste · sua jornada real</span>
+          <p>Esta jornada está redigida como rascunho coerente com a pesquisa. Substitua pelas etapas e emoções que você mapeou de verdade — ou me mande o documento que eu reescrevo as células.</p>
+        </div>
+      </div>
+
+      <!-- 13:00 -->
+      <div class="tl-time"><span class="hr">13:00</span></div>
+      <div class="tl-body reveal">
+        <h2>Arquitetura &amp; fluxos</h2>
+        <p>A descoberta da pesquisa virou estrutura: a base comum é <b>agendamento → serviço → status</b>. Cada segmento só troca o rótulo e a lista de serviços; o esqueleto permanece. Isso mantém o sistema simples sem ficar genérico.</p>
+        <ul class="clean">
+          <li><b>Acompanhamento</b> — a visão do dia, com filtros de data, hora, cliente e serviço sempre à mão.</li>
+          <li><b>Cadastro de serviços</b> — cada negócio define o próprio catálogo, no vocabulário dele.</li>
+          <li><b>Status</b> — três estados claros: agendado, em progresso, concluído.</li>
+        </ul>
+        <!-- SITEMAP -->
+        <div class="diagram">
+          <div class="diagram-title">Mapa do sistema · arquitetura da informação</div>
+          <svg viewBox="0 0 820 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Sitemap do sistema de agendamentos">
+            <g fill="none" stroke="#C9C1B0" stroke-width="1.6">
+              <path d="M480 80 V110 M270 110 H690 M270 110 V140 M690 110 V140"/>
+              <path d="M270 196 V220 M110 220 H430 M110 220 V246 M270 220 V246 M430 220 V246"/>
+              <path d="M690 196 V246"/>
+            </g>
+            <!-- root -->
+            <rect x="360" y="24" width="240" height="56" rx="12" fill="#1F7A6B"/>
+            <text x="480" y="57" text-anchor="middle" font-family="Bricolage Grotesque,sans-serif" font-size="15" font-weight="700" fill="#fff">Sistema de Agendamentos</text>
+            <!-- telas -->
+            <rect x="170" y="140" width="200" height="56" rx="11" fill="#FBFAF5" stroke="#1F7A6B" stroke-width="2"/>
+            <text x="270" y="165" text-anchor="middle" font-family="Bricolage Grotesque,sans-serif" font-size="14" font-weight="700" fill="#1C2B30">Acompanhamento</text>
+            <text x="270" y="182" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9.5" fill="#71807F">tela do dia</text>
+            <rect x="590" y="140" width="200" height="56" rx="11" fill="#FBFAF5" stroke="#1F7A6B" stroke-width="2"/>
+            <text x="690" y="165" text-anchor="middle" font-family="Bricolage Grotesque,sans-serif" font-size="13.5" font-weight="700" fill="#1C2B30">Cadastro de Serviços</text>
+            <text x="690" y="182" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9.5" fill="#71807F">catálogo</text>
+            <!-- subs acompanhamento -->
+            <rect x="30" y="246" width="160" height="48" rx="9" fill="#EBE6D9"/>
+            <text x="110" y="268" text-anchor="middle" font-family="Inter,sans-serif" font-size="12.5" font-weight="600" fill="#1C2B30">Filtros</text>
+            <text x="110" y="284" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8.5" fill="#71807F">data·hora·cliente·serviço</text>
+            <rect x="190" y="246" width="160" height="48" rx="9" fill="#EBE6D9"/>
+            <text x="270" y="268" text-anchor="middle" font-family="Inter,sans-serif" font-size="12.5" font-weight="600" fill="#1C2B30">Tabela do dia</text>
+            <text x="270" y="284" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8.5" fill="#71807F">agenda + status</text>
+            <rect x="350" y="246" width="160" height="48" rx="9" fill="#EBE6D9"/>
+            <text x="430" y="268" text-anchor="middle" font-family="Inter,sans-serif" font-size="12.5" font-weight="600" fill="#1C2B30">Detalhe</text>
+            <text x="430" y="284" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8.5" fill="#71807F">atualiza status</text>
+            <!-- sub cadastro -->
+            <rect x="600" y="246" width="180" height="48" rx="9" fill="#EBE6D9"/>
+            <text x="690" y="268" text-anchor="middle" font-family="Inter,sans-serif" font-size="12.5" font-weight="600" fill="#1C2B30">Formulário</text>
+            <text x="690" y="284" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8.5" fill="#71807F">serviço · descrição</text>
+          </svg>
+        </div>
+
+        <!-- FLUXOGRAMA -->
+        <div class="diagram">
+          <div class="diagram-title">Fluxo de atendimento · do dia à conclusão</div>
+          <svg viewBox="0 0 640 560" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Fluxograma do atendimento">
+            <defs>
+              <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                <path d="M0 0 L10 5 L0 10 z" fill="#1F7A6B"/>
+              </marker>
+            </defs>
+            <g fill="none" stroke="#1F7A6B" stroke-width="1.8" marker-end="url(#arr)">
+              <path d="M290 70 V92"/>
+              <path d="M290 146 V166"/>
+              <path d="M360 215 H418"/>
+              <path d="M290 260 V318"/>
+              <path d="M505 240 V345 H400"/>
+              <path d="M290 370 V392"/>
+              <path d="M290 446 V470"/>
+            </g>
+            <!-- start -->
+            <ellipse cx="290" cy="42" rx="82" ry="28" fill="#1F7A6B"/>
+            <text x="290" y="47" text-anchor="middle" font-family="Inter,sans-serif" font-size="13" font-weight="600" fill="#fff">Abre o dia</text>
+            <!-- agenda -->
+            <rect x="185" y="94" width="210" height="50" rx="10" fill="#FBFAF5" stroke="#D9D2C2" stroke-width="1.6"/>
+            <text x="290" y="124" text-anchor="middle" font-family="Inter,sans-serif" font-size="13.5" fill="#1C2B30">Vê a agenda do dia</text>
+            <!-- decisão -->
+            <polygon points="290,170 362,215 290,260 218,215" fill="#FBFAF5" stroke="#E2703A" stroke-width="1.8"/>
+            <text x="290" y="210" text-anchor="middle" font-family="Inter,sans-serif" font-size="11.5" fill="#1C2B30">Achar um</text>
+            <text x="290" y="225" text-anchor="middle" font-family="Inter,sans-serif" font-size="11.5" fill="#1C2B30">atendimento?</text>
+            <text x="384" y="207" font-family="JetBrains Mono,monospace" font-size="10" fill="#E2703A">sim</text>
+            <text x="300" y="288" font-family="JetBrains Mono,monospace" font-size="10" fill="#71807F">não</text>
+            <!-- filtrar -->
+            <rect x="420" y="190" width="170" height="50" rx="10" fill="#FBFAF5" stroke="#D9D2C2" stroke-width="1.6"/>
+            <text x="505" y="211" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" fill="#1C2B30">Filtra por data, hora,</text>
+            <text x="505" y="227" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" fill="#1C2B30">cliente ou serviço</text>
+            <!-- abre atendimento -->
+            <rect x="185" y="320" width="210" height="50" rx="10" fill="#FBFAF5" stroke="#D9D2C2" stroke-width="1.6"/>
+            <text x="290" y="350" text-anchor="middle" font-family="Inter,sans-serif" font-size="13.5" fill="#1C2B30">Abre o atendimento</text>
+            <!-- atualiza status -->
+            <rect x="185" y="396" width="210" height="50" rx="10" fill="#FBFAF5" stroke="#D9D2C2" stroke-width="1.6"/>
+            <text x="290" y="426" text-anchor="middle" font-family="Inter,sans-serif" font-size="13.5" fill="#1C2B30">Atualiza o status</text>
+            <!-- fim -->
+            <ellipse cx="290" cy="502" rx="112" ry="30" fill="#1C2B30"/>
+            <text x="290" y="507" text-anchor="middle" font-family="Inter,sans-serif" font-size="13" font-weight="600" fill="#fff">Atendimento concluído</text>
+          </svg>
+        </div>
+
+        <div class="status-pills">
+          <span class="lbl">Ciclo do status</span>
+          <span class="sp a">Agendado</span><span class="ar">→</span>
+          <span class="sp b">Em progresso</span><span class="ar">→</span>
+          <span class="sp c">Concluído</span>
+        </div>
+      </div>
+
+      <!-- 14:00 -->
+      <div class="tl-time"><span class="hr">14:00</span></div>
+      <div class="tl-body reveal">
+        <h2>Protótipo</h2>
+        <p>A tela de <b>Acompanhamento de Agendamentos</b> coloca tudo no mesmo lugar: filtros combináveis no topo, a tabela do dia com status colorido e o cadastro de serviços direto na tela — resolvendo as três maiores dores de uma vez.</p>
+
+        <div id="sa-embed" data-seg="oficina">
+<div class="app-wrap">
+
+  <!-- SELETOR DE TEMA POR TIPO DE SERVIÇO -->
+  <div class="seg-switch">
+    <span class="lbl">Tipo de negócio</span>
+    <div class="opts" id="segOpts">
+      <button class="seg-btn active" data-k="oficina"><span class="dot"></span>Oficina</button>
+      <button class="seg-btn" data-k="salao"><span class="dot"></span>Salão</button>
+      <button class="seg-btn" data-k="consult"><span class="dot"></span>Consultório</button>
+      <button class="seg-btn" data-k="clinica"><span class="dot"></span>Clínica</button>
+    </div>
+  </div>
+
+  <div class="ui">
+    <div class="chrome"><i></i><i></i><i></i><span class="u" id="chromeUrl">app · acompanhamento de agendamentos</span></div>
+    <div class="app">
+
+      <div class="apphead">
+        <div class="ttl">
+          <h1>Acompanhamento de Agendamentos</h1>
+          <span class="seg-badge" id="segBadge">Oficina</span>
+        </div>
+        <button class="btn primary" id="btnNovo">+ Novo agendamento</button>
+      </div>
+
+      <!-- FILTROS sempre visíveis -->
+      <div class="toolbar">
+        <div class="field"><label>Data</label><input type="date" id="fData"></div>
+        <div class="field"><label>Hora</label><select id="fHora"><option value="">Todas</option></select></div>
+        <div class="field"><label>Cliente</label><input type="text" id="fCliente" placeholder="Nome do cliente"></div>
+        <div class="field"><label>Serviço</label><select id="fServico"><option value="">Todos</option></select></div>
+        <button class="btn primary" id="btnConsultar">Consultar</button>
+        <button class="btn ghost" id="btnLimpar">Limpar</button>
+      </div>
+
+      <!-- TABELA DO DIA -->
+      <div class="ui-scroll">
+        <table>
+          <thead>
+            <tr><th>Nome</th><th>Telefone</th><th>Data</th><th>Hora</th><th>Serviço</th><th>Status</th><th>Ações</th></tr>
+          </thead>
+          <tbody id="tbody"></tbody>
+        </table>
+      </div>
+      <div class="pag"><span id="pagInfo"></span><span>Status muda em um clique: use ▸ pra avançar o atendimento</span></div>
+
+      <!-- CADASTRO DE SERVIÇO (mesma tela) -->
+      <div class="svc">
+        <h2>Cadastrar novo serviço</h2>
+        <div class="srow">
+          <div class="field"><label>Serviço</label><input type="text" id="nServico" placeholder="Nome do serviço"></div>
+          <div class="field"><label>Descrição</label><input type="text" id="nDescricao" placeholder="Descrição do serviço"></div>
+          <button class="btn primary" id="btnCadServico">Cadastrar serviço</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- MODAL novo/editar agendamento -->
+<div class="overlay" id="overlay">
+  <div class="modal">
+    <h3 id="modalTitle">Novo agendamento</h3>
+    <div class="mbody">
+      <div class="field"><label>Nome do cliente</label><input type="text" id="mNome" placeholder="Nome"></div>
+      <div class="field"><label>Telefone</label><input type="text" id="mTel" placeholder="(00) 00000-0000"></div>
+      <div class="field"><label>Data</label><input type="date" id="mData"></div>
+      <div class="field"><label>Hora</label><select id="mHora"></select></div>
+      <div class="field"><label>Serviço</label><select id="mServico"></select></div>
+      <div class="field"><label>Status</label>
+        <select id="mStatus">
+          <option value="agendado">Agendado</option>
+          <option value="progresso">Em progresso</option>
+          <option value="concluido">Concluído</option>
+          <option value="cancelado">Cancelado</option>
+        </select>
+      </div>
+    </div>
+    <div class="mfoot">
+      <button class="btn ghost" id="mCancel">Cancelar</button>
+      <button class="btn primary" id="mSave">Salvar</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+</div>
+        <p class="ui-cap">Protótipo navegável e funcional: troque o <b>tipo de negócio</b> no topo (oficina, salão, consultório, clínica) e a tela inteira se reconfigura — cor, serviços e dados de exemplo. Filtros combináveis, status que muda em um clique (botão ▸) e cadastro de serviço na mesma tela.</p>
+
+        <p style="margin-top:20px">As decisões de UI por trás dessa tela servem aos quatro segmentos sem precisar de quatro produtos:</p>
+        <ul class="clean">
+          <li><b>Status por cor</b> — verde, âmbar, cinza e vinho traduzem o andamento sem precisar ler.</li>
+          <li><b>Filtros sempre visíveis</b> — o gesto mais frequente fica a um clique, não escondido em menu.</li>
+          <li><b>Tabela densa e legível</b> — muita informação por tela, porque o uso é rápido.</li>
+          <li><b>Base neutra, configurável por segmento</b> — cada negócio personaliza cor, serviços e rótulos sem mexer na estrutura.</li>
+        </ul>
+      </div>
+
+      <!-- 15:00 -->
+      <div class="tl-time"><span class="hr">15:00</span></div>
+      <div class="tl-body reveal">
+        <h2>Resultados &amp; aprendizados</h2>
+        <p>O que a abordagem entregou e o que eu levaria pra próxima:</p>
+        <div class="research-grid">
+          <div class="insight"><div class="n">✓</div><h4>Base única validada</h4><p>Os quatro segmentos couberam no mesmo fluxo nos testes — sem versão separada por nicho.</p></div>
+          <div class="insight"><div class="n">✓</div><h4>Status mudou a percepção</h4><p>Ver o andamento por cor deu sensação de controle que o caderno nunca deu.</p></div>
+          <div class="insight"><div class="n">→</div><h4>Testar antes, no balcão real</h4><p>Faria o teste de usabilidade mais cedo, com o sistema sendo usado entre atendimentos de verdade.</p></div>
+          <div class="insight"><div class="n">→</div><h4>Próximo passo</h4><p>Lembretes automáticos ao cliente e visão por profissional para o caso da clínica.</p></div>
+        </div>
+        <div class="placeholder">
+          <span class="pp">Ajuste · métricas reais</span>
+          <p>Se você rodou teste com usuários, troque por números reais (taxa de conclusão, tempo pra agendar, nº de participantes). Sem métricas, o aprendizado qualitativo acima já fecha o case com força.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <div style="text-align:center;padding:60px 0 90px">
+      <a class="nav-cta" data-goto="home" style="display:inline-block">← Voltar aos trabalhos</a>
+    </div>
+  </div>
+</div>
+
+
+<!-- ===================== CASE STUDY · VETCARE ===================== -->
+<div id="view-case-vet">
+  <header class="case-hero">
+    <div class="wrap">
+      <a class="back" data-goto="home">&larr; Voltar aos trabalhos</a>
+      <span class="eyebrow">Estudo de caso &middot; 2026</span>
+      <h1>Tirar o controle da medica&ccedil;&atilde;o do papel &mdash; do consult&oacute;rio ao bolso do tutor.</h1>
+      <p class="lead">Quem cuida de um pet doente esquece dose, perde a receita e n&atilde;o sabe se j&aacute; deu o rem&eacute;dio. Desenhei dois produtos conectados: um sistema web para o veterin&aacute;rio e um app para o tutor, ligados pela mesma receita.</p>
+      <div class="case-tags">
+        <span class="chip">Produto</span><span class="chip">UX</span><span class="chip">Integra&ccedil;&atilde;o</span><span class="chip">App mobile</span><span class="chip">Prot&oacute;tipo</span><span class="chip">UI</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <div class="timeline">
+
+      <!-- 08:00 -->
+      <div class="tl-time"><span class="hr">08:00</span></div>
+      <div class="tl-body reveal">
+        <h2>Vis&atilde;o geral</h2>
+        <p>VetCare &eacute; um conceito de dois produtos que conversam: o <b>sistema do veterin&aacute;rio</b> (web) &mdash; onde ele atende, registra o prontu&aacute;rio, controla a farm&aacute;cia e <b>emite a receita</b> &mdash; e o <b>app do tutor</b>, que recebe essa receita, programa a medica&ccedil;&atilde;o e dispara lembretes antes de cada dose. A dor central &eacute; o controle da medica&ccedil;&atilde;o pelo dono do pet, e a aposta &eacute; a integra&ccedil;&atilde;o entre os dois lados.</p>
+        <div class="meta-grid" style="margin-top:18px">
+          <div class="m"><b>Meu papel</b><span>UX/UI &middot; da dor ao prot&oacute;tipo</span></div>
+          <div class="m"><b>Per&iacute;odo</b><span>2026</span></div>
+          <div class="m"><b>Ferramentas</b><span>Figma &middot; HTML/CSS &middot; JS</span></div>
+          <div class="m"><b>Plataforma</b><span>Web (vet) + App (tutor)</span></div>
+        </div>
+      </div>
+
+      <!-- 09:00 -->
+      <div class="tl-time"><span class="hr">09:00</span></div>
+      <div class="tl-body reveal">
+        <h2>A dor</h2>
+        <p>No tratamento em casa, o gargalo n&atilde;o &eacute; o diagn&oacute;stico &mdash; &eacute; a ades&atilde;o. A receita sai em papel, o hor&aacute;rio se perde na rotina e ningu&eacute;m sabe ao certo se a dose das 14h foi dada. Do outro lado, o veterin&aacute;rio n&atilde;o tem retorno do que acontece depois da consulta.</p>
+        <div class="research-grid">
+          <div class="insight"><div class="n">!</div><h4>Receita no papel</h4><p>Some, molha, fica esquecida na bolsa &mdash; e leva a posologia junto.</p></div>
+          <div class="insight"><div class="n">!</div><h4>Dose no escuro</h4><p>&ldquo;J&aacute; dei?&rdquo; &mdash; sem registro, o tutor erra hor&aacute;rio, repete ou pula a dose.</p></div>
+          <div class="insight"><div class="n">!</div><h4>Vet sem retorno</h4><p>Depois que o pet sai da cl&iacute;nica, o acompanhamento vira liga&ccedil;&atilde;o e achismo.</p></div>
+        </div>
+      </div>
+
+      <!-- 10:00 -->
+      <div class="tl-time"><span class="hr">10:00</span></div>
+      <div class="tl-body reveal">
+        <h2>A decis&atilde;o de produto</h2>
+        <p>Em vez de um app solto de lembretes, <b>dois produtos que compartilham o mesmo dado</b>: a receita. O veterin&aacute;rio emite uma vez; o tutor recebe pronto. A receita carrega a responsabilidade t&eacute;cnica (assinatura e CRMV) e vira a ponte entre os dois lados.</p>
+        <p class="ui-cap">Um &uacute;nico dado &mdash; a receita &mdash; emitido pelo vet e consumido pelo app. A integra&ccedil;&atilde;o &eacute; o produto, n&atilde;o um recurso solto.</p>
+      </div>
+
+      <!-- 11:00 -->
+      <div class="tl-time"><span class="hr">11:00</span></div>
+      <div class="tl-body reveal">
+        <h2>Arquitetura modular</h2>
+        <p>O sistema do veterin&aacute;rio &eacute; modular: cada &aacute;rea &eacute; um m&oacute;dulo independente, e novos entram sem mexer no n&uacute;cleo. O app &eacute; enxuto, organizado por tarefa.</p>
+        <div class="meta-grid">
+          <div class="m"><b>Web &middot; m&oacute;dulos hoje</b><span>Atendimento/Prontu&aacute;rio &middot; Receitu&aacute;rio &middot; Clientes &amp; Pets &middot; Farm&aacute;cia/Estoque</span></div>
+          <div class="m"><b>Web &middot; m&oacute;dulos futuros</b><span>Agendamento &middot; Exames &middot; Financeiro</span></div>
+          <div class="m"><b>App &middot; abas</b><span>In&iacute;cio &middot; Receitas &middot; Medica&ccedil;&atilde;o &middot; Prontu&aacute;rio</span></div>
+          <div class="m"><b>N&uacute;cleo</b><span>Receita compartilhada vet &harr; tutor</span></div>
+        </div>
+      </div>
+
+      <!-- 14:00 -->
+      <div class="tl-time"><span class="hr">14:00</span></div>
+      <div class="tl-body reveal">
+        <h2>Prot&oacute;tipo</h2>
+        <p>Os dois produtos num s&oacute; prot&oacute;tipo naveg&aacute;vel, com <b>estado compartilhado</b>. Alterne entre <b>Veterin&aacute;rio &middot; Web</b> e <b>Tutor &middot; App</b> no topo: o que o veterin&aacute;rio emite aparece no app do tutor.</p>
+        <div class="vc-embed-frame">
+<div id="vet-embed">
+
+
+<!-- ===== SWITCHER ===== -->
+<div class="switcher">
+  <div class="in">
+    <div class="brand"><span class="logo">🐾</span> VetCare</div>
+    <div class="seg">
+      <button id="swVet" class="on" onclick="setView('vet')">🩺 Veterinário · Web</button>
+      <button id="swApp" onclick="setView('app')">📱 Tutor · App</button>
+    </div>
+    <div class="switch-note">protótipo · estado compartilhado entre as duas visões</div>
+  </div>
+</div>
+
+<!-- ===== VET WEB ===== -->
+<div class="stage" id="view-vet">
+  <div class="vet">
+    <aside class="side">
+      <div class="who"><div class="av">VM</div><div><b>Dra. Vanessa Mota</b><span>CRMV 12345 · Clínica</span></div></div>
+      <div class="nav-item on" data-mod="inicio"><span class="ic">▤</span> Início</div>
+      <div class="nav-item" data-mod="atendimento"><span class="ic">🩺</span> Atendimento</div>
+      <div class="nav-item" data-mod="receituario"><span class="ic">℞</span> Receituário</div>
+      <div class="nav-item" data-mod="clientes"><span class="ic">👥</span> Clientes &amp; Pets</div>
+      <div class="nav-item" data-mod="farmacia"><span class="ic">💊</span> Farmácia / Estoque</div>
+      <div class="nav-sep">Módulos futuros</div>
+      <div class="nav-item soon"><span class="ic">📅</span> Agendamento <small>em breve</small></div>
+      <div class="nav-item soon"><span class="ic">🧪</span> Exames <small>em breve</small></div>
+      <div class="nav-item soon"><span class="ic">💰</span> Financeiro <small>em breve</small></div>
+    </aside>
+    <main id="vetPanel"></main>
+  </div>
+</div>
+
+<!-- ===== TUTOR APP ===== -->
+<div class="stage hidden" id="view-app">
+  <div class="app-stage">
+    <div class="phone">
+      <div class="scr">
+        <div class="statusbar"><span id="appClock">09:41</span><span class="dots"><i></i><i></i><i></i></span></div>
+        <div class="apphead">
+          <div class="pet">
+            <div class="pic" id="appPetPic">🐶</div>
+            <div><b id="appPetName">—</b><span id="appPetMeta">—</span></div>
+          </div>
+          <select class="f" id="appPetSel" style="width:auto;font-size:12px;padding:6px 8px" onchange="appSwitchPet()"></select>
+        </div>
+        <div class="appbody" id="appBody"></div>
+        <div class="apptabs">
+          <button class="on" data-tab="inicio" onclick="appTab('inicio')"><span class="ic">🏠</span>Início</button>
+          <button data-tab="receitas" onclick="appTab('receitas')"><span class="ic">℞</span>Receitas</button>
+          <button data-tab="medicacao" onclick="appTab('medicacao')"><span class="ic">⏰</span>Medicação</button>
+          <button data-tab="prontuario" onclick="appTab('prontuario')"><span class="ic">📋</span>Prontuário</button>
+        </div>
+        <!-- sheet nativo do app (fica dentro do frame do celular) -->
+        <div class="app-sheet" id="appSheet">
+          <div class="sh-head"><h3 id="shTitle"></h3><button class="x" onclick="closeAppModal()">×</button></div>
+          <div class="sh-bd" id="shBody"></div>
+          <div class="sh-ft" id="shFoot"></div>
+        </div>
+        <!-- notificação push (formato celular, dentro do frame) -->
+        <div class="push" id="push" onclick="hidePush()">
+          <div class="push-card">
+            <div class="push-top"><div class="ic">🐾</div><span class="app">VetCare</span><span class="ago" id="pushAgo">agora</span></div>
+            <div class="tt">Lembrete de medicação</div>
+            <div class="ms" id="pushMs"></div>
+            <div class="grab"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="max-width:300px" class="muted">
+      <h3 style="font-size:16px;color:var(--ink);margin-bottom:8px">A dor que o app resolve</h3>
+      <p style="font-size:13.5px">O tutor recebe a receita emitida pela veterinária, <b>programa os horários</b> e o app cria os <b>lembretes antes de cada dose</b>. O controle da medicação sai do papel — e o prontuário fica visível pros dois lados.</p>
+      <p style="font-size:12.5px;margin-top:10px">Use o botão <b>“Testar lembrete”</b> dentro do app pra ver a notificação. Emita uma receita na visão <b>Veterinário</b> e volte aqui: ela aparece em <b>Receitas</b>.</p>
+    </div>
+  </div>
+</div>
+
+<!-- modal + toast -->
+<div class="ov" id="ov"><div class="md"><h3 id="mdTitle"></h3><div class="bd" id="mdBody"></div><div class="ft" id="mdFoot"></div></div></div>
+<div class="toast" id="vcToast"></div>
+
+
+</div>
+</div>
+        <p class="ui-cap">Emita uma receita em <b>Veterin&aacute;rio</b> &rarr; troque pra <b>Tutor</b>: ela est&aacute; em Receitas. Programe a medica&ccedil;&atilde;o e veja os lembretes no formato do celular.</p>
+        <p style="margin-top:18px">Decis&otilde;es de UI que sustentam os dois produtos:</p>
+        <ul class="clean">
+          <li><b>A receita &eacute; um documento</b> &mdash; cabe&ccedil;alho da cl&iacute;nica, prescri&ccedil;&atilde;o e assinatura/CRMV, igual nos dois lados.</li>
+          <li><b>Integra&ccedil;&atilde;o como n&uacute;cleo</b> &mdash; emitir no consult&oacute;rio e receber no app &eacute; o mesmo dado, n&atilde;o duas digita&ccedil;&otilde;es.</li>
+          <li><b>Lembrete no formato do celular</b> &mdash; a notifica&ccedil;&atilde;o nasce da receita programada, antes de cada dose.</li>
+          <li><b>Base modular</b> &mdash; farm&aacute;cia, prontu&aacute;rio e receitu&aacute;rio hoje; agendamento, exames e financeiro como m&oacute;dulos futuros.</li>
+        </ul>
+      </div>
+
+      <!-- 15:00 -->
+      <div class="tl-time"><span class="hr">15:00</span></div>
+      <div class="tl-body reveal">
+        <h2>Resultados &amp; aprendizados</h2>
+        <p>O que o conceito mostrou e o que eu levaria adiante:</p>
+        <div class="research-grid">
+          <div class="insight"><div class="n">&check;</div><h4>Integra&ccedil;&atilde;o tang&iacute;vel</h4><p>Emitir no vet e ver chegar no app, ao vivo, deixa claro o valor &mdash; &eacute; o que vende a ideia.</p></div>
+          <div class="insight"><div class="n">&check;</div><h4>Receita com responsabilidade</h4><p>Tratar a receita como documento assinado (CRMV) d&aacute; peso e confian&ccedil;a aos dois lados.</p></div>
+          <div class="insight"><div class="n">&rarr;</div><h4>Validar ades&atilde;o real</h4><p>Pr&oacute;ximo passo: testar com tutores de verdade e medir se o lembrete melhora a ades&atilde;o.</p></div>
+          <div class="insight"><div class="n">&rarr;</div><h4>Notifica&ccedil;&otilde;es nativas</h4><p>Sair da simula&ccedil;&atilde;o para push real, com confirma&ccedil;&atilde;o de dose direto da notifica&ccedil;&atilde;o.</p></div>
+        </div>
+        <div class="placeholder">
+          <span class="pp">Conceito &middot; prot&oacute;tipo naveg&aacute;vel</span>
+          <p>&Eacute; um prot&oacute;tipo de produto (n&atilde;o um sistema em produ&ccedil;&atilde;o). Serve pra alinhar vis&atilde;o, fluxo e a proposta de valor da integra&ccedil;&atilde;o vet &harr; tutor.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <div style="text-align:center;padding:60px 0 90px">
+      <a class="nav-cta" data-goto="home" style="display:inline-block">&larr; Voltar aos trabalhos</a>
+    </div>
+  </div>
+</div>
+
+<script>
+  const home   = document.getElementById('view-home');
+  const cas    = document.getElementById('view-case');
+  const casVet = document.getElementById('view-case-vet');
+  function showView(which){
+    home.style.display   = (which==='home') ? 'block' : 'none';
+    cas.style.display    = (which==='case-agendamentos') ? 'block' : 'none';
+    casVet.style.display = (which==='case-vetcare') ? 'block' : 'none';
+    window.scrollTo(0,0); runReveal();
+  }
+  function go(target){
+    if(target==='case-agendamentos' || target==='case-vetcare' || target==='home'){ showView(target); return; }
+    // âncora dentro da página (Sobre, Contato, etc.)
+    const onCase = cas.style.display==='block' || casVet.style.display==='block';
+    if(onCase){
+      showView('home');
+      setTimeout(()=>document.getElementById(target)?.scrollIntoView({behavior:'smooth'}), 60);
+    } else {
+      document.getElementById(target)?.scrollIntoView({behavior:'smooth'});
+    }
+  }
+  document.querySelectorAll('[data-goto]').forEach(el=>{
+    el.style.cursor='pointer';
+    el.setAttribute('role','link');
+    el.setAttribute('tabindex','0');
+    el.addEventListener('click', e=>{ e.preventDefault(); go(el.getAttribute('data-goto')); });
+    el.addEventListener('keydown', e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); go(el.getAttribute('data-goto')); } });
+  });
+  let io;
+  function runReveal(){
+    const els = [...document.querySelectorAll('.reveal')].filter(el=>el.offsetParent!==null);
+    if(!('IntersectionObserver' in window)){els.forEach(e=>e.classList.add('in'));return;}
+    if(io) io.disconnect();
+    io = new IntersectionObserver((entries)=>{entries.forEach(en=>{if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target);}});},{threshold:.12,rootMargin:'0px 0px -40px 0px'});
+    els.forEach(el=>{ if(!el.classList.contains('in')) io.observe(el); });
+  }
+  runReveal();
+
+  // ===== sistema de agendamento embutido =====
+  (function(){
+  // ---- configuração por segmento (cor + rótulo + serviços + dados) ----
+  const SEG = {
+    oficina: {
+      nome:'Oficina', color:'#3A6EA5', deep:'#2B5480', soft:'rgba(58,110,165,.12)',
+      servicos:['Troca de óleo','Alinhamento','Balanceamento','Revisão geral','Suspensão'],
+      rows:[
+        ['João Silva','(11) 98765-4321','08:00','Troca de óleo','agendado'],
+        ['Ana Oliveira','(11) 98765-9876','09:00','Alinhamento','progresso'],
+        ['Pedro Costa','(11) 91234-5678','10:00','Balanceamento','concluido'],
+        ['Marina Souza','(11) 99876-1122','10:30','Troca de óleo','agendado'],
+        ['Rafael Lima','(11) 98123-4455','11:00','Revisão geral','progresso'],
+        ['Carla Dias','(11) 99654-7788','11:30','Suspensão','cancelado'],
+      ]
+    },
+    salao: {
+      nome:'Salão', color:'#C2557A', deep:'#9C3F60', soft:'rgba(194,85,122,.12)',
+      servicos:['Corte','Coloração','Escova','Manicure','Hidratação'],
+      rows:[
+        ['Beatriz Nunes','(11) 99111-2233','09:00','Corte','agendado'],
+        ['Luana Martins','(11) 99222-3344','09:30','Coloração','progresso'],
+        ['Patrícia Gomes','(11) 99333-4455','10:30','Escova','agendado'],
+        ['Renata Alves','(11) 99444-5566','11:00','Manicure','concluido'],
+        ['Tatiane Reis','(11) 99555-6677','13:00','Hidratação','agendado'],
+        ['Juliana Pires','(11) 99666-7788','14:00','Corte','cancelado'],
+      ]
+    },
+    consult: {
+      nome:'Consultório', color:'#1F7A6B', deep:'#155A4F', soft:'rgba(31,122,107,.12)',
+      servicos:['Consulta','Retorno','Exame','Avaliação'],
+      rows:[
+        ['Marcos Vieira','(11) 98777-1212','08:30','Consulta','agendado'],
+        ['Sônia Castro','(11) 98888-2323','09:00','Retorno','progresso'],
+        ['Eduardo Pinto','(11) 98999-3434','09:30','Exame','agendado'],
+        ['Helena Cruz','(11) 98000-4545','10:00','Avaliação','concluido'],
+        ['Roberto Lemos','(11) 98111-5656','10:30','Consulta','agendado'],
+        ['Vera Antunes','(11) 98222-6767','11:00','Retorno','cancelado'],
+      ]
+    },
+    clinica: {
+      nome:'Clínica', color:'#6FA15B', deep:'#557D45', soft:'rgba(111,161,91,.12)',
+      servicos:['Consulta clínica','Fisioterapia','Curativo','Vacina','Exame'],
+      rows:[
+        ['Fernanda Rocha','(11) 97123-1100','08:00','Consulta clínica','agendado'],
+        ['Gustavo Mota','(11) 97234-2211','08:30','Fisioterapia','progresso'],
+        ['Cláudia Barros','(11) 97345-3322','09:00','Curativo','concluido'],
+        ['Diego Farias','(11) 97456-4433','09:30','Vacina','agendado'],
+        ['Letícia Campos','(11) 97567-5544','10:00','Exame','progresso'],
+        ['Otávio Brito','(11) 97678-6655','10:30','Consulta clínica','cancelado'],
+      ]
+    }
+  };
+  const STLABEL = {agendado:'Agendado', progresso:'Em progresso', concluido:'Concluído', cancelado:'Cancelado'};
+  const NEXT = {agendado:'progresso', progresso:'concluido', concluido:'agendado', cancelado:'agendado'};
+  const DEFAULT_DATE = '2025-03-24';
+  const fmtBR = iso => { const [y,m,d]=iso.split('-'); return d+'/'+m+'/'+y; };
+
+  let segKey = 'oficina';
+  let rows = [];   // dados de trabalho (objetos)
+  let editIdx = null;
+
+  const $ = id => document.getElementById(id);
+
+  function applyTheme(){
+    const s = SEG[segKey];
+    const r = document.getElementById('sa-embed').style;
+    r.setProperty('--seg', s.color);
+    r.setProperty('--seg-deep', s.deep);
+    r.setProperty('--seg-100', s.soft);
+    document.getElementById('sa-embed').setAttribute('data-seg', segKey);
+    $('segBadge').textContent = s.nome;
+    $('chromeUrl').textContent = 'app · '+s.nome.toLowerCase()+' · acompanhamento de agendamentos';
+    document.querySelectorAll('.seg-btn').forEach(b=>b.classList.toggle('active', b.dataset.k===segKey));
+  }
+
+  function loadSegment(){
+    const s = SEG[segKey];
+    rows = s.rows.map(r=>({nome:r[0], tel:r[1], dataIso:DEFAULT_DATE, hora:r[2], servico:r[3], status:r[4]}));
+    fillServiceSelects();
+    fillHoraSelects();
+    clearFilters();
+    render(rows);
+  }
+
+  function fillServiceSelects(){
+    const s = SEG[segKey];
+    const optsF = '<option value="">Todos</option>'+s.servicos.map(x=>`<option>${x}</option>`).join('');
+    const optsM = s.servicos.map(x=>`<option>${x}</option>`).join('');
+    $('fServico').innerHTML = optsF;
+    $('mServico').innerHTML = optsM;
+  }
+  function fillHoraSelects(){
+    let horas=[];
+    for(let h=8; h<=18; h++){ horas.push((h<10?'0':'')+h+':00'); horas.push((h<10?'0':'')+h+':30'); }
+    $('fHora').innerHTML = '<option value="">Todas</option>'+horas.map(x=>`<option>${x}</option>`).join('');
+    $('mHora').innerHTML = horas.map(x=>`<option>${x}</option>`).join('');
+  }
+
+  function render(list){
+    const tb = $('tbody');
+    if(!list.length){
+      tb.innerHTML = '<tr class="empty"><td colspan="7">Nenhum agendamento encontrado para os filtros aplicados.</td></tr>';
+    } else {
+      tb.innerHTML = list.map(r=>{
+        const i = rows.indexOf(r);
+        return `<tr>
+          <td>${r.nome}</td><td>${r.tel}</td><td>${fmtBR(r.dataIso)}</td><td>${r.hora}</td><td>${r.servico}</td>
+          <td><span class="st ${r.status}">${STLABEL[r.status]}</span></td>
+          <td class="center"><span class="act">
+            <button title="Editar" data-edit="${i}">✎</button>
+            <button title="Avançar status" data-adv="${i}">▸</button>
+          </span></td>
+        </tr>`;
+      }).join('');
+    }
+    $('pagInfo').textContent = `Mostrando ${list.length} de ${rows.length} agendamentos`;
+  }
+
+  function consultar(){
+    const fd = $('fData').value, fh = $('fHora').value;
+    const fc = $('fCliente').value.trim().toLowerCase(), fs = $('fServico').value;
+    const out = rows.filter(r=>
+      (!fd || r.dataIso===fd) &&
+      (!fh || r.hora===fh) &&
+      (!fc || r.nome.toLowerCase().includes(fc)) &&
+      (!fs || r.servico===fs)
+    );
+    render(out);
+  }
+  function clearFilters(){ $('fData').value=''; $('fHora').value=''; $('fCliente').value=''; $('fServico').value=''; }
+
+  // toast
+  let toT;
+  function toast(msg){
+    const t=$('toast'); t.innerHTML=msg; t.classList.add('show');
+    clearTimeout(toT); toT=setTimeout(()=>t.classList.remove('show'),2600);
+  }
+
+  // modal
+  function openModal(idx){
+    editIdx = (idx===undefined||idx===null) ? null : idx;
+    $('modalTitle').textContent = editIdx===null ? 'Novo agendamento' : 'Editar agendamento';
+    if(editIdx===null){
+      $('mNome').value=''; $('mTel').value=''; $('mData').value=DEFAULT_DATE;
+      $('mHora').value='08:00'; $('mServico').selectedIndex=0; $('mStatus').value='agendado';
+    } else {
+      const r=rows[editIdx];
+      $('mNome').value=r.nome; $('mTel').value=r.tel; $('mData').value=r.dataIso;
+      $('mHora').value=r.hora; $('mServico').value=r.servico; $('mStatus').value=r.status;
+    }
+    $('overlay').classList.add('open');
+  }
+  function closeModal(){ $('overlay').classList.remove('open'); }
+  function saveModal(){
+    const nome=$('mNome').value.trim();
+    if(!nome){ toast('Informe o nome do cliente.'); return; }
+    const obj={nome, tel:$('mTel').value.trim()||'—', dataIso:$('mData').value||DEFAULT_DATE,
+      hora:$('mHora').value, servico:$('mServico').value, status:$('mStatus').value};
+    if(editIdx===null){ rows.unshift(obj); toast(`Agendamento de <b>${nome}</b> criado.`); }
+    else { rows[editIdx]=obj; toast(`Agendamento de <b>${nome}</b> atualizado.`); }
+    closeModal(); consultar();
+  }
+
+  // eventos
+  $('segOpts').addEventListener('click', e=>{
+    const b=e.target.closest('.seg-btn'); if(!b) return;
+    segKey=b.dataset.k; applyTheme(); loadSegment();
+  });
+  $('btnConsultar').addEventListener('click', consultar);
+  $('btnLimpar').addEventListener('click', ()=>{ clearFilters(); render(rows); });
+  $('btnNovo').addEventListener('click', ()=>openModal(null));
+  $('mCancel').addEventListener('click', closeModal);
+  $('mSave').addEventListener('click', saveModal);
+  $('overlay').addEventListener('click', e=>{ if(e.target===$('overlay')) closeModal(); });
+
+  $('tbody').addEventListener('click', e=>{
+    const ed=e.target.closest('[data-edit]'); const ad=e.target.closest('[data-adv]');
+    if(ed){ openModal(+ed.dataset.edit); }
+    else if(ad){ const i=+ad.dataset.adv; rows[i].status=NEXT[rows[i].status]; consultar(); toast(`Status: <b>${STLABEL[rows[i].status]}</b>`); }
+  });
+
+  $('btnCadServico').addEventListener('click', ()=>{
+    const nome=$('nServico').value.trim();
+    if(!nome){ toast('Informe o nome do serviço.'); return; }
+    if(!SEG[segKey].servicos.includes(nome)) SEG[segKey].servicos.push(nome);
+    fillServiceSelects();
+    $('nServico').value=''; $('nDescricao').value='';
+    toast(`Serviço <b>${nome}</b> cadastrado em ${SEG[segKey].nome}.`);
+  });
+
+  // init
+  applyTheme();
+  loadSegment();
+})();
+
+</script>
+
+<script>
+/* ====== VetCare (projeto 02) ====== */
+
+/* ============================================================
+   ESTADO COMPARTILHADO (médico <-> tutor)
+   ============================================================ */
+const uid = (p)=>p+Math.random().toString(36).slice(2,8);
+const DB = {
+  clientes:[
+    {id:'c1', nome:'Mariana Costa', tel:'(47) 99812-3344', email:'mariana@email.com'},
+    {id:'c2', nome:'João Pereira', tel:'(47) 99655-1020', email:'joao@email.com'},
+  ],
+  pets:[
+    {id:'p1', tutorId:'c1', nome:'Thor', especie:'Cão', raca:'Labrador', sexo:'Macho', nasc:'2021-04-10', peso:'28,5', emoji:'🐶'},
+    {id:'p2', tutorId:'c2', nome:'Mel', especie:'Gato', raca:'SRD', sexo:'Fêmea', nasc:'2020-09-02', peso:'4,2', emoji:'🐱'},
+  ],
+  medicamentos:[
+    {id:'m1', nome:'Amoxicilina 250mg', forma:'Comprimido', estoque:40, min:20, movs:[{t:'entrada',q:50,d:'01/06',obs:'Compra'},{t:'saida',q:10,d:'08/06',obs:'Dispensa'}]},
+    {id:'m2', nome:'Meloxicam 2mg/ml', forma:'Suspensão', estoque:12, min:15, movs:[{t:'entrada',q:20,d:'01/06',obs:'Compra'},{t:'saida',q:8,d:'09/06',obs:'Dispensa'}]},
+    {id:'m3', nome:'Dipirona gotas', forma:'Solução', estoque:30, min:10, movs:[{t:'entrada',q:30,d:'02/06',obs:'Compra'}]},
+    {id:'m4', nome:'Vermífugo amplo espectro', forma:'Comprimido', estoque:8, min:12, movs:[{t:'entrada',q:24,d:'20/05',obs:'Compra'},{t:'saida',q:16,d:'05/06',obs:'Dispensa'}]},
+  ],
+  consultas:[
+    {id:'k1', petId:'p1', data:'09/06/2025', peso:'28,5', anamnese:'Tutor relata apatia e perda de apetite há 2 dias.', diagnostico:'Infecção gastrointestinal leve', conduta:'Antibioticoterapia + anti-inflamatório. Retorno em 7 dias.', vet:'Dra. Vanessa Mota'},
+  ],
+  receitas:[
+    {id:'r1', petId:'p1', consultaId:'k1', data:'09/06/2025', vet:'Dra. Vanessa Mota', status:'recebida',
+     itens:[
+       {nome:'Amoxicilina 250mg', dose:'1 comprimido', via:'Oral', freq:8, dur:7, obs:'Após a refeição'},
+       {nome:'Meloxicam 2mg/ml', dose:'1,5 ml', via:'Oral', freq:24, dur:5, obs:'Pela manhã'},
+     ]},
+  ],
+  agendas:[],
+};
+
+/* ---------- helpers de domínio ---------- */
+const petsDoTutor = (cid)=>DB.pets.filter(p=>p.tutorId===cid);
+const getPet = id=>DB.pets.find(p=>p.id===id);
+const getCliente = id=>DB.clientes.find(c=>c.id===id);
+const tutorDoPet = id=>getCliente(getPet(id).tutorId);
+const $ = id=>document.getElementById(id);
+function toast(m){const t=$('vcToast');t.innerHTML=m;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),2600);}
+function fmtH(d){return String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');}
+function freqTxt(f){return f==24?'1x ao dia':(f+' em '+f+'h');}
+function statusTag(st){const cls = st==='programada'?'green':(st==='recebida'?'blue':'grey'); return '<span class="tag '+cls+'">'+st+'</span>';}
+
+/* ---------- dados da clínica / responsável técnico ---------- */
+const CLINICA = {
+  nome:'VetCare', sub:'Clínica Veterinária',
+  endereco:'Rua das Acácias, 240 — Centro · Gaspar/SC',
+  contato:'(47) 3332-1100 · contato@vetcare.com.br',
+  cidade:'Gaspar/SC',
+  vet:'Dra. Vanessa Mota', crmv:'CRMV-SC 12345'
+};
+function viaAbrev(v){return ({'Oral':'VO (via oral)','Tópica':'uso tópico','Subcutânea':'SC (subcutânea)','Intramuscular':'IM (intramuscular)'})[v]||v;}
+function posologia(i){return i.dose+' — '+viaAbrev(i.via)+', '+freqTxt(i.freq)+', por '+i.dur+' dias';}
+
+/* documento de receita (compartilhado: web do médico + app do tutor) */
+function receitaDocHTML(r){
+  const pet=getPet(r.petId); const tut=tutorDoPet(r.petId);
+  const itens = r.itens.map((i,ix)=>'<li><div class="rx-name">'+(ix+1)+'. '+i.nome+'</div>'
+    +'<div class="rx-pos">'+posologia(i)+'</div>'
+    +(i.obs?('<div class="rx-obs">Obs.: '+i.obs+'</div>'):'')+'</li>').join('');
+  const numero = r.id.replace(/[^0-9a-z]/gi,'').slice(-6).toUpperCase();
+  return '<div class="receita-doc">'
+    +'<div class="rd-head"><div class="rd-clinic"><div class="rd-logo">🐾</div>'
+      +'<div class="rd-cinfo"><b>'+CLINICA.nome+'</b><span>'+CLINICA.sub+'</span><span>'+CLINICA.endereco+'</span><span>'+CLINICA.contato+'</span></div></div>'
+      +'<div class="rd-meta"><span>Receita nº '+numero+'</span><span>'+r.data+'</span></div></div>'
+    +'<div class="rd-title">RECEITUÁRIO VETERINÁRIO<span>Uso veterinário</span></div>'
+    +'<div class="rd-party"><div><label>Paciente</label>'+pet.nome+' — '+pet.especie+', '+pet.raca+', '+pet.sexo+' · '+pet.peso+' kg</div>'
+      +'<div><label>Tutor(a) responsável</label>'+tut.nome+(tut.tel?(' · '+tut.tel):'')+'</div></div>'
+    +'<div class="rd-body"><div class="rd-rx">℞</div><ol class="rd-list">'+itens+'</ol></div>'
+    +'<div class="rd-foot"><div class="rd-local">'+CLINICA.cidade+', '+r.data+'</div>'
+      +'<div class="rd-sign"><div class="rd-signname">'+(r.vet||CLINICA.vet)+'</div><div class="rd-line"></div>'
+      +'<b>'+(r.vet||CLINICA.vet)+'</b><span>'+CLINICA.crmv+'</span><span>Médica-veterinária — responsável técnica</span></div></div>'
+    +'</div>';
+}
+function verReceitaVet(id){
+  const r=DB.receitas.find(x=>x.id===id);
+  modal('Receita emitida', receitaDocHTML(r), [{txt:'Fechar',fn:closeModal},{txt:'🖨 Imprimir / PDF',cls:'primary',fn:()=>{document.body.classList.add('printing');window.print();setTimeout(()=>document.body.classList.remove('printing'),300);}}]);
+}
+function verReceitaApp(id){
+  const r=DB.receitas.find(x=>x.id===id);
+  const programada=DB.agendas.some(a=>a.receitaId===id);
+  appModal('Receita', receitaDocHTML(r), [{txt:'Fechar',fn:closeAppModal},{txt:(programada?'Reprogramar':'⏰ Programar medicação'),cls:'primary',fn:()=>{closeAppModal();programar(id);}}]);
+}
+
+/* ============================================================
+   VIEW SWITCH
+   ============================================================ */
+let VIEW='vet';
+function setView(v){
+  VIEW=v;
+  $('view-vet').classList.toggle('hidden', v!=='vet');
+  $('view-app').classList.toggle('hidden', v!=='app');
+  $('swVet').classList.toggle('on', v==='vet');
+  $('swApp').classList.toggle('on', v==='app');
+  if(v==='vet') renderVet(); else renderApp();
+}
+
+/* ============================================================
+   MODAL genérico
+   ============================================================ */
+function modal(title, bodyHTML, foot){
+  $('mdTitle').textContent=title; $('mdBody').innerHTML=bodyHTML; $('mdFoot').innerHTML='';
+  (foot||[]).forEach(b=>{const el=document.createElement('button');el.className='btn '+(b.cls||'ghost');el.textContent=b.txt;el.onclick=b.fn;$('mdFoot').appendChild(el);});
+  $('ov').classList.add('open');
+}
+function closeModal(){$('ov').classList.remove('open');}
+$('ov').addEventListener('click',e=>{if(e.target===$('ov'))closeModal();});
+
+/* sheet do app (dentro do frame do celular) */
+function appModal(title, bodyHTML, foot){
+  $('shTitle').textContent=title; $('shBody').innerHTML=bodyHTML; $('shFoot').innerHTML='';
+  (foot||[]).forEach(b=>{const el=document.createElement('button');el.className='btn '+(b.cls||'ghost');el.textContent=b.txt;el.onclick=b.fn;$('shFoot').appendChild(el);});
+  $('appSheet').classList.add('open');
+}
+function closeAppModal(){$('appSheet').classList.remove('open');}
+
+/* ============================================================
+   ===================  VET WEB  ==============================
+   ============================================================ */
+let VMOD='inicio';
+document.querySelectorAll('.nav-item[data-mod]').forEach(n=>{
+  n.addEventListener('click',()=>{VMOD=n.dataset.mod;document.querySelectorAll('.nav-item').forEach(x=>x.classList.remove('on'));n.classList.add('on');renderVet();});
+});
+function renderVet(){
+  const p=$('vetPanel');
+  if(VMOD==='inicio') p.innerHTML=vInicio();
+  else if(VMOD==='atendimento') p.innerHTML=vAtendimento();
+  else if(VMOD==='receituario') p.innerHTML=vReceituario();
+  else if(VMOD==='clientes') p.innerHTML=vClientes();
+  else if(VMOD==='farmacia') p.innerHTML=vFarmacia();
+}
+function goMod(m){VMOD=m;document.querySelectorAll('.nav-item').forEach(x=>x.classList.toggle('on',x.dataset.mod===m));renderVet();}
+
+/* ---- Início ---- */
+function recRowMini(r){
+  const pt=getPet(r.petId);
+  return '<div class="row" style="justify-content:space-between;border-bottom:1px solid var(--line);padding:8px 0">'
+    +'<span><b>'+pt.nome+'</b> <span class="muted">· '+r.itens.length+' medicamento(s)</span></span>'
+    +statusTag(r.status)+'</div>';
+}
+function vInicio(){
+  const lows=DB.medicamentos.filter(m=>m.estoque<m.min).length;
+  const recHTML = DB.receitas.slice().reverse().map(recRowMini).join('') || '<div class="empty">Nenhuma receita ainda.</div>';
+  return `<div class="panel">
+    <div class="panel-head"><div><h2>Início</h2><div class="sub">Visão geral da clínica · ${new Date().toLocaleDateString('pt-BR')}</div></div></div>
+    <div class="kpis">
+      <div class="kpi"><div class="v">${DB.pets.length}</div><div class="l">Pets cadastrados</div></div>
+      <div class="kpi b"><div class="v">${DB.consultas.length}</div><div class="l">Atendimentos</div></div>
+      <div class="kpi a"><div class="v">${DB.receitas.length}</div><div class="l">Receitas emitidas</div></div>
+      <div class="kpi r"><div class="v">${lows}</div><div class="l">Itens em estoque baixo</div></div>
+    </div>
+    <div class="grid2">
+      <div class="card2"><h3>Atalhos</h3><div class="row">
+        <button class="btn primary" onclick="goMod('atendimento')">🩺 Novo atendimento</button>
+        <button class="btn ghost" onclick="goMod('receituario')">℞ Emitir receita</button>
+        <button class="btn ghost" onclick="goMod('clientes')">👥 Novo cliente + pet</button>
+      </div>
+      <p class="muted" style="font-size:13px;margin-top:12px">Arquitetura modular: cada área é um módulo independente. Novos módulos (Agendamento, Exames, Financeiro) entram sem mexer no núcleo.</p>
+      </div>
+      <div class="card2"><h3>Receitas recentes</h3>${recHTML}</div>
+    </div>
+  </div>`;
+}
+
+/* ---- Atendimento / Prontuário ---- */
+function petOptions(sel){
+  return DB.pets.map(p=>'<option value="'+p.id+'"'+(p.id===sel?' selected':'')+'>'+p.nome+' · '+tutorDoPet(p.id).nome+'</option>').join('');
+}
+function consEv(c){
+  return '<div class="ev"><div class="dt">'+c.data+' · '+c.vet+'</div>'
+    +'<h4>'+c.diagnostico+' <span class="muted" style="font-weight:400">· '+c.peso+' kg</span></h4>'
+    +'<p><b>Anamnese:</b> '+c.anamnese+'</p>'
+    +'<p><b>Conduta:</b> '+c.conduta+'</p>'
+    +'<div class="row" style="margin-top:6px"><button class="btn ghost sm" onclick="emitirDe(\''+c.petId+'\',\''+c.id+'\')">℞ Emitir receita desta consulta</button></div></div>';
+}
+function vAtendimento(){
+  const petId=window._atPet||DB.pets[0].id; window._atPet=petId;
+  const pet=getPet(petId);
+  const cons=DB.consultas.filter(c=>c.petId===petId).slice().reverse();
+  const consHTML = cons.length ? ('<div class="timeline-rec">'+cons.map(consEv).join('')+'</div>') : '<div class="empty">Sem registros. Crie a primeira consulta.</div>';
+  return `<div class="panel">
+    <div class="panel-head"><div><h2>Atendimento</h2><div class="sub">Registro clínico que alimenta o prontuário do pet</div></div>
+      <button class="btn primary" onclick="novaConsulta()">+ Nova consulta</button></div>
+    <div class="row" style="margin-bottom:16px">
+      <div style="min-width:280px"><label class="fl">Pet em atendimento</label>
+        <select class="f" onchange="window._atPet=this.value;renderVet()">${petOptions(petId)}</select></div>
+      <div class="pill">Tutor: ${tutorDoPet(petId).nome}</div>
+      <div class="pill">${pet.especie} · ${pet.raca}</div>
+      <div class="pill">Peso atual: ${pet.peso} kg</div>
+    </div>
+    <h3 style="font-size:16px;margin-bottom:12px">Prontuário de ${pet.nome}</h3>
+    ${consHTML}
+  </div>`;
+}
+function novaConsulta(){
+  const petId=window._atPet||DB.pets[0].id;
+  const body = `
+    <div><label class="fl">Pet</label><select class="f" id="ncPet">${petOptions(petId)}</select></div>
+    <div class="grid2"><div><label class="fl">Data</label><input class="f" id="ncData" value="${new Date().toLocaleDateString('pt-BR')}"></div>
+      <div><label class="fl">Peso (kg)</label><input class="f" id="ncPeso" placeholder="ex: 28,5"></div></div>
+    <div><label class="fl">Anamnese</label><textarea class="f" id="ncAna" placeholder="Queixa, histórico..."></textarea></div>
+    <div><label class="fl">Diagnóstico</label><input class="f" id="ncDiag" placeholder="Hipótese / diagnóstico"></div>
+    <div><label class="fl">Conduta</label><textarea class="f" id="ncCond" placeholder="Tratamento, retorno..."></textarea></div>`;
+  modal('Nova consulta', body,[{txt:'Cancelar',fn:closeModal},{txt:'Salvar no prontuário',cls:'primary',fn:()=>{
+    const pid=$('ncPet').value;
+    const c={id:uid('k'),petId:pid,data:$('ncData').value||new Date().toLocaleDateString('pt-BR'),peso:$('ncPeso').value||getPet(pid).peso,
+      anamnese:$('ncAna').value||'—',diagnostico:$('ncDiag').value||'Consulta de rotina',conduta:$('ncCond').value||'—',vet:'Dra. Vanessa Mota'};
+    if($('ncPeso').value) getPet(pid).peso=$('ncPeso').value;
+    DB.consultas.push(c); window._atPet=pid; closeModal(); renderVet(); toast('Consulta salva no prontuário de <b>'+getPet(pid).nome+'</b>');
+  }}]);
+}
+function emitirDe(petId,consultaId){VMOD='receituario';window._rxPet=petId;window._rxCons=consultaId;document.querySelectorAll('.nav-item').forEach(x=>x.classList.toggle('on',x.dataset.mod==='receituario'));renderVet();}
+
+/* ---- Receituário ---- */
+function rxItensHTML(){
+  if(!window._rxItens||!window._rxItens.length) return '<div class="muted" style="font-size:12.5px">Nenhum item adicionado ainda.</div>';
+  return window._rxItens.map((i,ix)=>'<div class="row" style="justify-content:space-between;border:1px solid var(--line);border-radius:9px;padding:8px 10px;margin-bottom:6px;background:#fff">'
+    +'<span style="font-size:12.5px"><b>'+i.nome+'</b> · '+i.dose+' · '+freqTxt(i.freq)+' · '+i.dur+'d</span>'
+    +'<span class="x" style="cursor:pointer;color:var(--red);font-weight:700" onclick="window._rxItens.splice('+ix+',1);$(\'rxItens\').innerHTML=rxItensHTML()">remover</span></div>').join('');
+}
+function rxCard(r){
+  const itens = r.itens.map(i=>'<li>'+i.nome+' — '+i.dose+', '+freqTxt(i.freq)+', '+i.dur+' dias</li>').join('');
+  return '<div class="rx"><div class="top"><b>'+r.data+'</b>'+statusTag(r.status)+'</div><ul>'+itens+'</ul>'
+    +'<button class="btn ghost sm" style="margin-top:9px;width:100%" onclick="verReceitaVet(\''+r.id+'\')">📄 Ver receita / imprimir</button></div>';
+}
+function vReceituario(){
+  const petId=window._rxPet||DB.pets[0].id; window._rxPet=petId;
+  if(!window._rxItens) window._rxItens=[];
+  const medOpts=DB.medicamentos.map(m=>'<option value="'+m.nome+'">'+m.nome+'</option>').join('');
+  const rec=DB.receitas.filter(r=>r.petId===petId).slice().reverse();
+  const recHTML = rec.length ? rec.map(rxCard).join('') : '<div class="empty">Nenhuma receita para este pet.</div>';
+  return `<div class="panel">
+    <div class="panel-head"><div><h2>Receituário</h2><div class="sub">Emite a receita que vai direto para o app do tutor</div></div></div>
+    <div class="grid2" style="align-items:start">
+      <div class="card2">
+        <h3>Nova receita</h3>
+        <div style="margin-bottom:12px"><label class="fl">Pet</label><select class="f" onchange="window._rxPet=this.value;renderVet()">${petOptions(petId)}</select></div>
+        <label class="fl">Adicionar medicamento</label>
+        <div class="item-line" style="grid-template-columns:1fr;background:transparent;border:0;padding:0">
+          <div class="grid2"><select class="f" id="riMed">${medOpts}<option value="__livre">Outro (digitar)...</option></select>
+            <input class="f" id="riDose" placeholder="Dose (ex: 1 comp / 1,5 ml)"></div>
+          <div class="grid3" style="margin-top:8px">
+            <select class="f" id="riVia"><option>Oral</option><option>Tópica</option><option>Subcutânea</option><option>Intramuscular</option></select>
+            <select class="f" id="riFreq"><option value="8">8 em 8h</option><option value="12">12 em 12h</option><option value="24">1x ao dia</option><option value="6">6 em 6h</option></select>
+            <input class="f" id="riDur" type="number" min="1" value="7" title="Duração (dias)">
+          </div>
+          <input class="f" id="riObs" placeholder="Observação (opcional)" style="margin-top:8px">
+          <button class="btn ghost" style="margin-top:8px" onclick="addItem()">+ Adicionar à receita</button>
+        </div>
+        <div id="rxItens" style="margin-top:12px">${rxItensHTML()}</div>
+        <button class="btn primary" style="margin-top:12px;width:100%" onclick="emitirReceita()">Emitir receita ▸ enviar ao app</button>
+      </div>
+      <div class="card2"><h3>Receitas de ${getPet(petId).nome}</h3>${recHTML}</div>
+    </div>
+  </div>`;
+}
+function addItem(){
+  let nome=$('riMed').value; if(nome==='__livre'){nome=prompt('Nome do medicamento:')||'';if(!nome)return;}
+  const dose=$('riDose').value.trim()||'1 dose';
+  window._rxItens.push({nome,dose,via:$('riVia').value,freq:+$('riFreq').value,dur:+$('riDur').value||7,obs:$('riObs').value.trim()});
+  $('riDose').value='';$('riObs').value='';$('rxItens').innerHTML=rxItensHTML();
+}
+function emitirReceita(){
+  if(!window._rxItens.length){toast('Adicione ao menos um medicamento.');return;}
+  const petId=window._rxPet;
+  const r={id:uid('r'),petId,consultaId:window._rxCons||null,data:new Date().toLocaleDateString('pt-BR'),vet:'Dra. Vanessa Mota',status:'recebida',itens:window._rxItens.slice()};
+  DB.receitas.push(r); window._rxItens=[];window._rxCons=null;
+  renderVet();
+  verReceitaVet(r.id);
+  toast('Receita emitida e enviada ao app de <b>'+tutorDoPet(petId).nome+'</b> 📲');
+}
+
+/* ---- Clientes & Pets ---- */
+function clienteRow(c){
+  const ps=petsDoTutor(c.id);
+  const petsHTML = ps.length ? ps.map(p=>'<span class="pill" style="margin:1px 2px">'+p.emoji+' '+p.nome+' · '+p.especie+'</span>').join('') : '<span class="muted">—</span>';
+  return '<tr><td>'+c.nome+'</td><td>'+c.tel+'<br><span class="muted" style="font-size:11px">'+(c.email||'')+'</span></td>'
+    +'<td>'+petsHTML+'</td><td><button class="btn ghost sm" onclick="addPet(\''+c.id+'\')">+ Pet</button></td></tr>';
+}
+function vClientes(){
+  const rowsHTML = DB.clientes.map(clienteRow).join('');
+  return `<div class="panel">
+    <div class="panel-head"><div><h2>Clientes &amp; Pets</h2><div class="sub">Cadastro do tutor e do pet no mesmo formulário</div></div>
+      <button class="btn primary" onclick="novoCliente()">+ Novo cliente + pet</button></div>
+    <div class="tb-wrap"><table class="tb"><thead><tr><th>Tutor</th><th>Contato</th><th>Pets</th><th></th></tr></thead><tbody>${rowsHTML}</tbody></table></div>
+  </div>`;
+}
+function novoCliente(){
+  const body = `
+    <div class="card2" style="padding:13px"><h3 style="font-size:14px">Dados do tutor</h3>
+      <div class="grid2"><div><label class="fl">Nome</label><input class="f" id="clNome"></div><div><label class="fl">Telefone</label><input class="f" id="clTel" placeholder="(00) 00000-0000"></div></div>
+      <div style="margin-top:10px"><label class="fl">E-mail</label><input class="f" id="clEmail"></div>
+    </div>
+    <div class="card2" style="padding:13px"><h3 style="font-size:14px">Dados do pet</h3>
+      <div class="grid2"><div><label class="fl">Nome do pet</label><input class="f" id="ptNome"></div>
+        <div><label class="fl">Espécie</label><select class="f" id="ptEsp"><option>Cão</option><option>Gato</option><option>Outro</option></select></div></div>
+      <div class="grid3" style="margin-top:10px"><div><label class="fl">Raça</label><input class="f" id="ptRaca"></div>
+        <div><label class="fl">Sexo</label><select class="f" id="ptSexo"><option>Macho</option><option>Fêmea</option></select></div>
+        <div><label class="fl">Peso (kg)</label><input class="f" id="ptPeso"></div></div>
+    </div>`;
+  modal('Novo cliente + pet', body,[{txt:'Cancelar',fn:closeModal},{txt:'Cadastrar',cls:'primary',fn:()=>{
+    if(!$('clNome').value.trim()||!$('ptNome').value.trim()){toast('Preencha nome do tutor e do pet.');return;}
+    const c={id:uid('c'),nome:$('clNome').value.trim(),tel:$('clTel').value.trim()||'—',email:$('clEmail').value.trim()};
+    const esp=$('ptEsp').value;
+    const p={id:uid('p'),tutorId:c.id,nome:$('ptNome').value.trim(),especie:esp,raca:$('ptRaca').value.trim()||'SRD',sexo:$('ptSexo').value,nasc:'',peso:$('ptPeso').value.trim()||'0',emoji:esp==='Gato'?'🐱':(esp==='Cão'?'🐶':'🐾')};
+    DB.clientes.push(c);DB.pets.push(p);closeModal();renderVet();toast('Cliente <b>'+c.nome+'</b> e pet <b>'+p.nome+'</b> cadastrados.');
+  }}]);
+}
+function addPet(cid){
+  const body = `
+    <div class="grid2"><div><label class="fl">Nome do pet</label><input class="f" id="apNome"></div>
+      <div><label class="fl">Espécie</label><select class="f" id="apEsp"><option>Cão</option><option>Gato</option><option>Outro</option></select></div></div>
+    <div class="grid3" style="margin-top:10px"><div><label class="fl">Raça</label><input class="f" id="apRaca"></div>
+      <div><label class="fl">Sexo</label><select class="f" id="apSexo"><option>Macho</option><option>Fêmea</option></select></div>
+      <div><label class="fl">Peso (kg)</label><input class="f" id="apPeso"></div></div>`;
+  modal('Novo pet de '+getCliente(cid).nome, body,[{txt:'Cancelar',fn:closeModal},{txt:'Adicionar pet',cls:'primary',fn:()=>{
+    if(!$('apNome').value.trim()){toast('Informe o nome do pet.');return;}
+    const esp=$('apEsp').value;
+    DB.pets.push({id:uid('p'),tutorId:cid,nome:$('apNome').value.trim(),especie:esp,raca:$('apRaca').value.trim()||'SRD',sexo:$('apSexo').value,nasc:'',peso:$('apPeso').value.trim()||'0',emoji:esp==='Gato'?'🐱':(esp==='Cão'?'🐶':'🐾')});
+    closeModal();renderVet();toast('Pet adicionado.');
+  }}]);
+}
+
+/* ---- Farmácia / Estoque ---- */
+function medRow(m){
+  const low=m.estoque<m.min;
+  return '<tr><td>'+m.nome+'</td><td>'+m.forma+'</td>'
+    +'<td class="'+(low?'stock-low':'')+'">'+m.estoque+'</td><td>'+m.min+'</td>'
+    +'<td><span class="tag '+(low?'red':'green')+'">'+(low?'Repor':'OK')+'</span></td>'
+    +'<td><button class="btn ghost sm" onclick="movEstoque(\''+m.id+'\',\'entrada\')">+ Entrada</button>'
+    +'<button class="btn ghost sm" onclick="movEstoque(\''+m.id+'\',\'saida\')">− Saída</button>'
+    +'<button class="btn ghost sm" onclick="verMovs(\''+m.id+'\')">Histórico</button></td></tr>';
+}
+function vFarmacia(){
+  const rowsHTML = DB.medicamentos.map(medRow).join('');
+  return `<div class="panel">
+    <div class="panel-head"><div><h2>Farmácia / Estoque</h2><div class="sub">Controle de medicamentos com entradas e saídas</div></div>
+      <button class="btn primary" onclick="novoMed()">+ Novo medicamento</button></div>
+    <div class="tb-wrap"><table class="tb"><thead><tr><th>Medicamento</th><th>Forma</th><th>Estoque</th><th>Mínimo</th><th>Situação</th><th>Movimentar</th></tr></thead><tbody>${rowsHTML}</tbody></table></div>
+  </div>`;
+}
+function novoMed(){
+  const body = `
+    <div><label class="fl">Nome</label><input class="f" id="meNome" placeholder="ex: Amoxicilina 500mg"></div>
+    <div class="grid3"><div><label class="fl">Forma</label><select class="f" id="meForma"><option>Comprimido</option><option>Suspensão</option><option>Solução</option><option>Injetável</option><option>Pomada</option></select></div>
+      <div><label class="fl">Estoque inicial</label><input class="f" id="meEst" type="number" value="0"></div>
+      <div><label class="fl">Estoque mínimo</label><input class="f" id="meMin" type="number" value="10"></div></div>`;
+  modal('Novo medicamento', body,[{txt:'Cancelar',fn:closeModal},{txt:'Cadastrar',cls:'primary',fn:()=>{
+    if(!$('meNome').value.trim()){toast('Informe o nome.');return;}
+    const est=+$('meEst').value||0;
+    const movs = est?[{t:'entrada',q:est,d:new Date().toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'}),obs:'Cadastro'}]:[];
+    DB.medicamentos.push({id:uid('m'),nome:$('meNome').value.trim(),forma:$('meForma').value,estoque:est,min:+$('meMin').value||10,movs});
+    closeModal();renderVet();toast('Medicamento cadastrado.');
+  }}]);
+}
+function movEstoque(id,tipo){
+  const m=DB.medicamentos.find(x=>x.id===id);
+  const body = `
+    <div class="grid2"><div><label class="fl">Quantidade</label><input class="f" id="mvQ" type="number" min="1" value="1"></div>
+      <div><label class="fl">Motivo</label><input class="f" id="mvObs" placeholder="${tipo==='entrada'?'Compra, doação...':'Dispensa, descarte...'}"></div></div>
+    <p class="muted" style="font-size:12.5px">Estoque atual: <b>${m.estoque}</b></p>`;
+  modal((tipo==='entrada'?'Entrada':'Saída')+' · '+m.nome, body,[{txt:'Cancelar',fn:closeModal},{txt:'Confirmar',cls:'primary',fn:()=>{
+    const q=+$('mvQ').value||0; if(q<=0){toast('Quantidade inválida.');return;}
+    if(tipo==='saida'&&q>m.estoque){toast('Saída maior que o estoque.');return;}
+    m.estoque+= tipo==='entrada'?q:-q;
+    m.movs.push({t:tipo,q,d:new Date().toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'}),obs:$('mvObs').value.trim()||'—'});
+    closeModal();renderVet();toast('Estoque atualizado: <b>'+m.estoque+'</b>');
+  }}]);
+}
+function verMovs(id){
+  const m=DB.medicamentos.find(x=>x.id===id);
+  const rows = m.movs.length ? m.movs.slice().reverse().map(v=>'<tr><td>'+v.d+'</td><td><span class="tag '+(v.t==='entrada'?'green':'amber')+'">'+v.t+'</span></td><td>'+v.q+'</td><td>'+v.obs+'</td></tr>').join('') : '<tr><td colspan="4" class="empty">Sem movimentos.</td></tr>';
+  const body = '<div class="tb-wrap"><table class="tb"><thead><tr><th>Data</th><th>Tipo</th><th>Qtd</th><th>Motivo</th></tr></thead><tbody>'+rows+'</tbody></table></div>';
+  modal('Histórico · '+m.nome, body,[{txt:'Fechar',cls:'primary',fn:closeModal}]);
+}
+
+/* ============================================================
+   ===================  TUTOR APP  ============================
+   ============================================================ */
+let APP_TAB='inicio';
+let APP_PET='p1';
+function renderApp(){
+  const sel=$('appPetSel');
+  sel.innerHTML=DB.pets.map(p=>'<option value="'+p.id+'"'+(p.id===APP_PET?' selected':'')+'>'+p.emoji+' '+p.nome+'</option>').join('');
+  const pet=getPet(APP_PET);
+  $('appPetName').textContent=pet.nome;
+  $('appPetMeta').textContent=pet.especie+' · '+pet.raca+' · '+tutorDoPet(pet.id).nome.split(' ')[0];
+  $('appPetPic').textContent=pet.emoji;
+  document.querySelectorAll('.apptabs button').forEach(b=>b.classList.toggle('on',b.dataset.tab===APP_TAB));
+  const b=$('appBody');
+  if(APP_TAB==='inicio') b.innerHTML=aInicio();
+  else if(APP_TAB==='receitas') b.innerHTML=aReceitas();
+  else if(APP_TAB==='medicacao') b.innerHTML=aMedicacao();
+  else if(APP_TAB==='prontuario') b.innerHTML=aProntuario();
+}
+function appTab(t){closeAppModal();APP_TAB=t;renderApp();}
+function appSwitchPet(){closeAppModal();APP_PET=$('appPetSel').value;renderApp();}
+
+function gerarDoses(inicioISO,freq,dur){
+  const start=new Date(inicioISO); const total=Math.min(Math.ceil(dur*24/freq),24); const out=[];
+  for(let k=0;k<total;k++){out.push({ts:new Date(start.getTime()+k*freq*3600*1000).toISOString(),status:'pendente'});}
+  return out;
+}
+function dosesDoPet(petId){
+  const res=[];
+  DB.agendas.forEach(ag=>{
+    const r=DB.receitas.find(x=>x.id===ag.receitaId); if(!r||r.petId!==petId)return;
+    const it=r.itens[ag.itemIdx];
+    ag.doses.forEach((d,di)=>res.push({ag,di,d,med:it.nome,dose:it.dose,antes:ag.antes}));
+  });
+  res.sort((a,b)=>new Date(a.d.ts)-new Date(b.d.ts));
+  return res;
+}
+function proximaDose(petId){
+  const now=Date.now();
+  const ds=dosesDoPet(petId).filter(x=>x.d.status==='pendente');
+  const fut=ds.filter(x=>new Date(x.d.ts).getTime()>=now);
+  return fut[0]|| ds[0] || null;
+}
+
+function aInicio(){
+  const pet=getPet(APP_PET);
+  const recs=DB.receitas.filter(r=>r.petId===APP_PET);
+  const ativos=DB.agendas.filter(ag=>{const r=DB.receitas.find(x=>x.id===ag.receitaId);return r&&r.petId===APP_PET;}).length;
+  const nd=proximaDose(APP_PET);
+  let doseCard;
+  if(nd){
+    const t=new Date(nd.d.ts);const diff=t.getTime()-Date.now();
+    const cd=diff>0?('em '+Math.floor(diff/3600000)+'h '+Math.floor((diff%3600000)/60000)+'min'):'agora';
+    doseCard='<div class="next-dose"><div class="lbl">PRÓXIMA DOSE · '+fmtH(t)+'</div>'
+      +'<div class="big">'+cd+'</div><div class="med">'+nd.med+' — '+nd.dose+'</div>'
+      +'<div class="acts"><button class="btn solid" onclick="marcarDose(\''+nd.ag.receitaId+'\','+nd.ag.itemIdx+','+nd.di+')">✓ Dei o remédio</button>'
+      +'<button class="btn" onclick="testarLembrete()">🔔 Testar lembrete</button></div></div>';
+  } else {
+    doseCard='<div class="acard"><h3>Nenhuma medicação programada</h3><p class="muted" style="font-size:13px">Vá em <b>Receitas</b> e toque em “Programar medicação” pra começar a receber lembretes.</p></div>';
+  }
+  return doseCard
+    +'<div class="acard"><div class="row" style="justify-content:space-between"><h3>'+pet.nome+'</h3><span class="pill">'+pet.peso+' kg</span></div>'
+    +'<p class="muted" style="font-size:13px">'+pet.especie+' · '+pet.raca+' · '+pet.sexo+'</p></div>'
+    +'<div class="grid2" style="grid-template-columns:1fr 1fr;gap:10px">'
+    +'<div class="acard" style="margin:0;text-align:center"><div style="font-family:var(--display);font-size:26px;font-weight:800">'+recs.length+'</div><div class="muted" style="font-size:11px">Receitas recebidas</div></div>'
+    +'<div class="acard" style="margin:0;text-align:center"><div style="font-family:var(--display);font-size:26px;font-weight:800">'+ativos+'</div><div class="muted" style="font-size:11px">Medicações ativas</div></div></div>';
+}
+
+function rxAppCard(r){
+  const programada=DB.agendas.some(a=>a.receitaId===r.id);
+  const itens = r.itens.map(i=>'<li>'+i.nome+' — '+i.dose+', '+freqTxt(i.freq)+', por '+i.dur+' dias'+(i.obs?(' ('+i.obs+')'):'')+'</li>').join('');
+  return '<div class="rx" style="padding:15px">'
+    +'<div class="top"><b>Receita · '+r.data+'</b><span class="tag '+(programada?'green':'blue')+'">'+(programada?'programada':'recebida')+'</span></div>'
+    +'<div class="muted" style="font-size:11.5px;margin-bottom:7px">'+r.vet+' · '+CLINICA.crmv+'</div>'
+    +'<ul>'+itens+'</ul>'
+    +'<div class="row" style="margin-top:10px;gap:7px">'
+    +'<button class="btn ghost sm" style="flex:1;justify-content:center" onclick="verReceitaApp(\''+r.id+'\')">📄 Ver receita</button>'
+    +'<button class="btn '+(programada?'ghost':'primary')+' sm" style="flex:1;justify-content:center" onclick="programar(\''+r.id+'\')">'+(programada?'Reprogramar':'⏰ Programar')+'</button></div></div>';
+}
+function aReceitas(){
+  const recs=DB.receitas.filter(r=>r.petId===APP_PET).slice().reverse();
+  if(!recs.length) return '<div class="acard"><h3>Nenhuma receita ainda</h3><p class="muted" style="font-size:13px">Quando a veterinária emitir uma receita, ela aparece aqui automaticamente.</p></div>';
+  return recs.map(rxAppCard).join('');
+}
+function programar(receitaId){
+  const r=DB.receitas.find(x=>x.id===receitaId);
+  const now=new Date();const hh=String(now.getHours()).padStart(2,'0');const mm=String(now.getMinutes()).padStart(2,'0');
+  const itensHTML = r.itens.map((i,ix)=>'<div class="card2" style="padding:12px">'
+    +'<b style="font-size:14px">'+i.nome+'</b><div class="muted" style="font-size:12px;margin-bottom:8px">'+i.dose+' · '+freqTxt(i.freq)+' · '+i.dur+' dias</div>'
+    +'<div class="grid2"><div><label class="fl">1ª dose hoje às</label><input class="f" type="time" id="pg'+ix+'" value="'+hh+':'+mm+'"></div>'
+    +'<div><label class="fl">Lembrar antes</label><select class="f" id="pa'+ix+'"><option value="15">15 min</option><option value="30">30 min</option><option value="5">5 min</option><option value="0">No horário</option></select></div></div></div>').join('');
+  const body = '<p class="muted" style="font-size:13px">Defina o horário da <b>primeira dose</b> de cada medicamento. O app calcula as próximas e cria os lembretes.</p>'+itensHTML;
+  appModal('Programar medicação', body,[{txt:'Cancelar',fn:closeAppModal},{txt:'Ativar lembretes',cls:'primary',fn:()=>{
+    DB.agendas=DB.agendas.filter(a=>a.receitaId!==receitaId);
+    r.itens.forEach((i,ix)=>{
+      const tv=$('pg'+ix).value||'08:00';const parts=tv.split(':');const H=+parts[0];const M=+parts[1];
+      const ini=new Date();ini.setHours(H,M,0,0);
+      DB.agendas.push({receitaId,itemIdx:ix,inicioISO:ini.toISOString(),antes:+$('pa'+ix).value,doses:gerarDoses(ini.toISOString(),i.freq,i.dur)});
+    });
+    r.status='programada';
+    closeAppModal();APP_TAB='medicacao';renderApp();toast('Lembretes ativados ✅');
+  }}]);
+}
+
+function doseRowHTML(x,now){
+  const t=new Date(x.d.ts);const late=x.d.status==='pendente'&&t.getTime()<now;
+  return '<div class="dose-row '+(x.d.status==='tomada'?'done':'')+' '+(late?'late':'')+'">'
+    +'<div class="tm">'+fmtH(t)+'</div>'
+    +'<div class="info"><b>'+x.med+'</b><span>'+x.dose+(late?' · atrasada':'')+'</span></div>'
+    +'<div class="chk" onclick="marcarDose(\''+x.ag.receitaId+'\','+x.ag.itemIdx+','+x.di+')">✓</div></div>';
+}
+function aMedicacao(){
+  const ds=dosesDoPet(APP_PET);
+  if(!ds.length) return '<div class="acard"><h3>Sem medicação programada</h3><p class="muted" style="font-size:13px">Programe uma receita em <b>Receitas</b>.</p></div>';
+  const now=Date.now();
+  const tomadas=ds.filter(x=>x.d.status==='tomada').length;
+  const devidas=ds.filter(x=>new Date(x.d.ts).getTime()<=now).length;
+  const ad=devidas?Math.round(tomadas/devidas*100):100;
+  const byDay={};
+  ds.forEach(x=>{const k=new Date(x.d.ts).toLocaleDateString('pt-BR',{weekday:'short',day:'2-digit',month:'2-digit'});(byDay[k]=byDay[k]||[]).push(x);});
+  const head='<div class="acard"><div class="adh"><div class="ring" style="--p:'+ad+'"><i>'+ad+'%</i></div>'
+    +'<div><b style="font-size:14px">Adesão ao tratamento</b><div class="muted" style="font-size:12px">'+tomadas+' de '+devidas+' doses no horário</div>'
+    +'<button class="btn ghost sm" style="margin-top:6px" onclick="testarLembrete()">🔔 Testar lembrete</button></div></div></div>';
+  const list = Object.keys(byDay).map(day=>{
+    const rows = byDay[day].map(x=>doseRowHTML(x,now)).join('');
+    return '<div style="margin:6px 0 2px;font-family:var(--mono);font-size:11px;color:var(--muted);text-transform:uppercase">'+day+'</div>'
+      +'<div class="acard" style="padding:6px 14px">'+rows+'</div>';
+  }).join('');
+  return head+list;
+}
+function marcarDose(receitaId,itemIdx,di){
+  const ag=DB.agendas.find(a=>a.receitaId===receitaId&&a.itemIdx===itemIdx); if(!ag)return;
+  const d=ag.doses[di]; d.status=d.status==='tomada'?'pendente':'tomada';
+  renderApp(); if(d.status==='tomada') toast('Dose registrada ✓');
+}
+
+function aProntuario(){
+  const pet=getPet(APP_PET);
+  const cons=DB.consultas.filter(c=>c.petId===APP_PET).slice().reverse();
+  const consHTML = cons.length ? cons.map(c=>'<div class="acard"><div class="row" style="justify-content:space-between"><b style="font-size:14px">'+c.diagnostico+'</b><span class="pill">'+c.data+'</span></div>'
+    +'<p style="font-size:12.5px;margin-top:6px"><b>Anamnese:</b> '+c.anamnese+'</p>'
+    +'<p style="font-size:12.5px;margin-top:3px"><b>Conduta:</b> '+c.conduta+'</p>'
+    +'<p class="muted" style="font-size:11px;margin-top:6px">'+c.vet+' · '+c.peso+' kg</p></div>').join('') : '<div class="acard muted">Sem registros no prontuário.</div>';
+  return '<div class="acard"><div class="row" style="justify-content:space-between"><h3>Prontuário de '+pet.nome+'</h3><span class="pill">'+pet.peso+' kg</span></div>'
+    +'<p class="muted" style="font-size:12.5px">Registros feitos pela veterinária — visíveis pro tutor.</p></div>'+consHTML;
+}
+
+/* push simulada */
+function testarLembrete(){
+  const nd=proximaDose(APP_PET)||dosesDoPet(APP_PET)[0];
+  const pet=getPet(APP_PET);
+  const msg= nd? ('<b>'+pet.nome+'</b> — '+nd.med+', '+nd.dose+'. Faltam '+nd.antes+' min pro horário.')
+                : 'Programe uma medicação pra receber lembretes.';
+  $('pushMs').innerHTML=msg;$('push').classList.add('show');
+  clearTimeout(window._pT);window._pT=setTimeout(hidePush,5200);
+}
+function hidePush(){$('push').classList.remove('show');}
+
+/* relógio do app */
+function tickClock(){const d=new Date();const e=$('appClock');if(e)e.textContent=fmtH(d);}
+setInterval(tickClock,15000);tickClock();
+
+/* init */
+renderVet();
+
+
+</script>
+</body>
+</html>
