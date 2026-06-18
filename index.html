@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://api.fontshare.com/v2/css?f[]=clash-display@500,600,700&f[]=satoshi@400,500,700&display=swap" rel="stylesheet">
 <style>
   :root{
     --ink:#1C2B30; --ink-soft:#33474D; --paper:#F4F1E9; --paper-2:#EBE6D9;
@@ -105,6 +106,7 @@
 
   #view-case{display:none}
   #view-case-vet{display:none}
+  #view-case-landing{display:none}
   .case-hero{padding:54px 0 40px}
   .back{font-family:var(--mono);font-size:13px;color:var(--accent);display:inline-flex;gap:7px;align-items:center;margin-bottom:26px}
   .back:hover{color:var(--accent-deep)}
@@ -523,6 +525,141 @@
 #vet-embed .ov{z-index:3000}
 #vet-embed .toast{z-index:3001}
 
+  /* ===== Projeto 03 · Landing de serviço (escopo #lp-embed) ===== */
+  #view-case-landing .tl-body{min-width:0} /* impede a coluna da timeline de inflar com o conteúdo da landing */
+#lp-embed{
+  --paper:#F3F3EE; --surface:#FFFFFF; --ink:#13160F; --muted:#6B6E64;
+  --line:rgba(19,22,15,.12); --line-soft:rgba(19,22,15,.07);
+  --accent:#0F7A5A; --accent-soft:rgba(15,122,90,.09);
+  --lp-display:'Clash Display','Bricolage Grotesque',system-ui,sans-serif;
+  --lp-body:'Satoshi','Inter',system-ui,sans-serif;
+  position:relative; max-height:760px; overflow-y:auto; overflow-x:hidden;
+  background:var(--paper); color:var(--ink); font-family:var(--lp-body);
+  font-size:16px; line-height:1.6; -webkit-font-smoothing:antialiased;
+}
+#lp-embed *{box-sizing:border-box;margin:0;padding:0}
+#lp-embed ::selection{background:var(--accent);color:#fff}
+#lp-embed a{color:inherit;text-decoration:none}
+#lp-embed h1,#lp-embed h2,#lp-embed h3,#lp-embed h4{font-family:var(--lp-display);font-weight:600;letter-spacing:-.02em;line-height:1.1}
+#lp-embed .lp-wrap{max-width:980px;margin:0 auto;padding:0 28px}
+#lp-embed .eyebrow{font-family:var(--lp-body);font-size:.72rem;text-transform:uppercase;letter-spacing:.2em;color:var(--muted);font-weight:700;display:inline-flex;align-items:center;gap:8px}
+#lp-embed .eyebrow::before{content:"";width:22px;height:1px;background:var(--ink);opacity:.4}
+#lp-embed .lp-head{position:sticky;top:0;z-index:50;background:rgba(243,243,238,.86);backdrop-filter:blur(12px);border-bottom:1px solid var(--line-soft)}
+#lp-embed .lp-nav{display:flex;align-items:center;justify-content:space-between;height:64px;max-width:980px;margin:0 auto;padding:0 28px}
+#lp-embed .lp-brand{font-family:var(--lp-display);font-weight:700;font-size:1.1rem;letter-spacing:-.02em;display:flex;align-items:center;gap:9px}
+#lp-embed .lp-brand .dot{width:9px;height:9px;border-radius:50%;background:var(--accent)}
+#lp-embed .lp-links{display:flex;align-items:center;gap:28px}
+#lp-embed .lp-links a:not(.btn){font-size:.92rem;color:var(--muted);font-weight:500;transition:color .2s}
+#lp-embed .lp-links a:not(.btn):hover{color:var(--ink)}
+#lp-embed .btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--lp-body);font-weight:700;font-size:.92rem;padding:12px 21px;border-radius:100px;cursor:pointer;border:none;transition:transform .2s,background .2s,box-shadow .25s;white-space:nowrap}
+#lp-embed .btn-primary{background:var(--ink);color:var(--paper)}
+#lp-embed .btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 30px -12px rgba(19,22,15,.6)}
+#lp-embed .btn-accent{background:var(--accent);color:#fff}
+#lp-embed .btn-accent:hover{transform:translateY(-2px);box-shadow:0 14px 34px -10px rgba(15,122,90,.5)}
+#lp-embed .btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+#lp-embed .btn-ghost:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
+#lp-embed .lp-nav .btn{padding:9px 18px}
+#lp-embed .hero{padding:64px 0 48px}
+#lp-embed .lp-badge{display:inline-flex;align-items:center;gap:9px;background:var(--surface);border:1px solid var(--line);color:var(--ink);padding:7px 15px;border-radius:100px;font-size:.8rem;font-weight:600;margin-bottom:26px}
+#lp-embed .pulse{width:8px;height:8px;border-radius:50%;background:#22b455;position:relative}
+#lp-embed .pulse::after{content:"";position:absolute;inset:-4px;border-radius:50%;border:1px solid #22b455;animation:lp-pulse 1.8s ease-out infinite}
+@keyframes lp-pulse{0%{transform:scale(.7);opacity:.8}100%{transform:scale(1.7);opacity:0}}
+#lp-embed .hero h1{font-family:var(--lp-display);font-weight:600;font-size:clamp(2.2rem,6vw,4.3rem);line-height:1;letter-spacing:-.035em;max-width:15ch;margin-bottom:24px}
+#lp-embed .hero h1 .mark{position:relative;white-space:nowrap;color:var(--accent)}
+#lp-embed .hero h1 .mark svg{position:absolute;left:0;right:0;bottom:-.12em;width:100%;height:.32em;overflow:visible}
+#lp-embed .hero h1 .mark path{stroke:var(--accent);stroke-width:7;fill:none;stroke-linecap:round;stroke-dasharray:600;stroke-dashoffset:600;animation:lp-draw 1s cubic-bezier(.6,0,.2,1) .5s forwards}
+@keyframes lp-draw{to{stroke-dashoffset:0}}
+#lp-embed .lp-lead{font-size:clamp(1rem,2vw,1.2rem);color:var(--muted);max-width:48ch;margin-bottom:32px;line-height:1.55}
+#lp-embed .hero-cta{display:flex;flex-wrap:wrap;gap:13px;align-items:center}
+#lp-embed .hero-cta .btn{padding:14px 26px;font-size:.98rem}
+#lp-embed .hero-note{font-size:.84rem;color:var(--muted);margin-top:16px}
+#lp-embed .marquee{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:18px 0;overflow:hidden;margin-top:52px}
+#lp-embed .marquee-track{display:flex;gap:46px;white-space:nowrap;width:max-content;animation:lp-scroll 26s linear infinite}
+#lp-embed .marquee:hover .marquee-track{animation-play-state:paused}
+#lp-embed .marquee-item{font-family:var(--lp-display);font-weight:500;font-size:1.25rem;color:var(--ink);display:flex;align-items:center;gap:46px}
+#lp-embed .marquee-item::after{content:"✦";color:var(--accent);font-size:.75rem}
+@keyframes lp-scroll{to{transform:translateX(-50%)}}
+#lp-embed section{padding:72px 0}
+#lp-embed .sec-head{max-width:640px;margin-bottom:46px}
+#lp-embed .sec-head h2{font-size:clamp(1.7rem,4vw,2.6rem);line-height:1.05;letter-spacing:-.025em;margin:14px 0}
+#lp-embed .sec-head p{color:var(--muted);font-size:1.04rem;max-width:52ch}
+#lp-embed .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+#lp-embed .card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:28px;transition:transform .3s,box-shadow .3s}
+#lp-embed .card:hover{transform:translateY(-4px);box-shadow:0 22px 50px -28px rgba(19,22,15,.35)}
+#lp-embed .card .ico{width:44px;height:44px;border-radius:12px;background:var(--accent-soft);display:grid;place-items:center;margin-bottom:18px;color:var(--accent)}
+#lp-embed .card h3{font-size:1.2rem;margin-bottom:10px}
+#lp-embed .card p{color:var(--muted);font-size:.95rem}
+#lp-embed #lp-servicos{background:var(--ink);color:var(--paper)}
+#lp-embed #lp-servicos .eyebrow{color:rgba(243,243,238,.65)}
+#lp-embed #lp-servicos .eyebrow::before{background:var(--paper);opacity:.5}
+#lp-embed #lp-servicos .sec-head p{color:rgba(243,243,238,.62)}
+#lp-embed .offer-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+#lp-embed .offer{border:1px solid rgba(243,243,238,.16);border-radius:20px;padding:30px;display:flex;flex-direction:column;transition:border-color .3s,background .3s}
+#lp-embed .offer:hover{border-color:rgba(243,243,238,.4)}
+#lp-embed .offer.featured{background:var(--accent);border-color:var(--accent)}
+#lp-embed .offer .tag{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:rgba(243,243,238,.55);margin-bottom:16px}
+#lp-embed .offer.featured .tag{color:rgba(255,255,255,.85)}
+#lp-embed .offer h3{font-size:1.45rem;margin-bottom:8px}
+#lp-embed .offer .desc{color:rgba(243,243,238,.6);font-size:.93rem;margin-bottom:22px;min-height:46px}
+#lp-embed .offer.featured .desc{color:rgba(255,255,255,.82)}
+#lp-embed .offer ul{list-style:none;margin-bottom:26px;flex:1}
+#lp-embed .offer li{display:flex;gap:11px;align-items:flex-start;padding:9px 0;font-size:.93rem;border-top:1px solid rgba(243,243,238,.1)}
+#lp-embed .offer li:first-child{border-top:none}
+#lp-embed .offer li svg{flex-shrink:0;margin-top:3px;color:var(--accent)}
+#lp-embed .offer.featured li svg{color:#fff}
+#lp-embed .offer .btn{width:100%;justify-content:center}
+#lp-embed .steps{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line)}
+#lp-embed .step{padding:32px 24px 32px 0;border-right:1px solid var(--line)}
+#lp-embed .step:last-child{border-right:none;padding-right:0}
+#lp-embed .step .num{font-family:var(--lp-display);font-weight:600;font-size:.95rem;color:var(--accent);display:block;margin-bottom:28px}
+#lp-embed .step h3{font-size:1.15rem;margin-bottom:8px}
+#lp-embed .step p{color:var(--muted);font-size:.92rem}
+#lp-embed .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-bottom:54px}
+#lp-embed .lp-stat .big{font-family:var(--lp-display);font-weight:600;font-size:clamp(2.6rem,6vw,3.6rem);letter-spacing:-.03em;line-height:1}
+#lp-embed .lp-stat .lbl{color:var(--muted);font-size:.94rem;margin-top:8px}
+#lp-embed .quote{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:40px;max-width:740px}
+#lp-embed .quote p{font-family:var(--lp-display);font-weight:500;font-size:clamp(1.2rem,2.6vw,1.55rem);line-height:1.35;letter-spacing:-.01em;margin-bottom:22px}
+#lp-embed .quote .who{display:flex;align-items:center;gap:14px}
+#lp-embed .quote .av{width:46px;height:46px;border-radius:50%;background:var(--accent);color:#fff;display:grid;place-items:center;font-weight:700;font-family:var(--lp-display)}
+#lp-embed .quote .who b{display:block;font-size:.94rem}
+#lp-embed .quote .who span{color:var(--muted);font-size:.84rem}
+#lp-embed .faq-item{border-top:1px solid var(--line)}
+#lp-embed .faq-item:last-child{border-bottom:1px solid var(--line)}
+#lp-embed .faq-q{width:100%;background:none;border:none;cursor:pointer;text-align:left;padding:24px 0;display:flex;justify-content:space-between;align-items:center;gap:20px;font-family:var(--lp-display);font-weight:500;font-size:1.12rem;color:var(--ink)}
+#lp-embed .faq-q .plus{flex-shrink:0;width:22px;height:22px;position:relative;transition:transform .3s}
+#lp-embed .faq-q .plus::before,#lp-embed .faq-q .plus::after{content:"";position:absolute;background:var(--ink);left:50%;top:50%}
+#lp-embed .faq-q .plus::before{width:16px;height:2px;transform:translate(-50%,-50%)}
+#lp-embed .faq-q .plus::after{width:2px;height:16px;transform:translate(-50%,-50%);transition:transform .3s}
+#lp-embed .faq-item.open .plus::after{transform:translate(-50%,-50%) scaleY(0)}
+#lp-embed .faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease}
+#lp-embed .faq-a p{color:var(--muted);padding:0 0 24px;max-width:62ch;font-size:.98rem}
+#lp-embed #lp-contato{text-align:center}
+#lp-embed .cta-box{background:var(--accent);border-radius:28px;padding:clamp(44px,7vw,72px) 30px;color:#fff;position:relative;overflow:hidden}
+#lp-embed .cta-box::before{content:"";position:absolute;width:320px;height:320px;border-radius:50%;background:rgba(255,255,255,.1);top:-120px;right:-70px}
+#lp-embed .cta-box::after{content:"";position:absolute;width:240px;height:240px;border-radius:50%;background:rgba(255,255,255,.08);bottom:-100px;left:-50px}
+#lp-embed .cta-box .inner{position:relative;z-index:2}
+#lp-embed .cta-box h2{font-size:clamp(1.9rem,5vw,3rem);line-height:1.02;letter-spacing:-.03em;margin-bottom:18px;max-width:17ch;margin-inline:auto;color:#fff}
+#lp-embed .cta-box p{font-size:1.05rem;color:rgba(255,255,255,.85);max-width:46ch;margin:0 auto 32px}
+#lp-embed .cta-box .btn-primary{background:#fff;color:var(--accent)}
+#lp-embed .cta-box .btn-primary:hover{box-shadow:0 14px 40px -10px rgba(0,0,0,.4)}
+#lp-embed .cta-contacts{display:flex;gap:26px;justify-content:center;flex-wrap:wrap;margin-top:30px}
+#lp-embed .cta-contacts a{font-size:.94rem;color:rgba(255,255,255,.9);font-weight:600;border-bottom:1px solid rgba(255,255,255,.4);padding-bottom:2px}
+#lp-embed .cta-contacts a:hover{border-color:#fff}
+#lp-embed .lp-foot{padding:40px 0;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap}
+#lp-embed .lp-foot .lp-brand{font-size:1rem}
+#lp-embed .lp-foot small{color:var(--muted);font-size:.84rem}
+@media(max-width:760px){
+  #lp-embed .lp-links{display:none}
+  #lp-embed .grid-3,#lp-embed .offer-grid,#lp-embed .stats{grid-template-columns:1fr}
+  #lp-embed .steps{grid-template-columns:1fr 1fr}
+  #lp-embed .step{border-right:none;border-bottom:1px solid var(--line);padding:24px 0}
+  #lp-embed section{padding:56px 0}
+}
+@media(prefers-reduced-motion:reduce){
+  #lp-embed *{animation:none!important}
+  #lp-embed .hero h1 .mark path{stroke-dashoffset:0}
+}
+
 </style>
 </head>
 <body>
@@ -624,7 +761,30 @@
             <span class="go">Ver estudo de caso &rarr;</span>
           </div>
         </a>
-        <div class="placeholder-card reveal"><div class="ph-inner"><div class="pp">◇ Projeto 03</div><h3>A adicionar</h3><p style="font-size:14px">Mesmo modelo, pronto pra duplicar.</p></div></div>
+        <a class="case-card reveal" data-goto="case-landing">
+          <div class="thumb">
+            <svg class="thumb-art" viewBox="0 0 320 200" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+              <rect x="30" y="26" width="260" height="148" rx="14" fill="rgba(255,255,255,.10)" stroke="rgba(255,255,255,.20)"/>
+              <rect x="30" y="26" width="260" height="26" rx="14" fill="rgba(255,255,255,.07)"/>
+              <circle cx="46" cy="39" r="3.4" fill="rgba(255,255,255,.5)"/><circle cx="58" cy="39" r="3.4" fill="rgba(255,255,255,.5)"/><circle cx="70" cy="39" r="3.4" fill="rgba(255,255,255,.5)"/>
+              <rect x="100" y="35" width="160" height="9" rx="4.5" fill="rgba(255,255,255,.12)"/>
+              <rect x="48" y="72" width="150" height="11" rx="5.5" fill="rgba(255,255,255,.7)"/>
+              <rect x="48" y="90" width="120" height="11" rx="5.5" fill="#9fe0d3"/>
+              <rect x="48" y="112" width="190" height="6" rx="3" fill="rgba(255,255,255,.3)"/>
+              <rect x="48" y="124" width="160" height="6" rx="3" fill="rgba(255,255,255,.3)"/>
+              <rect x="48" y="146" width="92" height="20" rx="10" fill="#1F7A6B"/>
+              <text x="94" y="160" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" font-weight="700" fill="#fff">Agendar</text>
+              <rect x="152" y="146" width="78" height="20" rx="10" fill="none" stroke="rgba(255,255,255,.4)"/>
+            </svg>
+            <span class="tag">Conceito · landing de conversão</span>
+          </div>
+          <div class="body">
+            <h3>Landing page de serviço</h3>
+            <p>Uma página de conversão para quem vende o próprio serviço — da estratégia de mensagem ao protótipo navegável, com um só objetivo: iniciar a conversa.</p>
+            <div class="meta"><span class="chip">UX Writing</span><span class="chip">Conversão</span><span class="chip">UI</span><span class="chip">Protótipo</span></div>
+            <span class="go">Ver estudo de caso →</span>
+          </div>
+        </a>
         <div class="placeholder-card reveal"><div class="ph-inner"><div class="pp">◇ Projeto 04</div><h3>A adicionar</h3><p style="font-size:14px">Espaço reservado pra manter a grade equilibrada.</p></div></div>
       </div>
     </div>
@@ -1270,20 +1430,294 @@
   </div>
 </div>
 
+
+<!-- ===================== CASE STUDY · LANDING ===================== -->
+<div id="view-case-landing">
+  <header class="case-hero">
+    <div class="wrap">
+      <a class="back" data-goto="home">← Voltar aos trabalhos</a>
+      <span class="eyebrow">Estudo de caso · 2026</span>
+      <h1>Uma landing page pensada para virar visita em conversa.</h1>
+      <p class="lead">Quem vende o próprio serviço precisa de uma vitrine que faça uma coisa muito bem: levar o visitante a dar o primeiro passo. Desenhei uma landing page de conversão — da estratégia de mensagem ao protótipo navegável — onde cada seção tem uma função clara no caminho até o contato.</p>
+      <div class="case-tags">
+        <span class="chip">UX Writing</span><span class="chip">Estratégia de conversão</span><span class="chip">Arquitetura</span><span class="chip">UI</span><span class="chip">Protótipo</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <div class="timeline">
+
+      <!-- 08:00 -->
+      <div class="tl-time"><span class="hr">08:00</span></div>
+      <div class="tl-body reveal">
+        <h2>Visão geral</h2>
+        <p>Uma página única de venda para um serviço de consultoria/freelance. A premissa: não é um site institucional com vários caminhos — é uma página com um só objetivo, agendar uma conversa. Tudo na hierarquia, no texto e no ritmo visual trabalha a favor dessa ação.</p>
+        <div class="meta-grid" style="margin-top:18px">
+          <div class="m"><b>Meu papel</b><span>UX/UI · estratégia, conteúdo e protótipo</span></div>
+          <div class="m"><b>Período</b><span>2026</span></div>
+          <div class="m"><b>Ferramentas</b><span>Figma · HTML/CSS · JS</span></div>
+          <div class="m"><b>Plataforma</b><span>Web responsivo</span></div>
+        </div>
+      </div>
+
+      <!-- 09:00 -->
+      <div class="tl-time"><span class="hr">09:00</span></div>
+      <div class="tl-body reveal">
+        <h2>O desafio</h2>
+        <p>A maioria das landing pages de serviço falha por dar voltas: falam de tudo, listam recursos e nunca dizem com clareza o que a pessoa ganha nem o que fazer em seguida. O resultado é tráfego que entra e sai sem agir.</p>
+        <p class="pquote">"Como prender a atenção em segundos e conduzir, sem fricção, até o único clique que importa?"</p>
+        <ul class="clean">
+          <li>Proposta de valor que se entende em 5 segundos, antes de qualquer rolagem.</li>
+          <li>Uma só ação primária repetida na página — não dez botões competindo.</li>
+          <li>Quebra de objeções (prova, processo, dúvidas) antes do convite final.</li>
+          <li>Leitura rápida no celular, onde a maior parte do tráfego chega.</li>
+        </ul>
+      </div>
+
+      <!-- 10:00 -->
+      <div class="tl-time"><span class="hr">10:00</span></div>
+      <div class="tl-body reveal">
+        <h2>Estratégia de conversão</h2>
+        <p>Estruturei a página como uma conversa que antecipa as perguntas do visitante, na ordem em que elas surgem na cabeça dele — e só pede o contato depois de ter respondido todas.</p>
+        <div class="research-grid">
+          <div class="insight"><div class="n">01</div><h4>Promessa primeiro</h4><p>O herói diz o resultado, não o cargo. Uma palavra-chave destacada ancora a atenção.</p></div>
+          <div class="insight"><div class="n">02</div><h4>Dor reconhecível</h4><p>Três dores concretas fazem o visitante pensar "é exatamente o meu caso".</p></div>
+          <div class="insight"><div class="n">03</div><h4>Oferta clara</h4><p>Três formas de trabalhar, com a do meio em destaque, reduzem a paralisia de escolha.</p></div>
+          <div class="insight"><div class="n">04</div><h4>Objeção e prova</h4><p>Processo transparente, números e dúvidas frequentes derrubam o "será que vale?".</p></div>
+        </div>
+      </div>
+
+      <!-- 14:00 -->
+      <div class="tl-time"><span class="hr">14:00</span></div>
+      <div class="tl-body reveal">
+        <h2>Protótipo</h2>
+        <p>A página completa, navegável. Role dentro da moldura: herói com promessa, faixa de competências, dores, planos, processo, prova social, dúvidas (clicáveis) e o convite final com os contatos reais.</p>
+
+        <div class="proto-live">
+          <div class="bar"><i></i><i></i><i></i><span class="url">orcelinojunior · proposta de serviço</span></div>
+          <div id="lp-embed">
+
+            <div class="lp-head">
+              <div class="lp-nav">
+                <a class="lp-brand"><span class="dot"></span>Orcelino Junior<span style="color:var(--muted);font-weight:500">.</span></a>
+                <nav class="lp-links">
+                  <a href="#lp-problema">Por que</a>
+                  <a href="#lp-servicos">Serviços</a>
+                  <a href="#lp-processo">Processo</a>
+                  <a href="#lp-faq">Dúvidas</a>
+                  <a href="mailto:oajuniorsjn@yahoo.com.br" class="btn btn-accent">Agendar conversa</a>
+                </nav>
+              </div>
+            </div>
+
+            <section class="hero" id="lp-top">
+              <div class="lp-wrap">
+                <span class="lp-badge"><span class="pulse"></span>Disponível para novos projetos</span>
+                <h1>Transformo produtos confusos em experiências que <span class="mark">vendem<svg viewBox="0 0 300 24" preserveAspectRatio="none"><path d="M4 16 C 70 6, 150 22, 296 9"/></svg></span>.</h1>
+                <p class="lp-lead">Consultoria e execução de UX e produto digital para empresas que estão perdendo clientes no caminho — e querem que cada tela trabalhe a favor da venda.</p>
+                <div class="hero-cta">
+                  <a href="mailto:oajuniorsjn@yahoo.com.br" class="btn btn-accent">Agendar diagnóstico gratuito →</a>
+                  <a href="#lp-servicos" class="btn btn-ghost">Ver como funciona</a>
+                </div>
+                <p class="hero-note">Resposta em até 24h · Sem compromisso · Diagnóstico inicial por conta da casa</p>
+              </div>
+            </section>
+
+            <div class="marquee" aria-hidden="true">
+              <div class="marquee-track">
+                <span class="marquee-item">Pesquisa com usuários</span><span class="marquee-item">Design de interface</span><span class="marquee-item">Fluxos de conversão</span><span class="marquee-item">Protótipos navegáveis</span><span class="marquee-item">Testes de usabilidade</span><span class="marquee-item">Design System</span>
+                <span class="marquee-item">Pesquisa com usuários</span><span class="marquee-item">Design de interface</span><span class="marquee-item">Fluxos de conversão</span><span class="marquee-item">Protótipos navegáveis</span><span class="marquee-item">Testes de usabilidade</span><span class="marquee-item">Design System</span>
+              </div>
+            </div>
+
+            <section id="lp-problema">
+              <div class="lp-wrap">
+                <div class="sec-head">
+                  <span class="eyebrow">Por que isso importa</span>
+                  <h2>Talvez você não tenha um problema de tráfego. Tenha um problema de experiência.</h2>
+                  <p>Trazer gente pro site é caro. Perder essa gente por causa de uma tela confusa é o desperdício mais silencioso de todos.</p>
+                </div>
+                <div class="grid-3">
+                  <div class="card">
+                    <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-6"/></svg></div>
+                    <h3>Visitas que não viram venda</h3>
+                    <p>O anúncio funciona, o clique chega — mas o usuário trava antes de finalizar. O problema está depois do clique.</p>
+                  </div>
+                  <div class="card">
+                    <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></div>
+                    <h3>Ninguém entende o que você faz</h3>
+                    <p>Se em 5 segundos a pessoa não entende o valor, ela vai embora. Clareza vende mais que beleza.</p>
+                  </div>
+                  <div class="card">
+                    <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/><circle cx="12" cy="12" r="4"/></svg></div>
+                    <h3>Decisão baseada em achismo</h3>
+                    <p>Mudanças no escuro custam caro. Eu trago dados e testes pra você decidir com segurança, não no chute.</p>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <section id="lp-servicos">
+              <div class="lp-wrap">
+                <div class="sec-head">
+                  <span class="eyebrow">Como posso ajudar</span>
+                  <h2>Três formas de trabalhar juntos.</h2>
+                  <p>Do diagnóstico pontual ao projeto completo. Escolha o tamanho do passo que faz sentido agora.</p>
+                </div>
+                <div class="offer-grid">
+                  <div class="offer">
+                    <span class="tag">Ponto de partida</span>
+                    <h3>Diagnóstico</h3>
+                    <p class="desc">Uma análise rápida e direta de onde sua experiência está vazando dinheiro.</p>
+                    <ul>
+                      <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg>Auditoria de usabilidade</li>
+                      <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg>Lista priorizada de melhorias</li>
+                      <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg>Relatório em vídeo de 20 min</li>
+                    </ul>
+                    <a href="mailto:oajuniorsjn@yahoo.com.br" class="btn btn-ghost" style="border-color:rgba(243,243,238,.3);color:var(--paper)">Quero começar por aqui</a>
+                  </div>
+                  <div class="offer featured">
+                    <span class="tag">Mais procurado</span>
+                    <h3>Projeto completo</h3>
+                    <p class="desc">Da pesquisa à entrega. Eu desenho, valido e entrego pronto pro time de dev.</p>
+                    <ul>
+                      <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg>Pesquisa e descoberta</li>
+                      <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg>Protótipo navegável testado</li>
+                      <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg>Interface final + handoff</li>
+                    </ul>
+                    <a href="mailto:oajuniorsjn@yahoo.com.br" class="btn btn-primary" style="background:#fff;color:var(--accent)">Agendar conversa</a>
+                  </div>
+                  <div class="offer">
+                    <span class="tag">Contínuo</span>
+                    <h3>Acompanhamento</h3>
+                    <p class="desc">Um designer de produto sob demanda, mês a mês, sem custo de contratação.</p>
+                    <ul>
+                      <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg>Horas mensais flexíveis</li>
+                      <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg>Evolução contínua do produto</li>
+                      <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg>Prioridade na agenda</li>
+                    </ul>
+                    <a href="mailto:oajuniorsjn@yahoo.com.br" class="btn btn-ghost" style="border-color:rgba(243,243,238,.3);color:var(--paper)">Falar sobre</a>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <section id="lp-processo">
+              <div class="lp-wrap">
+                <div class="sec-head">
+                  <span class="eyebrow">O processo</span>
+                  <h2>Simples, transparente, sem mistério.</h2>
+                  <p>Você sempre sabe em que etapa estamos e o que vem a seguir.</p>
+                </div>
+                <div class="steps">
+                  <div class="step"><span class="num">01</span><h3>Conversa</h3><p>30 minutos pra entender seu negócio, seu cliente e onde aperta o sapato.</p></div>
+                  <div class="step"><span class="num">02</span><h3>Diagnóstico</h3><p>Mapeio os pontos de fricção e monto um plano com prioridades claras.</p></div>
+                  <div class="step"><span class="num">03</span><h3>Execução</h3><p>Desenho, prototipo e testo. Você acompanha cada entrega de perto.</p></div>
+                  <div class="step"><span class="num">04</span><h3>Entrega & suporte</h3><p>Arquivos prontos pro dev e acompanhamento até estar de pé.</p></div>
+                </div>
+              </div>
+            </section>
+
+            <section id="lp-resultados">
+              <div class="lp-wrap">
+                <div class="stats">
+                  <div class="lp-stat"><div class="big">+38%</div><div class="lbl">de conversão média após redesenho de checkout</div></div>
+                  <div class="lp-stat"><div class="big">+6</div><div class="lbl">anos de experiência em análise, TI e UX</div></div>
+                  <div class="lp-stat"><div class="big">7 dias</div><div class="lbl">prazo médio de um diagnóstico completo</div></div>
+                </div>
+                <div class="quote">
+                  <p>"Em duas semanas a gente entendeu por que as pessoas abandonavam o carrinho. A correção pagou o projeto no primeiro mês."</p>
+                  <div class="who"><div class="av">MR</div><div><b>Mariana Reis</b><span>Head de Produto · empresa de e-commerce</span></div></div>
+                </div>
+              </div>
+            </section>
+
+            <section id="lp-faq">
+              <div class="lp-wrap" style="max-width:840px">
+                <div class="sec-head"><span class="eyebrow">Antes de você perguntar</span><h2>Dúvidas frequentes</h2></div>
+                <div class="faq">
+                  <div class="faq-item"><button class="faq-q">Quanto custa um projeto? <span class="plus"></span></button><div class="faq-a"><p>Depende do escopo. O diagnóstico tem valor fixo e acessível; projetos completos são orçados após a conversa inicial, sempre com valor fechado antes de começar — nada de surpresa no meio do caminho.</p></div></div>
+                  <div class="faq-item"><button class="faq-q">Você trabalha com qualquer segmento? <span class="plus"></span></button><div class="faq-a"><p>Sim. O método de entender o usuário e remover fricção funciona pra e-commerce, SaaS, app ou serviço. Se houver tela e gente usando, dá pra melhorar.</p></div></div>
+                  <div class="faq-item"><button class="faq-q">Quanto tempo leva pra ver resultado? <span class="plus"></span></button><div class="faq-a"><p>O diagnóstico fica pronto em até 7 dias. Melhorias pontuais costumam dar sinal de resultado já nas primeiras semanas após a implementação.</p></div></div>
+                  <div class="faq-item"><button class="faq-q">Eu preciso ter um time de desenvolvimento? <span class="plus"></span></button><div class="faq-a"><p>Não obrigatoriamente. Entrego tudo pronto e organizado; se você tiver dev, o handoff é direto. Se não tiver, posso indicar parceiros de confiança.</p></div></div>
+                </div>
+              </div>
+            </section>
+
+            <section id="lp-contato">
+              <div class="lp-wrap">
+                <div class="cta-box">
+                  <div class="inner">
+                    <h2>Vamos descobrir onde sua experiência está vazando?</h2>
+                    <p>Uma conversa de 30 minutos, sem compromisso. Você sai dela com pelo menos uma ideia aplicável — usando ou não meu serviço.</p>
+                    <a href="mailto:oajuniorsjn@yahoo.com.br" class="btn btn-primary">Agendar conversa gratuita →</a>
+                    <div class="cta-contacts">
+                      <a href="mailto:oajuniorsjn@yahoo.com.br">oajuniorsjn@yahoo.com.br</a>
+                      <a href="https://wa.me/5547996217639" target="_blank" rel="noopener">WhatsApp · (47) 99621-7639</a>
+                      <a href="https://www.linkedin.com/in/orcelino-antonio-junior-b6bb9495" target="_blank" rel="noopener">LinkedIn</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <div class="lp-wrap"><div class="lp-foot">
+              <a class="lp-brand"><span class="dot"></span>Orcelino Junior.</a>
+              <small>© 2026 Orcelino Antonio Junior · Analista de UX</small>
+              <small>Blumenau · SC · Brasil</small>
+            </div></div>
+
+          </div>
+        </div>
+        <p class="ui-cap">Protótipo navegável da landing. As dúvidas abrem ao clicar e os botões de contato apontam pros meus canais reais (e-mail, WhatsApp e LinkedIn).</p>
+
+        <p style="margin-top:18px">Decisões de UI que sustentam a conversão:</p>
+        <ul class="clean">
+          <li><b>Uma só ação primária</b> — "agendar conversa" se repete do topo ao rodapé; o resto é secundário.</li>
+          <li><b>Hierarquia que conduz</b> — promessa → dor → oferta → prova → convite, na ordem da decisão.</li>
+          <li><b>Texto que ajuda, não enfeita</b> — frases curtas, no idioma do cliente, falando de resultado.</li>
+          <li><b>Acento usado com disciplina</b> — o verde marca só o que é clicável e o que merece atenção.</li>
+        </ul>
+      </div>
+
+      <!-- 15:00 -->
+      <div class="tl-time"><span class="hr">15:00</span></div>
+      <div class="tl-body reveal">
+        <h2>Resultados &amp; aprendizados</h2>
+        <p>O que a abordagem entrega e o que eu levaria adiante:</p>
+        <div class="research-grid">
+          <div class="insight"><div class="n">✓</div><h4>Foco em uma ação</h4><p>Tirar caminhos concorrentes deixa o convite final óbvio — a página inteira aponta pro mesmo lugar.</p></div>
+          <div class="insight"><div class="n">✓</div><h4>Objeções antes do pedido</h4><p>Processo, prova e dúvidas respondidas reduzem o atrito de dar o primeiro passo.</p></div>
+          <div class="insight"><div class="n">→</div><h4>Medir de verdade</h4><p>Próximo passo: instrumentar a página e testar variações de título e CTA com dados reais.</p></div>
+          <div class="insight"><div class="n">→</div><h4>Prova viva</h4><p>Trocar números de exemplo por casos reais e depoimentos verificáveis aumenta a confiança.</p></div>
+        </div>
+      </div>
+
+    </div>
+
+    <div style="text-align:center;padding:60px 0 90px">
+      <a class="nav-cta" data-goto="home" style="display:inline-block">← Voltar aos trabalhos</a>
+    </div>
+  </div>
+</div>
+
 <script>
   const home   = document.getElementById('view-home');
   const cas    = document.getElementById('view-case');
   const casVet = document.getElementById('view-case-vet');
+  const casLanding = document.getElementById('view-case-landing');
   function showView(which){
     home.style.display   = (which==='home') ? 'block' : 'none';
     cas.style.display    = (which==='case-agendamentos') ? 'block' : 'none';
     casVet.style.display = (which==='case-vetcare') ? 'block' : 'none';
+    casLanding.style.display = (which==='case-landing') ? 'block' : 'none';
     window.scrollTo(0,0); runReveal();
   }
   function go(target){
-    if(target==='case-agendamentos' || target==='case-vetcare' || target==='home'){ showView(target); return; }
+    if(target==='case-agendamentos' || target==='case-vetcare' || target==='case-landing' || target==='home'){ showView(target); return; }
     // âncora dentro da página (Sobre, Contato, etc.)
-    const onCase = cas.style.display==='block' || casVet.style.display==='block';
+    const onCase = cas.style.display==='block' || casVet.style.display==='block' || casLanding.style.display==='block';
     if(onCase){
       showView('home');
       setTimeout(()=>document.getElementById(target)?.scrollIntoView({behavior:'smooth'}), 60);
@@ -2051,6 +2485,21 @@ setInterval(tickClock,15000);tickClock();
 renderVet();
 
 
+</script>
+
+<script>
+/* FAQ da landing (Projeto 03) */
+(function(){
+  const root = document.getElementById('lp-embed');
+  if(!root) return;
+  root.querySelectorAll('.faq-q').forEach(q=>{
+    q.addEventListener('click', ()=>{
+      const item = q.parentElement, a = item.querySelector('.faq-a'), open = item.classList.contains('open');
+      root.querySelectorAll('.faq-item.open').forEach(o=>{ o.classList.remove('open'); o.querySelector('.faq-a').style.maxHeight=null; });
+      if(!open){ item.classList.add('open'); a.style.maxHeight = a.scrollHeight + 'px'; }
+    });
+  });
+})();
 </script>
 </body>
 </html>
